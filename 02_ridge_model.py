@@ -42,13 +42,14 @@ sat_mod.columns
 
 # %%
 X = sat_mod[['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
-             'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
-       'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija']]
+            'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
+            'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija','ln_slope500m2017mean']]
 
 #X = sat_mod[[ "ln_t400NTLpc2012", "ln_tr400_pop2012", 'lnEGDPpc2012', 'ln_perUrb_land2012',  "ln_pm25_2012", "ln_land_temp2012"]]
 
 #X = sat_mod[['ln_t400NTLpc2012', "ln_perUrb_land2012", 'ln_land_temp2012','ln_tr400_pop2012','ln_dist_road2017','ln_ghsl2015', 
-#             "ln_dist_water2017mean",'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_pm25_2012', 'photov2019mean', 'lnagr_land2012', 'lnurb_land2012','ln_access2016mean']]
+#             "ln_dist_water2017mean",'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_pm25_2012', 'photov2019mean', 'lnagr_land2012', 
+#             'lnurb_land2012','ln_access2016mean']]
   #'dist_diamond2015',   'lnagr_land2012', 'lnurb_land2012',
     # Elevation has a huge impact on 2 and 13 
 y = sdg_indexes["imds"]
@@ -88,7 +89,8 @@ y_variables = sdg_indexes[['index_sdg1', 'index_sdg2', 'index_sdg3', 'index_sdg4
 #y_variables = sdg_indicators.drop(columns = {"id"})
 
 # %%
-#x = sat_mod[[ "ln_t400NTLpc2012", "ln_tr400_pop2012", 'lnEGDPpc2012', 'ln_perUrb_land2012',  "ln_pm25_2012", "ln_land_temp2012",'ln_dist_road2017' ,'ln_ghsl2015']]
+#x = sat_mod[[ "ln_t400NTLpc2012", "ln_tr400_pop2012", 'lnEGDPpc2012', 'ln_perUrb_land2012',  
+#               "ln_pm25_2012", "ln_land_temp2012",'ln_dist_road2017' ,'ln_ghsl2015']]
 # This ones make some sdg more relevant 
 #
 x = X

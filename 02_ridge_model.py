@@ -58,11 +58,21 @@ def model_coef(X,y):
     print(f"Non CV score: {(model.score(X_test, y_test)*100).round(2)}\n")
 
     coeff = model.coef_
+    
+    relevance = 1 
     print("Relevant and positive:")
-    print(np.array(X.columns)[coeff>1])
+    print(np.array(X.columns)[coeff>relevance])
     print("\nRelevant and negative:")
-    print(np.array(X.columns)[coeff<-1])
+    print(np.array(X.columns)[coeff<-relevance])
     print("\n")
+    
+
+    print("NON relevant and positive:")
+    print(np.array(X.columns)[(coeff<relevance) & (coeff>0)])
+    print("\n NON relevant and negative:")
+    print(np.array(X.columns)[(coeff>-relevance) & (coeff<0)])
+    print("\n")
+    
     print(model.coef_)
     print("="*80)
     print("\n\n")
@@ -113,11 +123,11 @@ y = sdg_indexes["imds"]
 #                        'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min'
 
 # Defining Predictors for each SDG 
-X_index_1 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
-                        'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
-                        'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min',
-                        'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
-                        'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min']
+X_index_1 = ['ln_ghsl2015' 'lnagr_land2012' 'lnurb_land2012' 'ln_pm25_2012' 'Potosí'
+ 'Santa Cruz' 'Tarija' 'ln_precCRU2012min' 'ln_pm25_2012' 'Potosí'
+ 'Santa Cruz' 'Tarija' 'ln_precCRU2012min','ln_tr400_pop2012' 'ln_dist_road2017' 'photov2019mean' 'Chuquisaca'
+ 'Cochabamba' 'La Paz' 'Pando' 'photov2019mean' 'Chuquisaca' 'Cochabamba'
+ 'La Paz' 'Pando']
 
 X_index_2 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
                         'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',

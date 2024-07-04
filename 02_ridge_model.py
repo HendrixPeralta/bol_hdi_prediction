@@ -53,9 +53,9 @@ def model_set_up(X,y):
     model = linear_model.Ridge()
     model.fit(X_train, y_train);
 
-    print(f{"*"*10 + y_variable + "*"*10\n})
-    print(f{"X variables\n" np.array(X.columns)})
-    print(f"Non CV score: {model.score(X_test, y_test).round(2)}\n")
+    print("*"*20, y_variable, "*"*20, "\n")
+    print(f"X variables:\n {np.array(X.columns)}\n")
+    print(f"Non CV score: {(model.score(X_test, y_test)*100).round(2)}\n")
 
     coeff = model.coef_
     print("Relevant and positive:")
@@ -64,7 +64,7 @@ def model_set_up(X,y):
     print(np.array(X.columns)[coeff<-1])
     print("\n")
     print(model.coef_)
-    print("="*30)
+    print("="*80)
     print("\n\n")
 
 # %% [markdown]

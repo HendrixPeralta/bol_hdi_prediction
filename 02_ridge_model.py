@@ -190,9 +190,9 @@ X_index_17 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp201
                         'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
                         'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min']
 
-X_imds = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
-                        'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
-                        'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min']
+X_imds = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'Oruro', 'Santa Cruz','Tarija', 'ln_tr400_pop2012', 
+          'ln_dist_road2017', 'ln_dist_drug2017mean','ln_pm25_2012', 'photov2019mean', 'Chuquisaca', 'Cochabamba', 'Pando',
+          'Potosí']
 
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
       X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]

@@ -35,7 +35,7 @@ def evaluate_preds(model, X, y):
     Performs evaluation comparison on y_true labels vs. y_pred labels
     on a classification.
     """
-    r2 = np.mean(cross_val_score(model, X, y, scoring="r2"))
+    r2 = (np.mean(cross_val_score(model, X, y, scoring="r2")))*100
     mae = np.mean(cross_val_score(model, X, y, scoring="neg_mean_absolute_error"))
     mse = np.mean(cross_val_score(model, X, y, scoring="neg_mean_squared_error"))
     metric_dict = [r2, mae, mse]

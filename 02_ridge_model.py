@@ -45,19 +45,13 @@ def evaluate_preds(model, X, y):
 # %%
 
 # Shows the coeffients for each of the X variables 
-def model_coef(X,y):
+def model_coef(fitted_model, X,y):
     
-    np.random.seed(42)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
-
-    model = linear_model.Ridge()
-    model.fit(X_train, y_train);
-
     print("*"*20, y_variable, "*"*20, "\n")
     print(f"X variables:\n {np.array(X.columns)}\n")
-    print(f"Non CV score: {(model.score(X_test, y_test)*100).round(2)}\n")
+    print(f"Non CV score: {(fitted_model.score(X_test, y_test)*100).round(2)}\n")
 
-    coeff = model.coef_
+    coeff = fitted_model.coef_
     
     relevance = 1 
 
@@ -83,7 +77,7 @@ def model_coef(X,y):
     print(neg_non)
     print("\n")
     
-    print(model.coef_)
+    print(fitted_model.coef_)
     print("="*80)
     print("\n\n")
 
@@ -234,41 +228,32 @@ y_variables = sdg_indexes[['index_sdg1', 'index_sdg2', 'index_sdg3', 'index_sdg4
 # This ones make some sdg more relevant 
 
 ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+# Stores the y_preds and y_test values 
+ridge_predict = pd.DataFrame()
 
 for y_variable, X in zip(y_variables, Xs):
     
+    # Set up model 
     y = y_variables[y_variable]
-
-    # ==================
     X = sat_mod[X]
 
-    model_coef(X,y)
-    # ==================
     np.random.seed(42)
-    x_train, x_test, y_train, y_test = train_test_split(X,y, test_size=0.3) 
+    X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3) 
     ridge_model_it = linear_model.Ridge()
-
-    scores = evaluate_preds(ridge_model_it, X, y)
-
-    ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]
+    
+    # ==================
+    # Shows the coefficients for each predictor
+    fitted_model = ridge_model_it.fit(X_train, y_train);
+    model_coef(fitted_model,X,y)
+    # ==================
 
     # Store the cross valuation resilts into a df 
+    scores = evaluate_preds(ridge_model_it, X, y)
+    ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
     results = ridge_results.round(4).sort_values(by="r2", ascending=False)
 
-
-# %% [markdown]
-# ## Graph best fitters 
-
-# %%
-
-ridge_predict = pd.DataFrame()
-
-# Prediction df 
-
-for y_variable,X in zip(y_variables, )
-
-    ridge_model_it.fit(x_train,y_train)
-    y_pred = ridge_model_it.predict(x_test)
+    # Predicts and stores the prediction and real values to make graphs 
+    y_pred = ridge_model_it.predict(X_test)
 
     col0 = y_variable + "_true"
     col1 = y_variable + "_pred"
@@ -280,6 +265,9 @@ for y_variable,X in zip(y_variables, )
     else:
         ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
 
+# %% [markdown]
+# ## Graph best fitters 
+    
 # %%
 fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
                                          ncols=4, 

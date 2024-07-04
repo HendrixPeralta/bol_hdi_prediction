@@ -185,8 +185,8 @@ X_index_10 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp201
 
 X_index_11 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'La Paz', 'Potosí','Tarija', 'ln_precCRU2012min',
               'ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017', 'ln_pm25_2012','Chuquisaca', 
-               'Oruro', 'Santa Cruz',"ln_t400NTLpc2012"]
-#       Eliminated 'photov2019mean' 'ln_dist_drug2017mean' 'Pando' +
+               'Oruro', 'Santa Cruz']
+#       Eliminated 'photov2019mean' 'ln_dist_drug2017mean' 'Pando' "ln_t400NTLpc2012" +
 
 X_index_13 = [ 'lnagr_land2012', 'lnurb_land2012', 'ln_dist_road2017', 'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 
               'Beni', 'Cochabamba','Pando', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min', 'ln_elev2017mean',"ln_t400NTLpc2012"]

@@ -124,7 +124,8 @@ y = sdg_indexes["imds"]
 ## Test for all labels 
 
 # %%
-#'ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
+#   Basic predictors 
+# 'ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
 #                        'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
 #                        'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min'
 
@@ -161,17 +162,17 @@ X_index_8 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012
                         'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
                         'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min']
 
-X_index_9 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
-                        'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
-                        'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min']
+X_index_9 = ['ln_ghsl2015', 'lnurb_land2012', 'photov2019mean', 'La Paz','Oruro', 'Tarija', 'ln_precCRU2012min',
+             'ln_tr400_pop2012', 'ln_dist_road2017', 'ln_dist_drug2017mean','ln_pm25_2012', 'Beni', 'Chuquisaca', 'Cochabamba', 
+             'Pando']
 
 X_index_10 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
                         'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
                         'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min']
 
-X_index_11 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
-                        'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
-                        'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min']
+X_index_11 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'La Paz', 'Potosí','Tarija', 'ln_precCRU2012min',
+              'ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017', 'ln_pm25_2012','Chuquisaca', 
+               'Oruro', 'Santa Cruz']
 
 X_index_13 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
                         'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
@@ -231,11 +232,11 @@ for y_variable, X in zip(y_variables, Xs):
 
     ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]
 
-    
-# %%
-pos_results = ridge_results[ridge_results["r2"]>0 ].round(4).sort_values(by="r2", ascending=False)
-# %%
-neg_results = ridge_results[ridge_results["r2"]<0].round(4)
+    # Store the cross valuation resilts into a df 
+    pos_results = ridge_results[ridge_results["r2"]>0 ].round(4).sort_values(by="r2", ascending=False)
+    neg_results = ridge_results[ridge_results["r2"]<0].round(4)
+
+
 # %% [markdown]
 # ## Graph best fitters 
 

@@ -45,7 +45,7 @@ def evaluate_preds(model, X, y):
 # %%
 
 # Shows the coeffients for each of the X variables 
-def model_set_up(X,y):
+def model_coef(X,y):
     
     np.random.seed(42)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
@@ -237,7 +237,7 @@ for y_variable, X in zip(y_variables, Xs):
     # ==================
     X = sat_mod[X]
 
-    model_set_up(X,y)
+    model_coef(X,y)
     # ==================
     np.random.seed(42)
     x_train, x_test, y_train, y_test = train_test_split(X,y, test_size=0.3) 

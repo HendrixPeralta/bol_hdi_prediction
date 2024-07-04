@@ -135,8 +135,8 @@ y = sdg_indexes["imds"]
 
 X_index_1 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_pm25_2012', 'Potosí','Santa Cruz', 'Tarija', 
              'ln_tr400_pop2012', 'ln_dist_road2017', 'ln_dist_drug2017mean','photov2019mean', 
-             'Chuquisaca', 'Cochabamba', 'La Paz',"ln_t400NTLpc2012"]
-#       Eliminated  'ln_land_temp2012' 'Beni' 'Oruro' 'ln_precCRU2012min' +
+             'Chuquisaca', 'Cochabamba', "ln_t400NTLpc2012"]
+#       Eliminated  'ln_land_temp2012' 'Beni' 'Oruro' 'ln_precCRU2012min' 'La Paz' +
 
 X_index_2 = ['ln_ghsl2015', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
                         'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Chuquisaca', 'Cochabamba', 

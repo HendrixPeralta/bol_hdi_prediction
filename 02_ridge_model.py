@@ -247,7 +247,7 @@ for y_variable, X in zip(y_variables, Xs):
     model_coef(fitted_model,X,y)
     # ==================
 
-    # Store the cross valuation resilts into a df 
+    # Store the cross evaluation resilts into a df 
     scores = evaluate_preds(ridge_model_it, X, y)
     ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
     results = ridge_results.round(4).sort_values(by="r2", ascending=False)

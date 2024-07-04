@@ -250,8 +250,7 @@ for y_variable, X in zip(y_variables, Xs):
     ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]
 
     # Store the cross valuation resilts into a df 
-    pos_results = ridge_results[ridge_results["r2"]>0 ].round(4).sort_values(by="r2", ascending=False)
-    neg_results = ridge_results[ridge_results["r2"]<0].round(4)
+    results = ridge_results.round(4).sort_values(by="r2", ascending=False)
 
 
 # %% [markdown]

@@ -145,16 +145,18 @@ X_index_2 = ['ln_ghsl2015', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop20
 
 X_index_3 = ['ln_ghsl2015', 'lnurb_land2012', 'ln_tr400_pop2012', 'ln_pm25_2012', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija']
 #       Eliminated 'lnagr_land2012' 'ln_land_temp2012' 'ln_dist_road2017' 'ln_dist_drug2017mean' 'Chuquisaca' 'Cochabamba' 
-# 'La Paz' 'photov2019mean' 'Beni' 'ln_precCRU2012min' 'Oruro'
+#                   'La Paz' 'photov2019mean' 'Beni' 'ln_precCRU2012min' 'Oruro' "ln_t400NTLpc2012" 
+#        * Should add NTL later again in increased the score slightly but was irrelevant
 
 X_index_4 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop2012','ln_dist_drug2017mean', 
              'photov2019mean', 'Beni', 'Chuquisaca', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 
-             'Tarija', 'ln_precCRU2012min',"ln_t400NTLpc2012"]
-#       Eliminated  'ln_land_temp2012' 'ln_pm25_2012' 'Cochabamba' 'ln_dist_road2017'
+             'Tarija', 'ln_precCRU2012min']
+#       Eliminated  'ln_land_temp2012' 'ln_pm25_2012' 'Cochabamba' 'ln_dist_road2017' "ln_t400NTLpc2012" 
 
 X_index_5 = ['lnagr_land2012', 'ln_land_temp2012', 'ln_dist_road2017', 'ln_dist_drug2017mean', 'ln_pm25_2012', 
              'photov2019mean', 'Beni', 'Cochabamba', 'La Paz', 'Oruro', 'Potosí', 'ln_precCRU2012min',"ln_t400NTLpc2012"]
 #       Eliminated 'ln_ghsl2015' 'ln_tr400_pop2012' 'Chuquisaca' 'Tarija' 'lnurb_land2012' 'Santa Cruz' 'Pando'
+#        * Should add NTL later again in increased the score slightly but was irrelevant
 
 X_index_6 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
              'ln_pm25_2012', 'photov2019mean', 'Beni', 'Oruro', 'Potosí', 'Santa Cruz', 'Tarija',"ln_t400NTLpc2012"]

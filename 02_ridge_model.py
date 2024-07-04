@@ -209,10 +209,10 @@ X_index_17 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop20
               'ln_precCRU2012min',"ln_t400NTLpc2012"]
 #       Eliminated 'Santa Cruz''ln_dist_road2017' 'ln_dist_drug2017mean' 'ln_land_temp2012' 
 
-X_imds = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'Oruro', 'Santa Cruz','Tarija', 'ln_tr400_pop2012', 
+X_imds = ['ln_ghsl2015', 'lnurb_land2012', 'Tarija', 'ln_tr400_pop2012', 
           'ln_dist_road2017', 'ln_dist_drug2017mean','ln_pm25_2012', 'photov2019mean', 'Chuquisaca', 'Cochabamba', 'Pando',
-          'Potosí',"ln_t400NTLpc2012"]
-#       Eliminated 'La Paz' 'ln_land_temp2012' 'Beni' 'ln_precCRU2012min' + 
+          "ln_t400NTLpc2012"]
+#       Eliminated 'La Paz' 'ln_land_temp2012' 'Beni' 'ln_precCRU2012min' 'lnagr_land2012' 'Potosí' 'Oruro' 'Santa Cruz',+ 
 
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
       X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]
@@ -261,11 +261,11 @@ for y_variable, X in zip(y_variables, Xs):
 
 # %%
 
-elaN_predict = pd.DataFrame()
+ridge_predict = pd.DataFrame()
 
 # Prediction df 
 
-for y_variable in y_variables:
+for y_variable,X in zip(y_variables, )
 
     ridge_model_it.fit(x_train,y_train)
     y_pred = ridge_model_it.predict(x_test)
@@ -275,10 +275,10 @@ for y_variable in y_variables:
     temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
     temp_predict.index.name = "id"
     
-    if elaN_predict.empty:
-        elaN_predict = temp_predict
+    if ridge_predict.empty:
+        ridge_predict = temp_predict
     else:
-        elaN_predict = elaN_predict.merge(temp_predict, on="id", how="outer")
+        ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
 
 # %%
 fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
@@ -286,11 +286,11 @@ fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1,
                                          figsize=(20, 7))
 
 # Graph 1 
-g_x = elaN_predict["index_sdg1_true"]
-g_y = elaN_predict["index_sdg1_pred"]
+g_x = ridge_predict["index_sdg1_true"]
+g_y = ridge_predict["index_sdg1_pred"]
 
 ax0.scatter(x = g_x, y = g_y)
-ax0.set(xlabel="sdg1_1_pubn_abs_true", ylabel="sdg1_1_pubn_abs_pred", title="SDG1")
+ax0.set(xlabel="index_sdg1_true", ylabel="index_sdg1_pred", title="SDG1")
 
 # add trendline
 z = np.polyfit(g_x, g_y, 1)
@@ -299,11 +299,11 @@ ax0.plot(g_x,p(g_x),"r-")
 
 
 # Graph 1 
-g_x = elaN_predict["index_sdg7_true"]
-g_y = elaN_predict["index_sdg7_pred"]
+g_x = ridge_predict["imds_true"]
+g_y = ridge_predict["imds_pred"]
 
 ax1.scatter(x = g_x, y = g_y)
-ax1.set(xlabel="sdg9_c_hf_abs_true", ylabel="sdg9_c_hf_abs_pred", title="index_sdg7")
+ax1.set(xlabel="imds_true", ylabel="imds_abs_pred", title="imds")
 
 # add trendline
 z = np.polyfit(g_x, g_y, 1)
@@ -312,11 +312,11 @@ ax1.plot(g_x,p(g_x),"r-")
 
 
 # Graph 1 
-g_x = elaN_predict["index_sdg11_true"]
-g_y = elaN_predict["index_sdg11_pred"]
+g_x = ridge_predict["index_sdg11_true"]
+g_y = ridge_predict["index_sdg11_pred"]
 
 ax2.scatter(x = g_x, y = g_y)
-ax2.set(xlabel="sdg1_1_dtl_abs_true", ylabel="sdg1_1_dtl_abs_pred", title="index_sdg11")
+ax2.set(xlabel="index_sdg11_true", ylabel="index_sdg11_pred", title="index_sdg11")
 
 # add trendline
 z = np.polyfit(g_x, g_y, 1)
@@ -325,11 +325,11 @@ ax2.plot(g_x,p(g_x),"r-")
 
 
 # Graph 1 
-g_x = elaN_predict["index_sdg9_true"]
-g_y = elaN_predict["index_sdg9_pred"]
+g_x = ridge_predict["index_sdg9_true"]
+g_y = ridge_predict["index_sdg9_pred"]
 
 ax3.scatter(x = g_x, y = g_y)
-ax3.set(xlabel="sdg3_2_fb_abs_true", ylabel="sdg3_2_fb_abs_pred", title="index_sdg9")
+ax3.set(xlabel="index_sdg9_true", ylabel="index_sdg9_pred", title="index_sdg9")
 
 # add trendline
 z = np.polyfit(g_x, g_y, 1)

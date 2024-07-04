@@ -96,19 +96,9 @@ sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
 # # Ridge model 
 
 # %%
-X_obsolete = sat_mod[['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
-                        'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
-                        'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min']]
-
 #X = sat_mod[[ "ln_t400NTLpc2012", "ln_tr400_pop2012", 'lnEGDPpc2012', 'ln_perUrb_land2012',  "ln_pm25_2012", "ln_land_temp2012"]]
 
-#X = sat_mod[['ln_t400NTLpc2012', "ln_perUrb_land2012", 'ln_land_temp2012','ln_tr400_pop2012','ln_dist_road2017','ln_ghsl2015', 
-#             "ln_dist_water2017mean",'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_pm25_2012', 'photov2019mean', 
-#             'lnagr_land2012', 'lnurb_land2012','ln_access2016mean']]
-  #'dist_diamond2015',   'lnagr_land2012', 'lnurb_land2012',
-
-
-y = sdg_indexes["imds"]
+#X = sat_mod[['ln_access2016mean' 'ln_elev2017mean']]
 
 # %% [markdown]
 
@@ -119,9 +109,9 @@ y = sdg_indexes["imds"]
 
 # %%
 #   Basic predictors 
-# 'ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
-#                        'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
-#                        'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min'
+#            'ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
+#             'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
+#              'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min'
 
 # Defining Predictors for each SDG
 
@@ -268,7 +258,7 @@ for y_variable, X in zip(y_variables, Xs):
 # %% [markdown]
 # ## Graph best fitters 
     
-# %%
+# %% GRAPHS 
 fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
                                          ncols=4, 
                                          figsize=(20, 7))
@@ -323,8 +313,10 @@ ax3.set(xlabel="index_sdg9_true", ylabel="index_sdg9_pred", title="index_sdg9")
 z = np.polyfit(g_x, g_y, 1)
 p = np.poly1d(z)
 ax3.plot(g_x,p(g_x),"r-")
+
 # %% [markdown]
 # # Adjust Hyperparameters 
+
 # %%
 model_tuned = linear_model.Ridge(alpha=0.0001, max_iter=1000)
 model_tuned.fit(X_train, y_train);

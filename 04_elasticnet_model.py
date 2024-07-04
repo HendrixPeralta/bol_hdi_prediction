@@ -72,7 +72,7 @@ y = sdg_indexes["imds"]
 np.random.seed(42)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
 
-model = linear_model.Ridge()
+model = linear_model.ElasticNet()
 model.fit(X_train, y_train);
 
 print(f"Non CV score: {model.score(X_test, y_test).round(2)}\n")
@@ -104,7 +104,7 @@ y_variables = sdg_indexes[['index_sdg1', 'index_sdg2', 'index_sdg3', 'index_sdg4
 # This ones make some sdg more relevant 
 #
 
-ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+elasticNet_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
 
 for y_variable in y_variables:
     
@@ -112,40 +112,40 @@ for y_variable in y_variables:
 
     np.random.seed(42)
     x_train, x_test, y_train, y_test = train_test_split(X,y, test_size=0.3) 
-    ridge_model_it = linear_model.ElasticNet()
+    elasticNet_model_it = linear_model.ElasticNet()
 
-    scores = evaluate_preds(model, X, y)
+    scores = evaluate_preds(elasticNet_model_it, X, y)
 
-    ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]
+    elasticNet_results.loc[len(elasticNet_results.index)] = [y_variable, scores[0], scores[1], scores[2]]
 
     
 # %%
-ridge_results[ridge_results["r2"]>0 ].round(4).sort_values(by="r2", ascending=False)
+elasticNet_results[elasticNet_results["r2"]>0 ].round(4).sort_values(by="r2", ascending=False)
 # %%
-ridge_results[ridge_results["r2"]<0].round(4)
+elasticNet_results[elasticNet_results["r2"]<0].round(4)
 # %% [markdown]
 # ## Graph best fitters 
 
 # %%
 
-ri_predict = pd.DataFrame()
+elaN_predict = pd.DataFrame()
 
 # Prediction df 
 
 for y_variable in y_variables:
 
-    ridge_model_it.fit(x_train,y_train)
-    y_pred = ridge_model_it.predict(x_test)
+    elasticNet_model_it.fit(x_train,y_train)
+    y_pred = elasticNet_model_it.predict(x_test)
 
     col0 = y_variable + "_true"
     col1 = y_variable + "_pred"
     temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
     temp_predict.index.name = "id"
     
-    if ri_predict.empty:
-        ri_predict = temp_predict
+    if elaN_predict.empty:
+        elaN_predict = temp_predict
     else:
-        ri_predict = ri_predict.merge(temp_predict, on="id", how="outer")
+        elaN_predict = elaN_predict.merge(temp_predict, on="id", how="outer")
 
 # %%
 fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
@@ -153,8 +153,8 @@ fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1,
                                          figsize=(20, 7))
 
 # Graph 1 
-g_x = ri_predict["index_sdg1_true"]
-g_y = ri_predict["index_sdg1_pred"]
+g_x = elaN_predict["index_sdg1_true"]
+g_y = elaN_predict["index_sdg1_pred"]
 
 ax0.scatter(x = g_x, y = g_y)
 ax0.set(xlabel="sdg1_1_pubn_abs_true", ylabel="sdg1_1_pubn_abs_pred", title="SDG1")
@@ -166,8 +166,8 @@ ax0.plot(g_x,p(g_x),"r-")
 
 
 # Graph 1 
-g_x = ri_predict["index_sdg7_true"]
-g_y = ri_predict["index_sdg7_pred"]
+g_x = elaN_predict["index_sdg7_true"]
+g_y = elaN_predict["index_sdg7_pred"]
 
 ax1.scatter(x = g_x, y = g_y)
 ax1.set(xlabel="sdg9_c_hf_abs_true", ylabel="sdg9_c_hf_abs_pred", title="index_sdg7")
@@ -179,8 +179,8 @@ ax1.plot(g_x,p(g_x),"r-")
 
 
 # Graph 1 
-g_x = ri_predict["index_sdg11_true"]
-g_y = ri_predict["index_sdg11_pred"]
+g_x = elaN_predict["index_sdg11_true"]
+g_y = elaN_predict["index_sdg11_pred"]
 
 ax2.scatter(x = g_x, y = g_y)
 ax2.set(xlabel="sdg1_1_dtl_abs_true", ylabel="sdg1_1_dtl_abs_pred", title="index_sdg11")
@@ -192,8 +192,8 @@ ax2.plot(g_x,p(g_x),"r-")
 
 
 # Graph 1 
-g_x = ri_predict["index_sdg9_true"]
-g_y = ri_predict["index_sdg9_pred"]
+g_x = elaN_predict["index_sdg9_true"]
+g_y = elaN_predict["index_sdg9_pred"]
 
 ax3.scatter(x = g_x, y = g_y)
 ax3.set(xlabel="sdg3_2_fb_abs_true", ylabel="sdg3_2_fb_abs_pred", title="index_sdg9")
@@ -205,7 +205,7 @@ ax3.plot(g_x,p(g_x),"r-")
 # %% [markdown]
 # # Adjust Hyperparameters 
 # %%
-model_tuned = linear_model.Ridge(alpha=0.0001, max_iter=1000)
+model_tuned = linear_model.ElasticNet(alpha=0.0001, max_iter=1000)
 model_tuned.fit(X_train, y_train);
 model.score(X_test, y_test)
 

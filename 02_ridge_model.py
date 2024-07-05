@@ -118,7 +118,10 @@ sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
 #  "+" in the Eliminated secction means that i failed to record which variables were eliminated beforehand 
 
 # Based Model 
-
+y_variables = sdg_indexes[['index_sdg1', 'index_sdg2', 'index_sdg3', 'index_sdg4',
+       'index_sdg5', 'index_sdg6', 'index_sdg7', 'index_sdg8', 'index_sdg9',
+       'index_sdg10', 'index_sdg11', 'index_sdg13', 'index_sdg15',
+       'index_sdg16', 'index_sdg17', 'imds']]
 
 X_index_1 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_pm25_2012', 'Potosí','Santa Cruz', 'Tarija', 
              'ln_tr400_pop2012', 'ln_dist_road2017', 'ln_dist_drug2017mean','photov2019mean', 
@@ -176,8 +179,8 @@ X_index_10 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop20
 
 X_index_11 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'La Paz', 'Potosí','Tarija', 'ln_precCRU2012min',
               'ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017', 'ln_pm25_2012','Chuquisaca', 
-               'Oruro', 'Santa Cruz','ln_elev2017mean']
-#       Eliminated 'photov2019mean' 'ln_dist_drug2017mean' 'Pando' "ln_t400NTLpc2012" +
+               'Oruro','ln_elev2017mean']
+#       Eliminated 'photov2019mean' 'ln_dist_drug2017mean' 'Pando' "ln_t400NTLpc2012" 'Santa Cruz'+
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
 X_index_13 = [ 'lnagr_land2012', 'lnurb_land2012', 'ln_dist_road2017', 'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 
@@ -208,19 +211,7 @@ X_imds = ['ln_ghsl2015', 'lnurb_land2012', 'Tarija', 'ln_tr400_pop2012',
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
       X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]
 
-# %%
-X = set(X_index_1 + X_index_2 + X_index_3 + X_index_4 + X_index_5 + X_index_6 + X_index_7 + X_index_8 + X_index_9 + 
-      X_index_10 + X_index_11 + X_index_13 + X_index_15 + X_index_16 + X_index_17 + X_imds)
-# %%
 
-
-y_variables = sdg_indexes[['index_sdg1', 'index_sdg2', 'index_sdg3', 'index_sdg4',
-       'index_sdg5', 'index_sdg6', 'index_sdg7', 'index_sdg8', 'index_sdg9',
-       'index_sdg10', 'index_sdg11', 'index_sdg13', 'index_sdg15',
-       'index_sdg16', 'index_sdg17', 'imds']]
-
-
-#y_variables = sdg_indicators.drop(columns = {"id"})
 # %%
 # Training the Ridge model 
 

@@ -179,8 +179,8 @@ X_index_10 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop20
 
 X_index_11 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'La Paz', 'Potosí','Tarija', 'ln_precCRU2012min',
               'ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017', 'ln_pm25_2012','Chuquisaca', 
-               'Oruro','ln_elev2017mean']
-#       Eliminated 'photov2019mean' 'ln_dist_drug2017mean' 'Pando' "ln_t400NTLpc2012" 'Santa Cruz'+
+               'Oruro','ln_elev2017mean', "ln_t400NTLpc2012"]
+#       Eliminated 'photov2019mean' 'ln_dist_drug2017mean' 'Pando'  'Santa Cruz'+
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
 X_index_13 = [ 'lnagr_land2012', 'lnurb_land2012', 'ln_dist_road2017', 'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 

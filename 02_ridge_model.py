@@ -193,15 +193,15 @@ X_index_15 = ['lnagr_land2012', 'lnurb_land2012', 'ln_dist_road2017', 'ln_pm25_2
 #       Eliminated 'Oruro' 'ln_tr400_pop2012' 'ln_dist_drug2017mean' "ln_t400NTLpc2012" 'Santa Cruz' 'ln_land_temp2012'
 #                       'ln_ghsl2015' 'Tarija' 'ln_precCRU2012min' 'La Paz' 'Potosí'
 
-X_index_16 = ['lnagr_land2012', 'lnurb_land2012', 'ln_dist_road2017','Beni', 'Chuquisaca', 'Cochabamba', 'La Paz', 'Tarija',
-              'ln_elev2017mean']
+X_index_16 = ['lnagr_land2012', 'lnurb_land2012', 'ln_dist_road2017','Beni', 'Chuquisaca', 'Cochabamba', 'La Paz', 'Tarija']
 #       Eliminated 'ln_ghsl2015' 'ln_tr400_pop2012' 'Oruro' 'Potosí' 'ln_land_temp2012' 'ln_dist_drug2017mean' 'ln_pm25_2012' 
 # 'photov2019mean' 'Pando' 'Santa Cruz' 'ln_precCRU2012min'
 
-X_index_17 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop2012', 'ln_pm25_2012', 
-              'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Tarija', 
+X_index_17 = ['lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop2012', 'ln_pm25_2012', 
+              'photov2019mean', 'Beni', 'La Paz', 'Oruro', 'Pando', 'Tarija', 
               'ln_precCRU2012min',"ln_t400NTLpc2012", 'ln_elev2017mean']
-#       Eliminated 'Santa Cruz''ln_dist_road2017' 'ln_dist_drug2017mean' 'ln_land_temp2012' 
+#       Eliminated 'Santa Cruz''ln_dist_road2017' 'ln_dist_drug2017mean' 'ln_land_temp2012' 'ln_ghsl2015' 
+#                       'Chuquisaca' 'Cochabamba' 'Potosí'
 
 X_imds = ['ln_ghsl2015', 'lnurb_land2012', 'Tarija', 'ln_tr400_pop2012', 
           'ln_dist_road2017', 'ln_dist_drug2017mean','ln_pm25_2012', 'photov2019mean', 'Chuquisaca', 'Cochabamba', 'Pando',

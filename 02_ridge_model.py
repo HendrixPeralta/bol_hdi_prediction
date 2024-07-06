@@ -16,6 +16,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import LinearRegression
 from sklearn import linear_model
 from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import Ridge
 
 from sklearn.model_selection import RandomizedSearchCV
 
@@ -29,7 +30,6 @@ from sklearn.compose import ColumnTransformer
 # %%
 
 # Returns the R2, MAE and MSE for each model which is later stored in a dataframe
-
 def evaluate_preds(model, X, y):
     """
     Performs evaluation comparison on y_true labels vs. y_pred labels
@@ -81,6 +81,31 @@ def model_coef(fitted_model, X,y):
     print("="*80)
     print("\n\n")
 
+
+# %%
+
+# Optimizes and save the models 
+def model_optimizer(model):
+   
+    alpha_space = np.logspace(-4,0,30)
+    alpha_space 
+
+    grid = {"alpha": alpha_space,
+            "copy_X": [True, False],
+            "max_iter": [None, 10, 100, 200, 500, 1000, 10000], 
+            "solver": ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]}
+
+    np.random.seed(42)
+    opt_ri_model= RandomizedSearchCV(estimator = model,
+                                    param_distributions=grid,
+                                    n_iter=100,
+                                    cv=5,
+                                    verbose=0)
+
+    return opt_ri_model
+
+
+    #rs_y_preds = opt_ri_model.predict(X_test)
 # %% [markdown]
 # # Import satellite and SDG data 
 
@@ -205,7 +230,7 @@ X_index_17 = ['lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop2012', 'ln_pm25_2
 
 X_imds = ['ln_ghsl2015', 'lnurb_land2012', 'Tarija', 'ln_tr400_pop2012', 
           'ln_dist_road2017', 'ln_dist_drug2017mean','ln_pm25_2012', 'photov2019mean', 'Chuquisaca', 'Cochabamba', 'Pando',
-          "ln_t400NTLpc2012",'ln_elev2017mean']
+          "ln_t400NTLpc2012"]
 #       Eliminated 'La Paz' 'ln_land_temp2012' 'Beni' 'ln_precCRU2012min' 'lnagr_land2012' 'Potosí' 'Oruro' 'Santa Cruz',+ 
 
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
@@ -220,6 +245,7 @@ Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_
 # This ones make some sdg more relevant 
 
 ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
 # Stores the y_preds and y_test values 
 ridge_predict = pd.DataFrame()
 
@@ -244,6 +270,21 @@ for y_variable, X in zip(y_variables, Xs):
     ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
     results = ridge_results.round(4).sort_values(by="r2", ascending=False)
 
+    # =================
+    # Optimizer 
+    #opt_ri_model = model_optimizer(ridge_model_it)
+    #opt_ri_model.fit(X_train, y_train);
+    #print("Best parameters for: ", y_variable)
+    #print(opt_ri_model.best_params_)
+    #print("="*80)
+    #print("\n\n")
+    
+    #opt_scores = evaluate_preds(opt_ri_model, X, y)
+    #opt_ridge_results.loc[len(opt_ridge_results.index)] = [y_variable, opt_scores[0], opt_scores[1], 
+    #                                                       opt_scores[2]]
+    #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
+    #==================
+
     # Predicts and stores the prediction and real values to make graphs 
     y_pred = ridge_model_it.predict(X_test)
 
@@ -256,6 +297,9 @@ for y_variable, X in zip(y_variables, Xs):
         ridge_predict = temp_predict
     else:
         ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
+
+
+    
 
 # %% [markdown]
 # ## Graph best fitters 
@@ -320,8 +364,5 @@ ax3.plot(g_x,p(g_x),"r-")
 # # Adjust Hyperparameters 
 
 # %%
-model_tuned = linear_model.Ridge(alpha=0.0001, max_iter=1000)
-model_tuned.fit(X_train, y_train);
-model.score(X_test, y_test)
 
 # %%

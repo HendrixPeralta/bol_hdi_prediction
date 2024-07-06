@@ -161,6 +161,7 @@ erase_x2 = ['Beni', 'La Paz', 'ln_dist_drug2017mean','ln_t400NTLpc2012','lnagr_l
             'access2016mean','ln_land_temp2012', 'Chuquisaca', 'ln_pm25_2012']
 X_index_2 = [e for e in X if e not in erase_x2]
 
+
 erase_x3 = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'ln_dist_drug2017mean', 'ln_dist_road2017', 
             'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'lnagr_land2012', 
             'photov2019mean','access2016mean']

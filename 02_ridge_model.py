@@ -150,40 +150,47 @@ y_variables = sdg_indexes[['index_sdg1', 'index_sdg2', 'index_sdg3', 'index_sdg4
 
 X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 
        'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_precCRU2012min',
-       'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnagr_land2012', 'lnurb_land2012', 'photov2019mean']
+       'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnagr_land2012', 'lnurb_land2012', 'photov2019mean', 'access2016mean']
 
-erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min']
+erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 
+            'access2016mean']
 X_index_1 = [e for e in X if e not in erase_x1]
 
-erase_x2 = ['Beni', 'La Paz', 'ln_dist_drug2017mean','ln_t400NTLpc2012','lnagr_land2012','photov2019mean']
+erase_x2 = ['Beni', 'La Paz', 'ln_dist_drug2017mean','ln_t400NTLpc2012','lnagr_land2012','photov2019mean',
+            'access2016mean']
 X_index_2 = [e for e in X if e not in erase_x2]
 
-erase_x3 = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_elev2017mean', 
-            'ln_land_temp2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'lnagr_land2012', 'photov2019mean']
+erase_x3 = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'ln_dist_drug2017mean', 'ln_dist_road2017', 
+            'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'lnagr_land2012', 
+            'photov2019mean','access2016mean']
 X_index_3 = [e for e in X if e not in erase_x3]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-erase_x4 = ['Cochabamba', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_t400NTLpc2012']
+erase_x4 = ['Cochabamba', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_t400NTLpc2012',
+            'access2016mean']
 X_index_4 = [e for e in X if e not in erase_x4]
 
-erase_x5 = ['Chuquisaca', 'Pando', 'Santa Cruz', 'Tarija', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnurb_land2012']
+erase_x5 = ['Chuquisaca', 'Pando', 'Santa Cruz', 'Tarija', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnurb_land2012',
+            'access2016mean']
 X_index_5 = [e for e in X if e not in erase_x5]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
 erase_x6 = ['Chuquisaca', 'Cochabamba', 'La Paz', 'Pando', 'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_land_temp2012', 
-            'ln_precCRU2012min']
+            'ln_precCRU2012min','access2016mean']
 X_index_6 = [e for e in X if e not in erase_x6]
 
-erase_x7 = ['La Paz', 'Oruro', 'ln_land_temp2012', 'ln_precCRU2012min', 'photov2019mean']
+erase_x7 = ['La Paz', 'Oruro', 'ln_land_temp2012', 'ln_precCRU2012min', 'photov2019mean','access2016mean']
 X_index_7 = [e for e in X if e not in erase_x7]
 
-erase_x8 = ['Cochabamba', 'Oruro', 'Potosí', 'ln_dist_road2017', 'ln_elev2017mean','ln_t400NTLpc2012', 'ln_tr400_pop2012', 'photov2019mean']
+erase_x8 = ['Cochabamba', 'Oruro', 'Potosí', 'ln_dist_road2017', 'ln_elev2017mean','ln_t400NTLpc2012', 'ln_tr400_pop2012', 
+            'photov2019mean', 'access2016mean']
 X_index_8 = [e for e in X if e not in erase_x8]
 
-erase_x9 = ['Beni', 'Potosí', 'Santa Cruz', 'ln_land_temp2012', 'ln_precCRU2012min', 'lnagr_land2012']
+erase_x9 = ['Beni', 'Potosí', 'Santa Cruz', 'ln_land_temp2012', 'ln_precCRU2012min', 'lnagr_land2012', 'access2016mean']
 X_index_9 = [e for e in X if e not in erase_x9]
 
-erase_x10 = ['Santa Cruz', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_t400NTLpc2012']
+erase_x10 = ['Santa Cruz', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_land_temp2012', 'ln_pm25_2012', 
+             'ln_t400NTLpc2012', 'access2016mean']
 X_index_10 = [e for e in X if e not in erase_x10]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
@@ -191,23 +198,26 @@ erase_x11 = ['Beni', 'Cochabamba', 'Pando','Santa Cruz', 'ln_dist_drug2017mean',
 X_index_11 = [e for e in X if e not in erase_x11]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_temp2012', 'ln_t400NTLpc2012', 'ln_tr400_pop2012']
+erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_temp2012', 'ln_t400NTLpc2012', 
+             'ln_tr400_pop2012', 'ln_dist_road2017', 'photov2019mean']
 X_index_13 = [e for e in X if e not in erase_x13]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
 erase_x15 = ['La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 
-             'ln_precCRU2012min', 'ln_t400NTLpc2012', 'ln_tr400_pop2012']
+             'ln_precCRU2012min', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'access2016mean']
 X_index_15 = [e for e in X if e not in erase_x15]
 
-erase_x16 = ['Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 
-             'ln_pm25_2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'photov2019mean']
+erase_x16 = ['Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_ghsl2015', 
+             'ln_land_temp2012','ln_pm25_2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 
+             'photov2019mean','access2016mean']
 X_index_16 = [e for e in X if e not in erase_x16]
 
 erase_x17 = ['Chuquisaca', 'Cochabamba', 'Potosí', 'Santa Cruz','ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_ghsl2015', 
-             'ln_land_temp2012']
+             'ln_land_temp2012','access2016mean']
 X_index_17 = [e for e in X if e not in erase_x17]
 
-erase_imds = ['Beni', 'La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 'lnagr_land2012']
+erase_imds = ['Beni', 'La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min',
+               'lnagr_land2012','access2016mean']
 X_imds = [e for e in X if e not in erase_imds]
 
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 

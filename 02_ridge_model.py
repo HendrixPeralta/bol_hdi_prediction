@@ -148,90 +148,67 @@ y_variables = sdg_indexes[['index_sdg1', 'index_sdg2', 'index_sdg3', 'index_sdg4
        'index_sdg10', 'index_sdg11', 'index_sdg13', 'index_sdg15',
        'index_sdg16', 'index_sdg17', 'imds']]
 
-X_index_1 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_pm25_2012', 'Potosí','Santa Cruz', 'Tarija', 
-             'ln_tr400_pop2012', 'ln_dist_road2017', 'ln_dist_drug2017mean','photov2019mean', 
-             'Chuquisaca', 'Cochabamba', "ln_t400NTLpc2012"]
-#       Eliminated  'ln_land_temp2012' 'Beni' 'Oruro' 'ln_precCRU2012min' 'La Paz' 'ln_elev2017mean'+
+X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 
+       'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_precCRU2012min',
+       'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnagr_land2012', 'lnurb_land2012', 'photov2019mean']
 
-X_index_2 = ['ln_ghsl2015', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017', 
-             'ln_pm25_2012',  'Chuquisaca', 'Cochabamba', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 
-             'ln_precCRU2012min', 'ln_elev2017mean']
-#       Eliminated 'Beni' 'lnagr_land2012' 'La Paz' 'dist_diamond2015' 'photov2019mean' "ln_t400NTLpc2012" 
-#                   'ln_dist_drug2017mean'
+erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min']
+X_index_1 = [e for e in X if e not in erase_x1]
 
-X_index_3 = ['ln_ghsl2015', 'lnurb_land2012', 'ln_tr400_pop2012', 'ln_pm25_2012', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija',
-             ]
-#       Eliminated 'lnagr_land2012' 'ln_land_temp2012' 'ln_dist_road2017' 'ln_dist_drug2017mean' 'Chuquisaca' 'Cochabamba' 
-#                   'La Paz' 'photov2019mean' 'Beni' 'ln_precCRU2012min' 'Oruro' "ln_t400NTLpc2012" 'ln_elev2017mean'
+erase_x2 = ['Beni', 'La Paz', 'ln_dist_drug2017mean','ln_t400NTLpc2012','lnagr_land2012','photov2019mean']
+X_index_2 = [e for e in X if e not in erase_x2]
+
+erase_x3 = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_elev2017mean', 
+            'ln_land_temp2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'lnagr_land2012', 'photov2019mean']
+X_index_3 = [e for e in X if e not in erase_x3]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-X_index_4 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop2012','ln_dist_drug2017mean', 
-             'photov2019mean', 'Beni', 'Chuquisaca', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 
-             'Tarija', 'ln_precCRU2012min']
-#       Eliminated  'ln_land_temp2012' 'ln_pm25_2012' 'Cochabamba' 'ln_dist_road2017' "ln_t400NTLpc2012" 'ln_elev2017mean'
+erase_x4 = ['Cochabamba', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_t400NTLpc2012']
+X_index_4 = [e for e in X if e not in erase_x4]
 
-X_index_5 = ['lnagr_land2012', 'ln_land_temp2012', 'ln_dist_road2017', 'ln_dist_drug2017mean', 'ln_pm25_2012', 
-             'photov2019mean', 'Beni', 'Cochabamba', 'La Paz', 'Oruro', 'Potosí', 'ln_precCRU2012min','ln_elev2017mean']
-#       Eliminated 'ln_ghsl2015' 'ln_tr400_pop2012' 'Chuquisaca' 'Tarija' 'lnurb_land2012' 'Santa Cruz' 'Pando' 
-#                       "ln_t400NTLpc2012"
+erase_x5 = ['Chuquisaca', 'Pando', 'Santa Cruz', 'Tarija', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnurb_land2012']
+X_index_5 = [e for e in X if e not in erase_x5]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-X_index_6 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop2012', 'ln_dist_road2017',
-             'ln_pm25_2012', 'photov2019mean', 'Beni', 'Oruro', 'Potosí', 'Santa Cruz', 'Tarija',"ln_t400NTLpc2012"]
-#       Eliminated 'ln_dist_drug2017mean' 'ln_precCRU2012min' 'ln_land_temp2012' 'Pando' 'Chuquisaca' 'Cochabamba' 'La Paz' 
-#                    'ln_elev2017mean'
+erase_x6 = ['Chuquisaca', 'Cochabamba', 'La Paz', 'Pando', 'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_land_temp2012', 
+            'ln_precCRU2012min']
+X_index_6 = [e for e in X if e not in erase_x6]
 
-X_index_7 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_pm25_2012', 'Beni', 'Potosí', 'Santa Cruz', 'Tarija',
-              'ln_tr400_pop2012', 'ln_dist_road2017','ln_dist_drug2017mean', 'Chuquisaca', 'Cochabamba', 
-             'Pando',"ln_t400NTLpc2012",'ln_elev2017mean']
-#       Eliminated  'photov2019mean' 'ln_precCRU2012min' 'La Paz' 'Oruro' 'ln_land_temp2012' +
+erase_x7 = ['La Paz', 'Oruro', 'ln_land_temp2012', 'ln_precCRU2012min', 'photov2019mean']
+X_index_7 = [e for e in X if e not in erase_x7]
 
-X_index_8 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_dist_drug2017mean', 'ln_land_temp2012',
-             'ln_pm25_2012', 'Beni', 'Chuquisaca', 'La Paz', 'Pando', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min',]
-#       Eliminated 'ln_tr400_pop2012' 'ln_dist_road2017' 'Cochabamba' 'photov2019mean' 'Oruro' 'Potosí' "ln_t400NTLpc2012" 
-#                        'ln_elev2017mean'
+erase_x8 = ['Cochabamba', 'Oruro', 'Potosí', 'ln_dist_road2017', 'ln_elev2017mean','ln_t400NTLpc2012', 'ln_tr400_pop2012', 'photov2019mean']
+X_index_8 = [e for e in X if e not in erase_x8]
 
-X_index_9 = ['ln_ghsl2015', 'lnurb_land2012', 'photov2019mean', 'La Paz','Oruro', 'Tarija', 
-             'ln_tr400_pop2012', 'ln_dist_road2017', 'ln_dist_drug2017mean','ln_pm25_2012', 'Chuquisaca', 'Cochabamba', 
-             'Pando',"ln_t400NTLpc2012",'ln_elev2017mean']
-#       Eliminated 'ln_land_temp2012' 'Potosí' 'Santa Cruz' 'Beni' 'ln_precCRU2012min'+
+erase_x9 = ['Beni', 'Potosí', 'Santa Cruz', 'ln_land_temp2012', 'ln_precCRU2012min', 'lnagr_land2012']
+X_index_9 = [e for e in X if e not in erase_x9]
 
-X_index_10 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop2012',
-              'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz','Oruro', 'Pando', 'Potosí', 'Tarija', 
-              'ln_precCRU2012min','ln_elev2017mean']
-#       Eliminated 'ln_dist_road2017' 'ln_dist_drug2017mean' 'Santa Cruz' 'ln_pm25_2012' "ln_t400NTLpc2012" 'ln_land_temp2012'
+erase_x10 = ['Santa Cruz', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_t400NTLpc2012']
+X_index_10 = [e for e in X if e not in erase_x10]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-X_index_11 = ['ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012', 'La Paz', 'Potosí','Tarija', 'ln_precCRU2012min',
-              'ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017', 'ln_pm25_2012','Chuquisaca', 
-               'Oruro','ln_elev2017mean', "ln_t400NTLpc2012"]
-#       Eliminated 'photov2019mean' 'ln_dist_drug2017mean' 'Pando'  'Santa Cruz'+
+erase_x11 = ['Beni', 'Cochabamba', 'Pando','Santa Cruz', 'ln_dist_drug2017mean', 'photov2019mean']
+X_index_11 = [e for e in X if e not in erase_x11]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-X_index_13 = [ 'lnagr_land2012', 'lnurb_land2012', 'ln_dist_road2017', 'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 
-              'Beni', 'Cochabamba','Pando', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min', 'ln_elev2017mean']
-#      Eliminated 'Oruro' 'ln_tr400_pop2012' 'La Paz' 'Potosí' 'Chuquisaca' 'ln_ghsl2015' 'ln_land_temp2012' "ln_t400NTLpc2012"
+erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_temp2012', 'ln_t400NTLpc2012', 'ln_tr400_pop2012']
+X_index_13 = [e for e in X if e not in erase_x13]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-X_index_15 = ['lnagr_land2012', 'lnurb_land2012', 'ln_dist_road2017', 'ln_pm25_2012', 'photov2019mean', 
-              'Beni', 'Chuquisaca', 'Cochabamba',  'Pando', 'ln_elev2017mean']
-#       Eliminated 'Oruro' 'ln_tr400_pop2012' 'ln_dist_drug2017mean' "ln_t400NTLpc2012" 'Santa Cruz' 'ln_land_temp2012'
-#                       'ln_ghsl2015' 'Tarija' 'ln_precCRU2012min' 'La Paz' 'Potosí'
+erase_x15 = ['La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 
+             'ln_precCRU2012min', 'ln_t400NTLpc2012', 'ln_tr400_pop2012']
+X_index_15 = [e for e in X if e not in erase_x15]
 
-X_index_16 = ['lnagr_land2012', 'lnurb_land2012', 'ln_dist_road2017','Beni', 'Chuquisaca', 'Cochabamba', 'La Paz', 'Tarija']
-#       Eliminated 'ln_ghsl2015' 'ln_tr400_pop2012' 'Oruro' 'Potosí' 'ln_land_temp2012' 'ln_dist_drug2017mean' 'ln_pm25_2012' 
-# 'photov2019mean' 'Pando' 'Santa Cruz' 'ln_precCRU2012min'
+erase_x16 = ['Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 
+             'ln_pm25_2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'photov2019mean']
+X_index_16 = [e for e in X if e not in erase_x16]
 
-X_index_17 = ['lnagr_land2012', 'lnurb_land2012', 'ln_tr400_pop2012', 'ln_pm25_2012', 
-              'photov2019mean', 'Beni', 'La Paz', 'Oruro', 'Pando', 'Tarija', 
-              'ln_precCRU2012min',"ln_t400NTLpc2012", 'ln_elev2017mean']
-#       Eliminated 'Santa Cruz''ln_dist_road2017' 'ln_dist_drug2017mean' 'ln_land_temp2012' 'ln_ghsl2015' 
-#                       'Chuquisaca' 'Cochabamba' 'Potosí'
+erase_x17 = ['Chuquisaca', 'Cochabamba', 'Potosí', 'Santa Cruz','ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_ghsl2015', 
+             'ln_land_temp2012']
+X_index_17 = [e for e in X if e not in erase_x17]
 
-X_imds = ['ln_ghsl2015', 'lnurb_land2012', 'Tarija', 'ln_tr400_pop2012', 
-          'ln_dist_road2017', 'ln_dist_drug2017mean','ln_pm25_2012', 'photov2019mean', 'Chuquisaca', 'Cochabamba', 'Pando',
-          "ln_t400NTLpc2012"]
-#       Eliminated 'La Paz' 'ln_land_temp2012' 'Beni' 'ln_precCRU2012min' 'lnagr_land2012' 'Potosí' 'Oruro' 'Santa Cruz',+ 
+erase_imds = ['Beni', 'La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 'lnagr_land2012']
+X_imds = [e for e in X if e not in erase_imds]
 
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
       X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]

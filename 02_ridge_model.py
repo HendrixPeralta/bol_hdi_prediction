@@ -150,14 +150,15 @@ y_variables = sdg_indexes[['index_sdg1', 'index_sdg2', 'index_sdg3', 'index_sdg4
 
 X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 
        'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_precCRU2012min',
-       'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnagr_land2012', 'lnurb_land2012', 'photov2019mean', 'access2016mean']
+       'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnagr_land2012', 'lnurb_land2012', 'photov2019mean', 'access2016mean',
+       "ln_slope500m2017mean"]
 
 erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 
             'access2016mean']
 X_index_1 = [e for e in X if e not in erase_x1]
 
 erase_x2 = ['Beni', 'La Paz', 'ln_dist_drug2017mean','ln_t400NTLpc2012','lnagr_land2012','photov2019mean',
-            'access2016mean']
+            'access2016mean','ln_land_temp2012', 'Chuquisaca', 'ln_pm25_2012']
 X_index_2 = [e for e in X if e not in erase_x2]
 
 erase_x3 = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'ln_dist_drug2017mean', 'ln_dist_road2017', 

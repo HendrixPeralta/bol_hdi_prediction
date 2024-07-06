@@ -25,7 +25,7 @@ from sklearn.pipeline import make_pipeline
 
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
-
+from mlxtend.plotting import scatterplotmatrix 
 
 # %%
 
@@ -153,7 +153,7 @@ y_variables = sdg_indexes.drop(columns= {"id", "mun_id"})
 X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 
        'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_precCRU2012min',
        'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnagr_land2012', 'lnurb_land2012', 'photov2019mean', 'access2016mean',
-       "ln_slope500m2017mean"]
+       "ln_slope500m2017mean",'land_per_area_2012_urban_and_builtup']
 
 erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 
             'access2016mean']
@@ -191,7 +191,7 @@ erase_x8 = ['Cochabamba', 'Oruro', 'Potosí', 'ln_dist_road2017', 'ln_elev2017me
 X_index_8 = [e for e in X if e not in erase_x8]
 
 erase_x9 = ['Beni', 'Potosí', 'Santa Cruz', 'ln_land_temp2012', 'ln_precCRU2012min', 'lnagr_land2012', 'access2016mean',
-            "ln_slope500m2017mean"]
+            "ln_slope500m2017mean", ]
 X_index_9 = [e for e in X if e not in erase_x9]
 
 erase_x10 = ['Santa Cruz', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_land_temp2012', 'ln_pm25_2012', 
@@ -357,5 +357,25 @@ ax3.plot(g_x,p(g_x),"r-")
 # # Adjust Hyperparameters 
 
 # %%
+mer = pd.merge(sat_mod[X_index_1 + ["id"]], sdg_indexes[["id", "index_sdg1"]], on="id", how="outer")
+
+# %%
+
+cols = list(mer.columns)
+
+cols.remove("id")
+#cols.remove("dep")
+#cols.remove("beni")
+cols.remove('Chuquisaca')
+cols.remove('Cochabamba')
+#cols.remove("La Paz")
+#cols.remove("Oruro")
+#cols.remove("Pando")
+cols.remove("Potosí")
+cols.remove("Santa Cruz")
+cols.remove("Tarija")
+scatterplotmatrix(mer[cols].values, figsize=(50,50), names=cols, alpha=0.5)
+plt.tight_layout()
+plt.show()
 
 # %%

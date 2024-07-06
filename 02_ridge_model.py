@@ -142,11 +142,13 @@ sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
 
 #  "+" in the Eliminated secction means that i failed to record which variables were eliminated beforehand 
 
+#SDG Indicators Y
+#y_variables = sdg_indicators.drop(columns= {"id", "mun_id"})
+
+
 # Based Model 
-y_variables = sdg_indexes[['index_sdg1', 'index_sdg2', 'index_sdg3', 'index_sdg4',
-       'index_sdg5', 'index_sdg6', 'index_sdg7', 'index_sdg8', 'index_sdg9',
-       'index_sdg10', 'index_sdg11', 'index_sdg13', 'index_sdg15',
-       'index_sdg16', 'index_sdg17', 'imds']]
+#SDG indexed Y
+y_variables = sdg_indexes.drop(columns= {"id", "mun_id"})
 
 X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 
        'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_precCRU2012min',

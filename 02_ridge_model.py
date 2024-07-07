@@ -207,7 +207,7 @@ X_index_11 = [e for e in X if e not in erase_x11]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
 erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_temp2012', 'ln_t400NTLpc2012', 
-             'ln_tr400_pop2012', 'ln_dist_road2017', 'photov2019mean']
+             'ln_tr400_pop2012', 'ln_dist_road2017', 'photov2019mean', "Beni"]
 X_index_13 = [e for e in X if e not in erase_x13]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 

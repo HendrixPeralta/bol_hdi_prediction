@@ -453,9 +453,18 @@ class RidgeModel:
     # ==================
 
     # Store the cross evaluation resilts into a df 
- #       scores = evaluate_preds(Self.model, X, y)
- #       ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
- #       results = ridge_results.round(4).sort_values(by="r2", ascending=False)
+    def evaluate_preds(Self, ridge_results):
+        """
+        Performs evaluation comparison on y_true labels vs. y_pred labels
+        on a classification.
+        """
+        r2 = (np.mean(cross_val_score(Self.model, Self.X, Self.y, scoring="r2")))*100
+        mae = np.mean(cross_val_score(Self.model, Self.X, Self.y, scoring="neg_mean_absolute_error"))
+        mse = np.mean(cross_val_score(Self.model, Self.X, Self.y, scoring="neg_mean_squared_error"))
+        scores = [r2, mae, mse]
+        
+        ridge_results.loc[len(ridge_results.index)] = [Self.name, scores[0], scores[1], scores[2]]  
+        ridge_results = ridge_results.round(4).sort_values(by="r2", ascending=False)
 
     # =================
     # Optimizer 
@@ -492,6 +501,7 @@ index_init = RidgeModel("Index SDG 1", sdg_indexes["index_sdg1"],sat_mod[X_index
 index_init.set_model()
 # %%
 index_init.get_coef()
+index_init.evaluate_preds(ridge_results)
 # %%
 index_sec = RidgeModel("Index SDG 2", sdg_indexes["index_sdg2"],sat_mod[X_index_2])
 
@@ -499,4 +509,5 @@ index_sec = RidgeModel("Index SDG 2", sdg_indexes["index_sdg2"],sat_mod[X_index_
 index_sec.set_model()
 # %%
 index_sec.get_coef()
+index_sec.evaluate_preds(ridge_results)
 # %%

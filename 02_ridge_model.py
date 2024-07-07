@@ -411,8 +411,43 @@ class RidgeModel:
         Self.fitted_model = Self.model.fit(Self.X_train, Self.y_train);
     # ==================
     
+    # Shows the coefficients for each predictor
+    def get_coef(Self):
 
+        print("*"*20, Self.y, "*"*20, "\n")
+        print(f"X variables:\n {np.array(Self.X.columns)}\n")
+        print(f"Non CV score: {(Self.fitted_model.score(Self.X_test, Self.y_test)*100).round(2)}\n")
 
+        coeff = Self.fitted_model.coef_
+        
+        relevance = 1 
+
+        # Calculates relevant coefficients 
+        pos_rel = np.array(Self.X.columns)[coeff>relevance]
+        neg_rel = np.array(Self.X.columns)[coeff<-relevance]
+
+        # Calcuates NON relevant coefficients
+
+        pos_non = np.array(Self.X.columns)[(coeff<relevance) & (coeff>0)]
+        neg_non = np.array(Self.X.columns)[(coeff>-relevance) & (coeff<0)]
+        #filtered_columns_str = ", ".join(filtered_columns)
+        
+        print("Relevant and positive:")
+        print(pos_rel)
+        print("\nRelevant and negative:")
+        print(neg_rel)
+        print("\n")
+        
+        print("NON relevant and positive:")
+        print(pos_non)
+        print("\n NON relevant and negative:")
+        print(neg_non)
+        print("\n")
+        
+        print(fitted_model.coef_)
+        print("="*80)
+        print("\n\n")
+        
         #model_coef(Self.fitted_model,X,y)
     # ==================
 

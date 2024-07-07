@@ -149,7 +149,6 @@ sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
 
 # Based Model 
 #SDG indexed Y
-y_variables = sdg_indexes.drop(columns= {"id", "mun_id"})
 
 X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 
        'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 'ln_pm25_2012', 'ln_precCRU2012min',
@@ -232,6 +231,7 @@ X_imds = [e for e in X if e not in erase_imds]
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
       X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]
 
+y_variables = sdg_indexes.drop(columns= {"id", "mun_id"})
 
 # %%
 # Training the Ridge model 
@@ -391,30 +391,31 @@ ridge_predict = pd.DataFrame()
 
 class RidgeModel: 
 
-    def __init__(Self, y, X, test_size=0.3, model = None):
-        
+    def __init__(Self, name, y, X, test_size=0.3, model = None):
+        Self.name = name
         Self.X = X
         Self.y = y
         Self.model = model
-        Self.fitted_model
-        Self.X_train
-        Self.X_test
-        Self.y_train
-        Self.y_test
+        Self.fitted_model = None
+        Self.X_train = None
+        Self.X_test = None
+        Self.y_train = None
+        Self.y_test = None
         Self.test_size = test_size
 
     # Set up model 
-    def set_model(self):
+    def set_model(Self):
         np.random.seed(42)
         Self.X_train, Self.X_test, Self.y_train, Self.y_test = train_test_split(Self.X,Self.y, test_size = Self.test_size) 
         Self.model = linear_model.Ridge()
         Self.fitted_model = Self.model.fit(Self.X_train, Self.y_train);
+        print("model fitted")
     # ==================
     
     # Shows the coefficients for each predictor
     def get_coef(Self):
 
-        print("*"*20, Self.y, "*"*20, "\n")
+        print("*"*20, Self.name, "*"*20, "\n")
         print(f"X variables:\n {np.array(Self.X.columns)}\n")
         print(f"Non CV score: {(Self.fitted_model.score(Self.X_test, Self.y_test)*100).round(2)}\n")
 
@@ -452,9 +453,9 @@ class RidgeModel:
     # ==================
 
     # Store the cross evaluation resilts into a df 
-    scores = evaluate_preds(Self.model, X, y)
-    ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
-    results = ridge_results.round(4).sort_values(by="r2", ascending=False)
+ #       scores = evaluate_preds(Self.model, X, y)
+ #       ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
+ #       results = ridge_results.round(4).sort_values(by="r2", ascending=False)
 
     # =================
     # Optimizer 
@@ -472,15 +473,30 @@ class RidgeModel:
     #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
     #==================
 
-    # Predicts and stores the prediction and real values to make graphs 
-    y_pred = Self.model.predict(X_test)
+        # Predicts and stores the prediction and real values to make graphs 
+#        y_pred = Self.model.predict(X_test)
+#
+#        col0 = y_variable + "_true"
+#        col1 = y_variable + "_pred"
+#        temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
+#        temp_predict.index.name = "id"
+#        
+ #       if ridge_predict.empty:
+#            ridge_predict = temp_predict
+#        else:
+#            ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
 
-    col0 = y_variable + "_true"
-    col1 = y_variable + "_pred"
-    temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
-    temp_predict.index.name = "id"
-    
-    if ridge_predict.empty:
-        ridge_predict = temp_predict
-    else:
-        ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
+# %%
+index_init = RidgeModel("Index SDG 1", sdg_indexes["index_sdg1"],sat_mod[X_index_1])
+# %%
+index_init.set_model()
+# %%
+index_init.get_coef()
+# %%
+index_sec = RidgeModel("Index SDG 2", sdg_indexes["index_sdg2"],sat_mod[X_index_2])
+
+# %%
+index_sec.set_model()
+# %%
+index_sec.get_coef()
+# %%

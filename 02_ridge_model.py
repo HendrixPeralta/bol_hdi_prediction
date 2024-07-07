@@ -1,5 +1,6 @@
 # %%
 # %%
+from typing import Self
 import numpy as np
 import pandas as pd
 import sklearn as ktl
@@ -225,7 +226,7 @@ erase_x17 = ['Chuquisaca', 'Cochabamba', 'Potosí', 'Santa Cruz','ln_dist_drug20
 X_index_17 = [e for e in X if e not in erase_x17]
 
 erase_imds = ['Beni', 'La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min',
-               'lnagr_land2012', "ln_slope500m2017mean"]
+               'lnagr_land2012', "ln_slope500m2017mean", 'ln_access2016mean']
 X_imds = [e for e in X if e not in erase_imds]
 
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
@@ -252,22 +253,22 @@ for y_variable, X in zip(y_variables, Xs):
 
     np.random.seed(42)
     X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3) 
-    ridge_model_it = linear_model.Ridge()
+    Self.model = linear_model.Ridge()
     
     # ==================
     # Shows the coefficients for each predictor
-    fitted_model = ridge_model_it.fit(X_train, y_train);
+    fitted_model = Self.model.fit(X_train, y_train);
     model_coef(fitted_model,X,y)
     # ==================
 
     # Store the cross evaluation resilts into a df 
-    scores = evaluate_preds(ridge_model_it, X, y)
+    scores = evaluate_preds(Self.model, X, y)
     ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
     results = ridge_results.round(4).sort_values(by="r2", ascending=False)
 
     # =================
     # Optimizer 
-    #opt_ri_model = model_optimizer(ridge_model_it)
+    #opt_ri_model = model_optimizer(Self.model)
     #opt_ri_model.fit(X_train, y_train);
     #print("Best parameters for: ", y_variable)
     #print(opt_ri_model.best_params_)
@@ -282,7 +283,7 @@ for y_variable, X in zip(y_variables, Xs):
     #==================
 
     # Predicts and stores the prediction and real values to make graphs 
-    y_pred = ridge_model_it.predict(X_test)
+    y_pred = Self.model.predict(X_test)
 
     col0 = y_variable + "_true"
     col1 = y_variable + "_pred"
@@ -382,3 +383,69 @@ plt.tight_layout()
 plt.show()
 
 # %%
+ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+# Stores the y_preds and y_test values 
+ridge_predict = pd.DataFrame()
+
+
+class RidgeModel: 
+
+    def __init__(Self, y, X, test_size=0.3, model = None):
+        
+        Self.X = X
+        Self.y = y
+        Self.model = model
+        Self.fitted_model
+        Self.X_train
+        Self.X_test
+        Self.y_train
+        Self.y_test
+        Self.test_size = test_size
+
+    # Set up model 
+    def set_model(self):
+        np.random.seed(42)
+        Self.X_train, Self.X_test, Self.y_train, Self.y_test = train_test_split(Self.X,Self.y, test_size = Self.test_size) 
+        Self.model = linear_model.Ridge()
+        Self.fitted_model = Self.model.fit(X_train, y_train);
+    # ==================
+    
+    # Shows the coefficients for each predictor
+    def get_coef():
+        model_coef(Self.fitted_model,X,y)
+    # ==================
+
+    # Store the cross evaluation resilts into a df 
+    scores = evaluate_preds(Self.model, X, y)
+    ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
+    results = ridge_results.round(4).sort_values(by="r2", ascending=False)
+
+    # =================
+    # Optimizer 
+    #opt_ri_model = model_optimizer(Self.model)
+    #opt_ri_model.fit(X_train, y_train);
+    #print("Best parameters for: ", y_variable)
+    #print(opt_ri_model.best_params_)
+    #print("="*80)
+    #print("\n\n")
+    
+    #opt_scores = evaluate_preds(opt_ri_model, X, y)
+    #opt_ridge_results.loc[len(opt_ridge_results.index)] = [y_variable, opt_scores[0], opt_scores[1], 
+    #                                                       opt_scores[2]]
+
+    #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
+    #==================
+
+    # Predicts and stores the prediction and real values to make graphs 
+    y_pred = Self.model.predict(X_test)
+
+    col0 = y_variable + "_true"
+    col1 = y_variable + "_pred"
+    temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
+    temp_predict.index.name = "id"
+    
+    if ridge_predict.empty:
+        ridge_predict = temp_predict
+    else:
+        ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")

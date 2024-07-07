@@ -217,7 +217,7 @@ X_index_15 = [e for e in X if e not in erase_x15]
 
 erase_x16 = ['Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_ghsl2015', 
              'ln_land_temp2012','ln_pm25_2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 
-             'photov2019mean', "ln_slope500m2017mean"]
+             'photov2019mean', "ln_slope500m2017mean", 'ln_access2016mean']
 X_index_16 = [e for e in X if e not in erase_x16]
 
 erase_x17 = ['Chuquisaca', 'Cochabamba', 'Potosí', 'Santa Cruz','ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_ghsl2015', 

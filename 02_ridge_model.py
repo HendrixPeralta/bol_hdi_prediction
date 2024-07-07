@@ -408,12 +408,12 @@ class RidgeModel:
         np.random.seed(42)
         Self.X_train, Self.X_test, Self.y_train, Self.y_test = train_test_split(Self.X,Self.y, test_size = Self.test_size) 
         Self.model = linear_model.Ridge()
-        Self.fitted_model = Self.model.fit(X_train, y_train);
+        Self.fitted_model = Self.model.fit(Self.X_train, Self.y_train);
     # ==================
     
-    # Shows the coefficients for each predictor
-    def get_coef():
-        model_coef(Self.fitted_model,X,y)
+
+
+        #model_coef(Self.fitted_model,X,y)
     # ==================
 
     # Store the cross evaluation resilts into a df 

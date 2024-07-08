@@ -173,10 +173,7 @@ erase_imds = ['Beni', 'La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'ln_elev2017me
                'lnagr_land2012', "ln_slope500m2017mean", 'ln_access2016mean']
 X_imds = [e for e in X if e not in erase_imds]
 
-Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
-      X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]
 
-y_variables = sdg_indexes.drop(columns= {"id", "mun_id"})
 
 
 # %%
@@ -192,7 +189,7 @@ ridge_predict = pd.DataFrame()
 
 class RidgeModel: 
 
-    def __init__(self, name, y=pd.DataFrame, X=pd.DataFrame, test_size=0.3, model = None):
+    def __init__(self, name, X=pd.DataFrame, y=pd.DataFrame, test_size=0.3, model = None):
         self.name = name
         self.X = X
         self.y = y
@@ -313,21 +310,21 @@ class RidgeModel:
     #==================
 # %%
 # Instance for the SDG 1 
-index_init = RidgeModel("Index SDG 1", sdg_indexes["index_sdg1"],sat_mod[X_index_1])
-index_init.set_model()
-index_init.get_coef()
-index_init.evaluate_preds(ridge_results)
-ridge_predict = index_init.predict(ridge_predict)
-index_init.scatter_hist()
+sdg1_model = RidgeModel("Index SDG 1", sat_mod[X_index_1], sdg_indexes["index_sdg1"])
+sdg1_model.set_model()
+sdg1_model.get_coef()
+sdg1_model.evaluate_preds(ridge_results)
+ridge_predict = sdg1_model.predict(ridge_predict)
+sdg1_model.scatter_hist()
 
 # %%
 # Instance for the SDG 2
-index_sec = RidgeModel("Index SDG 2", sdg_indexes["index_sdg2"],sat_mod[X_index_2])
-index_sec.set_model()
-index_sec.get_coef()
-index_sec.evaluate_preds(ridge_results)
-ridge_predict = index_sec.predict(ridge_predict)
-index_init.scatter_hist()
+sdg2_model = RidgeModel("Index SDG 2",sat_mod[X_index_2], sdg_indexes["index_sdg2"])
+sdg2_model.set_model()
+sdg2_model.get_coef()
+sdg2_model.evaluate_preds(ridge_results)
+ridge_predict = sdg2_model.predict(ridge_predict)
+sdg2_model.scatter_hist()
 # %%
 
 
@@ -342,55 +339,39 @@ index_init.scatter_hist()
 
 # %%
 
-for y_variable, X in zip(y_variables, Xs):
+def run_all(model_name, 
+            title_name, 
+            X=pd.DataFrame, 
+            y=pd.DataFrame, 
+            ridge_results=pd.DataFrame, 
+            ridge_predict=pd.DataFrame): 
     
-    # Set up model 
-    y = y_variables[y_variable]
-    X = sat_mod[X]
+    # Makes sure that the df are empty 
+    ridge_results.drop(ridge_results.index, inplace=True)
+    ridge_results.drop(ridge_results.columns, axis=1, inplace=True)
 
-    np.random.seed(42)
-    X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3) 
-    self.model = linear_model.Ridge()
-    
-    # ==================
-    # Shows the coefficients for each predictor
-    fitted_model = self.model.fit(X_train, y_train);
-    model_coef(fitted_model,X,y)
-    # ==================
+    ridge_predict.drop(ridge_predict.index, inplace=True)
+    ridge_predict.drop(ridge_predict.columns, axis=1, inplace=True)
 
-    # Store the cross evaluation resilts into a df 
-    scores = evaluate_preds(self.model, X, y)
-    ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
-    results = ridge_results.round(4).sort_values(by="r2", ascending=False)
+    # Define X and y variables 
+    Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
+        X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]
 
-    # =================
-    # Optimizer 
-    #opt_ri_model = model_optimizer(self.model)
-    #opt_ri_model.fit(X_train, y_train);
-    #print("Best parameters for: ", y_variable)
-    #print(opt_ri_model.best_params_)
-    #print("="*80)
-    #print("\n\n")
-    
-    #opt_scores = evaluate_preds(opt_ri_model, X, y)
-    #opt_ridge_results.loc[len(opt_ridge_results.index)] = [y_variable, opt_scores[0], opt_scores[1], 
-    #                                                       opt_scores[2]]
+    y_variables = sdg_indexes.drop(columns= {"id", "mun_id"})
 
-    #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
-    #==================
+    for y_variable, X in zip(y_variables, Xs):
+        
+        # Set up model 
+        y = y_variables[y_variable]
+        X = sat_mod[X]
 
-    # Predicts and stores the prediction and real values to make graphs 
-    y_pred = self.model.predict(X_test)
+        model = RidgeModel(y_variable, y,X)
+        model.set_model()
+        model.get_coef()
+        model.evaluate_preds(ridge_results)
+        model.scatter_hist()
+        ridge_predict = sdg2_model.predict(ridge_predict)
 
-    col0 = y_variable + "_true"
-    col1 = y_variable + "_pred"
-    temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
-    temp_predict.index.name = "id"
-    
-    if ridge_predict.empty:
-        ridge_predict = temp_predict
-    else:
-        ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
 
 # %%
 # %% [markdown]

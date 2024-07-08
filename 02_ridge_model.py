@@ -1,6 +1,5 @@
 # %%
 # %%
-from typing import self
 import numpy as np
 import pandas as pd
 import sklearn as ktl
@@ -445,7 +444,7 @@ class RidgeModel:
         print(neg_non)
         print("\n")
         
-        print(fitted_model.coef_)
+        print(self.fitted_model.coef_)
         print("="*80)
         print("\n\n")
         
@@ -453,7 +452,7 @@ class RidgeModel:
     # ==================
 
     # Store the cross evaluation resilts into a df 
-    def evaluate_preds(self, ridge_results):
+    def evaluate_preds(self, score_results):
         """
         Performs evaluation comparison on y_true labels vs. y_pred labels
         on a classification.
@@ -463,8 +462,8 @@ class RidgeModel:
         mse = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_squared_error"))
         scores = [r2, mae, mse]
         
-        ridge_results.loc[len(ridge_results.index)] = [self.name, scores[0], scores[1], scores[2]]  
-        ridge_results = ridge_results.round(4).sort_values(by="r2", ascending=False)
+        score_results.loc[len(score_results.index)] = [self.name, scores[0], scores[1], scores[2]]  
+        score_results = score_results.round(4).sort_values(by="r2", ascending=False)
 
     # =================
     # Optimizer 
@@ -483,18 +482,20 @@ class RidgeModel:
     #==================
 
     # Predicts and stores the prediction and real values to make graphs 
-    def predict(self, ridge_predict):   
+    def predict(self, store_predict):   
         y_pred = self.model.predict(self.X_test)
 #
         col0 = self.name + "_true"
         col1 = self.name + "_pred"
-        temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
+        temp_predict = pd.DataFrame({col0: self.y_test, col1: y_pred}, index=self.y_test.index)
         temp_predict.index.name = "id"
-#        
-        if ridge_predict.empty:
-            ridge_predict = temp_predict
+        print(temp_predict) 
+        if store_predict.empty:
+            store_predict = temp_predict
         else:
-            ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
+            store_predict = store_predict.merge(temp_predict, on="id", how="outer")
+        print("Added Prediction results to the ridge_predict df")
+        return store_predict
 
 # %%
 index_init = RidgeModel("Index SDG 1", sdg_indexes["index_sdg1"],sat_mod[X_index_1])
@@ -502,9 +503,11 @@ index_init = RidgeModel("Index SDG 1", sdg_indexes["index_sdg1"],sat_mod[X_index
 index_init.set_model()
 # %%
 index_init.get_coef()
+
+#  %%
 index_init.evaluate_preds(ridge_results)
 # %%
-index_init.predict(ridge_predict)
+ridge_predict = index_init.predict(ridge_predict)
 # %%
 index_sec = RidgeModel("Index SDG 2", sdg_indexes["index_sdg2"],sat_mod[X_index_2])
 # %%
@@ -512,4 +515,6 @@ index_sec.set_model()
 # %%
 index_sec.get_coef()
 index_sec.evaluate_preds(ridge_results)
+# %%
+ridge_predict = index_sec.predict(ridge_predict)
 # %%

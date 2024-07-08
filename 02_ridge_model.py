@@ -46,8 +46,7 @@ def run_all():
         # Set up model 
         y = sdg_indexes[y_variable]
         X = sat_mod[X_variable]
-        model = f"sdg{i}_model"
-        
+         
         model = RidgeModel(y_variable, X, y)
         model.set_model()
         model.get_coef()

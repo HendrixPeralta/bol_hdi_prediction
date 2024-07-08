@@ -178,143 +178,14 @@ Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_
 
 y_variables = sdg_indexes.drop(columns= {"id", "mun_id"})
 
+
 # %%
-# Training the Ridge model 
-
-#x = sat_mod[[ "ln_t400NTLpc2012", "ln_tr400_pop2012", 'lnEGDPpc2012', 'ln_perUrb_land2012',  
-#               "ln_pm25_2012", "ln_land_temp2012",'ln_dist_road2017' ,'ln_ghsl2015']]
-# This ones make some sdg more relevant 
-
+# Stores scores of the basic model 
 ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+
+# Stores scores of the tuned model 
 opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
-# Stores the y_preds and y_test values 
-ridge_predict = pd.DataFrame()
 
-for y_variable, X in zip(y_variables, Xs):
-    
-    # Set up model 
-    y = y_variables[y_variable]
-    X = sat_mod[X]
-
-    np.random.seed(42)
-    X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3) 
-    self.model = linear_model.Ridge()
-    
-    # ==================
-    # Shows the coefficients for each predictor
-    fitted_model = self.model.fit(X_train, y_train);
-    model_coef(fitted_model,X,y)
-    # ==================
-
-    # Store the cross evaluation resilts into a df 
-    scores = evaluate_preds(self.model, X, y)
-    ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
-    results = ridge_results.round(4).sort_values(by="r2", ascending=False)
-
-    # =================
-    # Optimizer 
-    #opt_ri_model = model_optimizer(self.model)
-    #opt_ri_model.fit(X_train, y_train);
-    #print("Best parameters for: ", y_variable)
-    #print(opt_ri_model.best_params_)
-    #print("="*80)
-    #print("\n\n")
-    
-    #opt_scores = evaluate_preds(opt_ri_model, X, y)
-    #opt_ridge_results.loc[len(opt_ridge_results.index)] = [y_variable, opt_scores[0], opt_scores[1], 
-    #                                                       opt_scores[2]]
-
-    #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
-    #==================
-
-    # Predicts and stores the prediction and real values to make graphs 
-    y_pred = self.model.predict(X_test)
-
-    col0 = y_variable + "_true"
-    col1 = y_variable + "_pred"
-    temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
-    temp_predict.index.name = "id"
-    
-    if ridge_predict.empty:
-        ridge_predict = temp_predict
-    else:
-        ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
-
-
-    
-
-# %% [markdown]
-# ## Graph best fitters 
-    
-# %% GRAPHS 
-fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
-                                         ncols=4, 
-                                         figsize=(20, 7))
-
-# Graph 1 
-g_x = ridge_predict["index_sdg1_true"]
-g_y = ridge_predict["index_sdg1_pred"]
-
-ax0.scatter(x = g_x, y = g_y)
-ax0.set(xlabel="index_sdg1_true", ylabel="index_sdg1_pred", title="SDG1")
-
-# add trendline
-z = np.polyfit(g_x, g_y, 1)
-p = np.poly1d(z)
-ax0.plot(g_x,p(g_x),"r-")
-
-
-# Graph 1 
-g_x = ridge_predict["imds_true"]
-g_y = ridge_predict["imds_pred"]
-
-ax1.scatter(x = g_x, y = g_y)
-ax1.set(xlabel="imds_true", ylabel="imds_abs_pred", title="imds")
-
-# add trendline
-z = np.polyfit(g_x, g_y, 1)
-p = np.poly1d(z)
-ax1.plot(g_x,p(g_x),"r-")
-
-
-# Graph 1 
-g_x = ridge_predict["index_sdg11_true"]
-g_y = ridge_predict["index_sdg11_pred"]
-
-ax2.scatter(x = g_x, y = g_y)
-ax2.set(xlabel="index_sdg11_true", ylabel="index_sdg11_pred", title="index_sdg11")
-
-# add trendline
-z = np.polyfit(g_x, g_y, 1)
-p = np.poly1d(z)
-ax2.plot(g_x,p(g_x),"r-")
-
-
-# Graph 1 
-g_x = ridge_predict["index_sdg9_true"]
-g_y = ridge_predict["index_sdg9_pred"]
-
-ax3.scatter(x = g_x, y = g_y)
-ax3.set(xlabel="index_sdg9_true", ylabel="index_sdg9_pred", title="index_sdg9")
-
-# add trendline
-z = np.polyfit(g_x, g_y, 1)
-p = np.poly1d(z)
-ax3.plot(g_x,p(g_x),"r-")
-
-# %% [markdown]
-# # Adjust Hyperparameters 
-
-# %%
-mer = pd.merge(sat_mod[X_index_1 + ["id"]], sdg_indexes[["id", "index_sdg1"]], on="id", how="outer")
-
-# %%
-
-
-
-# %%
-ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
-opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
 # Stores the y_preds and y_test values 
 ridge_predict = pd.DataFrame()
 
@@ -459,3 +330,130 @@ ridge_predict = index_sec.predict(ridge_predict)
 index_init.scatter_hist()
 # %%
 
+
+# %%
+
+
+# %%
+
+
+# %%
+
+
+# %%
+
+for y_variable, X in zip(y_variables, Xs):
+    
+    # Set up model 
+    y = y_variables[y_variable]
+    X = sat_mod[X]
+
+    np.random.seed(42)
+    X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3) 
+    self.model = linear_model.Ridge()
+    
+    # ==================
+    # Shows the coefficients for each predictor
+    fitted_model = self.model.fit(X_train, y_train);
+    model_coef(fitted_model,X,y)
+    # ==================
+
+    # Store the cross evaluation resilts into a df 
+    scores = evaluate_preds(self.model, X, y)
+    ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
+    results = ridge_results.round(4).sort_values(by="r2", ascending=False)
+
+    # =================
+    # Optimizer 
+    #opt_ri_model = model_optimizer(self.model)
+    #opt_ri_model.fit(X_train, y_train);
+    #print("Best parameters for: ", y_variable)
+    #print(opt_ri_model.best_params_)
+    #print("="*80)
+    #print("\n\n")
+    
+    #opt_scores = evaluate_preds(opt_ri_model, X, y)
+    #opt_ridge_results.loc[len(opt_ridge_results.index)] = [y_variable, opt_scores[0], opt_scores[1], 
+    #                                                       opt_scores[2]]
+
+    #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
+    #==================
+
+    # Predicts and stores the prediction and real values to make graphs 
+    y_pred = self.model.predict(X_test)
+
+    col0 = y_variable + "_true"
+    col1 = y_variable + "_pred"
+    temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
+    temp_predict.index.name = "id"
+    
+    if ridge_predict.empty:
+        ridge_predict = temp_predict
+    else:
+        ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
+
+# %%
+# %% [markdown]
+# ## Graph best fitters 
+    
+# %% GRAPHS 
+fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
+                                         ncols=4, 
+                                         figsize=(20, 7))
+
+# Graph 1 
+g_x = ridge_predict["index_sdg1_true"]
+g_y = ridge_predict["index_sdg1_pred"]
+
+ax0.scatter(x = g_x, y = g_y)
+ax0.set(xlabel="index_sdg1_true", ylabel="index_sdg1_pred", title="SDG1")
+
+# add trendline
+z = np.polyfit(g_x, g_y, 1)
+p = np.poly1d(z)
+ax0.plot(g_x,p(g_x),"r-")
+
+
+# Graph 1 
+g_x = ridge_predict["imds_true"]
+g_y = ridge_predict["imds_pred"]
+
+ax1.scatter(x = g_x, y = g_y)
+ax1.set(xlabel="imds_true", ylabel="imds_abs_pred", title="imds")
+
+# add trendline
+z = np.polyfit(g_x, g_y, 1)
+p = np.poly1d(z)
+ax1.plot(g_x,p(g_x),"r-")
+
+
+# Graph 1 
+g_x = ridge_predict["index_sdg11_true"]
+g_y = ridge_predict["index_sdg11_pred"]
+
+ax2.scatter(x = g_x, y = g_y)
+ax2.set(xlabel="index_sdg11_true", ylabel="index_sdg11_pred", title="index_sdg11")
+
+# add trendline
+z = np.polyfit(g_x, g_y, 1)
+p = np.poly1d(z)
+ax2.plot(g_x,p(g_x),"r-")
+
+
+# Graph 1 
+g_x = ridge_predict["index_sdg9_true"]
+g_y = ridge_predict["index_sdg9_pred"]
+
+ax3.scatter(x = g_x, y = g_y)
+ax3.set(xlabel="index_sdg9_true", ylabel="index_sdg9_pred", title="index_sdg9")
+
+# add trendline
+z = np.polyfit(g_x, g_y, 1)
+p = np.poly1d(z)
+ax3.plot(g_x,p(g_x),"r-")
+
+# %% [markdown]
+# # Adjust Hyperparameters 
+
+# %%
+#mer = pd.merge(sat_mod[X_index_1 + ["id"]], sdg_indexes[["id", "index_sdg1"]], on="id", how="outer")

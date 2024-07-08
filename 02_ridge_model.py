@@ -497,26 +497,21 @@ class RidgeModel:
         plt.show()
 
 # %%
+# Instance for the SDG 1 
 index_init = RidgeModel("Index SDG 1", sdg_indexes["index_sdg1"],sat_mod[X_index_1])
-# %%
 index_init.set_model()
-# %%
 index_init.get_coef()
-
-#  %%
 index_init.evaluate_preds(ridge_results)
-# %%
 ridge_predict = index_init.predict(ridge_predict)
+index_init.scatter_hist()
 
 # %%
-index_init.scatter_hist()
-# %%
+# Instance for the SDG 2
 index_sec = RidgeModel("Index SDG 2", sdg_indexes["index_sdg2"],sat_mod[X_index_2])
-# %%
 index_sec.set_model()
-# %%
 index_sec.get_coef()
 index_sec.evaluate_preds(ridge_results)
-# %%
 ridge_predict = index_sec.predict(ridge_predict)
+index_init.scatter_hist()
 # %%
+

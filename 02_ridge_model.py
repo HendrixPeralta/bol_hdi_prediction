@@ -1,6 +1,6 @@
 # %%
 # %%
-from typing import Self
+from typing import self
 import numpy as np
 import pandas as pd
 import sklearn as ktl
@@ -253,22 +253,22 @@ for y_variable, X in zip(y_variables, Xs):
 
     np.random.seed(42)
     X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=0.3) 
-    Self.model = linear_model.Ridge()
+    self.model = linear_model.Ridge()
     
     # ==================
     # Shows the coefficients for each predictor
-    fitted_model = Self.model.fit(X_train, y_train);
+    fitted_model = self.model.fit(X_train, y_train);
     model_coef(fitted_model,X,y)
     # ==================
 
     # Store the cross evaluation resilts into a df 
-    scores = evaluate_preds(Self.model, X, y)
+    scores = evaluate_preds(self.model, X, y)
     ridge_results.loc[len(ridge_results.index)] = [y_variable, scores[0], scores[1], scores[2]]  
     results = ridge_results.round(4).sort_values(by="r2", ascending=False)
 
     # =================
     # Optimizer 
-    #opt_ri_model = model_optimizer(Self.model)
+    #opt_ri_model = model_optimizer(self.model)
     #opt_ri_model.fit(X_train, y_train);
     #print("Best parameters for: ", y_variable)
     #print(opt_ri_model.best_params_)
@@ -283,7 +283,7 @@ for y_variable, X in zip(y_variables, Xs):
     #==================
 
     # Predicts and stores the prediction and real values to make graphs 
-    y_pred = Self.model.predict(X_test)
+    y_pred = self.model.predict(X_test)
 
     col0 = y_variable + "_true"
     col1 = y_variable + "_pred"
@@ -391,46 +391,46 @@ ridge_predict = pd.DataFrame()
 
 class RidgeModel: 
 
-    def __init__(Self, name, y, X, test_size=0.3, model = None):
-        Self.name = name
-        Self.X = X
-        Self.y = y
-        Self.model = model
-        Self.fitted_model = None
-        Self.X_train = None
-        Self.X_test = None
-        Self.y_train = None
-        Self.y_test = None
-        Self.test_size = test_size
+    def __init__(self, name, y, X, test_size=0.3, model = None):
+        self.name = name
+        self.X = X
+        self.y = y
+        self.model = model
+        self.fitted_model = None
+        self.X_train = None
+        self.X_test = None
+        self.y_train = None
+        self.y_test = None
+        self.test_size = test_size
 
     # Set up model 
-    def set_model(Self):
+    def set_model(self):
         np.random.seed(42)
-        Self.X_train, Self.X_test, Self.y_train, Self.y_test = train_test_split(Self.X,Self.y, test_size = Self.test_size) 
-        Self.model = linear_model.Ridge()
-        Self.fitted_model = Self.model.fit(Self.X_train, Self.y_train);
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X,self.y, test_size = self.test_size) 
+        self.model = linear_model.Ridge()
+        self.fitted_model = self.model.fit(self.X_train, self.y_train);
         print("model fitted")
     # ==================
     
     # Shows the coefficients for each predictor
-    def get_coef(Self):
+    def get_coef(self):
 
-        print("*"*20, Self.name, "*"*20, "\n")
-        print(f"X variables:\n {np.array(Self.X.columns)}\n")
-        print(f"Non CV score: {(Self.fitted_model.score(Self.X_test, Self.y_test)*100).round(2)}\n")
+        print("*"*20, self.name, "*"*20, "\n")
+        print(f"X variables:\n {np.array(self.X.columns)}\n")
+        print(f"Non CV score: {(self.fitted_model.score(self.X_test, self.y_test)*100).round(2)}\n")
 
-        coeff = Self.fitted_model.coef_
+        coeff = self.fitted_model.coef_
         
         relevance = 1 
 
         # Calculates relevant coefficients 
-        pos_rel = np.array(Self.X.columns)[coeff>relevance]
-        neg_rel = np.array(Self.X.columns)[coeff<-relevance]
+        pos_rel = np.array(self.X.columns)[coeff>relevance]
+        neg_rel = np.array(self.X.columns)[coeff<-relevance]
 
         # Calcuates NON relevant coefficients
 
-        pos_non = np.array(Self.X.columns)[(coeff<relevance) & (coeff>0)]
-        neg_non = np.array(Self.X.columns)[(coeff>-relevance) & (coeff<0)]
+        pos_non = np.array(self.X.columns)[(coeff<relevance) & (coeff>0)]
+        neg_non = np.array(self.X.columns)[(coeff>-relevance) & (coeff<0)]
         #filtered_columns_str = ", ".join(filtered_columns)
         
         print("Relevant and positive:")
@@ -449,26 +449,26 @@ class RidgeModel:
         print("="*80)
         print("\n\n")
         
-        #model_coef(Self.fitted_model,X,y)
+        #model_coef(self.fitted_model,X,y)
     # ==================
 
     # Store the cross evaluation resilts into a df 
-    def evaluate_preds(Self, ridge_results):
+    def evaluate_preds(self, ridge_results):
         """
         Performs evaluation comparison on y_true labels vs. y_pred labels
         on a classification.
         """
-        r2 = (np.mean(cross_val_score(Self.model, Self.X, Self.y, scoring="r2")))*100
-        mae = np.mean(cross_val_score(Self.model, Self.X, Self.y, scoring="neg_mean_absolute_error"))
-        mse = np.mean(cross_val_score(Self.model, Self.X, Self.y, scoring="neg_mean_squared_error"))
+        r2 = (np.mean(cross_val_score(self.model, self.X, self.y, scoring="r2")))*100
+        mae = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_absolute_error"))
+        mse = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_squared_error"))
         scores = [r2, mae, mse]
         
-        ridge_results.loc[len(ridge_results.index)] = [Self.name, scores[0], scores[1], scores[2]]  
+        ridge_results.loc[len(ridge_results.index)] = [self.name, scores[0], scores[1], scores[2]]  
         ridge_results = ridge_results.round(4).sort_values(by="r2", ascending=False)
 
     # =================
     # Optimizer 
-    #opt_ri_model = model_optimizer(Self.model)
+    #opt_ri_model = model_optimizer(self.model)
     #opt_ri_model.fit(X_train, y_train);
     #print("Best parameters for: ", y_variable)
     #print(opt_ri_model.best_params_)
@@ -482,18 +482,19 @@ class RidgeModel:
     #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
     #==================
 
-        # Predicts and stores the prediction and real values to make graphs 
-#        y_pred = Self.model.predict(X_test)
+    # Predicts and stores the prediction and real values to make graphs 
+    def predict(self, ridge_predict):   
+        y_pred = self.model.predict(self.X_test)
 #
-#        col0 = y_variable + "_true"
-#        col1 = y_variable + "_pred"
-#        temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
-#        temp_predict.index.name = "id"
+        col0 = self.name + "_true"
+        col1 = self.name + "_pred"
+        temp_predict = pd.DataFrame({col0: y_test, col1: y_pred}, index=y_test.index)
+        temp_predict.index.name = "id"
 #        
- #       if ridge_predict.empty:
-#            ridge_predict = temp_predict
-#        else:
-#            ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
+        if ridge_predict.empty:
+            ridge_predict = temp_predict
+        else:
+            ridge_predict = ridge_predict.merge(temp_predict, on="id", how="outer")
 
 # %%
 index_init = RidgeModel("Index SDG 1", sdg_indexes["index_sdg1"],sat_mod[X_index_1])
@@ -503,8 +504,9 @@ index_init.set_model()
 index_init.get_coef()
 index_init.evaluate_preds(ridge_results)
 # %%
+index_init.predict(ridge_predict)
+# %%
 index_sec = RidgeModel("Index SDG 2", sdg_indexes["index_sdg2"],sat_mod[X_index_2])
-
 # %%
 index_sec.set_model()
 # %%

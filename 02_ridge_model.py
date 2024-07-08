@@ -181,16 +181,6 @@ ys = sdg_indexes.drop(columns= {"id", "mun_id"})
 
 
 # %%
-# Stores scores of the basic model 
-ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
-
-# Stores scores of the tuned model 
-opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
-
-# Stores the y_preds and y_test values 
-ridge_predict = pd.DataFrame()
-
-
 class RidgeModel: 
 
     def __init__(self, name, X=pd.DataFrame, y=pd.DataFrame, test_size=0.3, model = None):
@@ -271,6 +261,8 @@ class RidgeModel:
         score_results = score_results.round(4).sort_values(by="r2", ascending=False)
         print("Scores stores you can see them in the ridge_results df")
 
+        return score_results
+
     # Predicts and stores the prediction and real values to make graphs 
     def predict(self, store_predict):   
         y_pred = self.model.predict(self.X_test)
@@ -313,11 +305,22 @@ class RidgeModel:
     #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
     #==================
 # %%
+# Stores scores of the basic model 
+ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+
+# Stores scores of the tuned model 
+opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+
+# Stores the y_preds and y_test values 
+ridge_predict = pd.DataFrame()
+
+
+# %% 
 # Instance for the SDG 1 
 sdg1_model = RidgeModel("Index SDG 1", sat_mod[X_index_1], sdg_indexes["index_sdg1"])
 sdg1_model.set_model()
 sdg1_model.get_coef()
-sdg1_model.evaluate_preds(ridge_results)
+ridge_results = sdg1_model.evaluate_preds(ridge_results)
 ridge_predict = sdg1_model.predict(ridge_predict)
 #sdg1_model.scatter_hist()
 
@@ -326,18 +329,22 @@ ridge_predict = sdg1_model.predict(ridge_predict)
 sdg2_model = RidgeModel("Index SDG 2",sat_mod[X_index_2], sdg_indexes["index_sdg2"])
 sdg2_model.set_model()
 sdg2_model.get_coef()
-sdg2_model.evaluate_preds(ridge_results)
+ridge_results = sdg2_model.evaluate_preds(ridge_results)
 ridge_predict = sdg2_model.predict(ridge_predict)
 #sdg2_model.scatter_hist()
 # %%
 sdg3_model = RidgeModel("Index SDG 3",sat_mod[X_index_3], sdg_indexes["index_sdg3"])
 sdg3_model.set_model()
 sdg3_model.get_coef()
-sdg3_model.evaluate_preds(ridge_results)
+ridge_results = sdg3_model.evaluate_preds(ridge_results)
 ridge_predict = sdg3_model.predict(ridge_predict)
 
-
-
+# %%
+sdg4_model = RidgeModel("Index SDG 4",sat_mod[X_index_4], sdg_indexes["index_sdg4"])
+sdg4_model.set_model()
+sdg4_model.get_coef()
+ridge_results = sdg4_model.evaluate_preds(ridge_results)
+ridge_predict = sdg4_model.predict(ridge_predict)
 # %%
 
 def run_all(): 
@@ -362,7 +369,7 @@ def run_all():
         model = RidgeModel(y_variable, X, y)
         model.set_model()
         model.get_coef()
-        model.evaluate_preds(ridge_results)
+        ridge_results = model.evaluate_preds(ridge_results)
         #model.scatter_hist()
         ridge_predict = model.predict(ridge_predict)
 

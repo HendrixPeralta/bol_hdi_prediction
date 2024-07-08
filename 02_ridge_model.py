@@ -46,7 +46,7 @@ def run_all():
         # Set up model 
         y = sdg_indexes[y_variable]
         X = sat_mod[X_variable]
-         
+
         model = RidgeModel(y_variable, X, y)
         model.set_model()
         model.get_coef()
@@ -282,7 +282,7 @@ class RidgeModel:
         
         score_results.loc[len(score_results.index)] = [self.name, scores[0], scores[1], scores[2]]  
         score_results = score_results.round(4).sort_values(by="r2", ascending=False)
-        print("Scores stores you can see them in the ridge_results df")
+        #print("Scores stores you can see them in the ridge_results df")
 
         return score_results
 
@@ -298,7 +298,7 @@ class RidgeModel:
             store_predict = temp_predict
         else:
             store_predict = store_predict.merge(temp_predict, on="id", how="outer")
-        print("Added Prediction results to the ridge_predict df")
+        #print("Added Prediction results to the ridge_predict df")
         return store_predict
     
     def scatter_hist(self):

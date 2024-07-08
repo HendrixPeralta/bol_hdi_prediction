@@ -173,7 +173,11 @@ erase_imds = ['Beni', 'La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'ln_elev2017me
                'lnagr_land2012', "ln_slope500m2017mean", 'ln_access2016mean']
 X_imds = [e for e in X if e not in erase_imds]
 
+# Definition for the iterative instancing 
+Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
+        X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]
 
+ys = sdg_indexes.drop(columns= {"id", "mun_id"})
 
 
 # %%
@@ -220,16 +224,16 @@ class RidgeModel:
         print(f"X variables:\n {np.array(self.X.columns)}\n")
         print(f"Non CV score: {(self.fitted_model.score(self.X_test, self.y_test)*100).round(2)}\n")
 
-        coeff = self.fitted_model.coef_
-        
+        coeff = self.fitted_model.coef_.flatten()       
         relevance = 1 
+        print(f"Shape of coefficients: {coeff.shape}")
+        print(f"Number of X columns: {len(self.X.columns)}")
 
         # Calculates relevant coefficients 
         pos_rel = np.array(self.X.columns)[coeff>relevance]
         neg_rel = np.array(self.X.columns)[coeff<-relevance]
 
         # Calcuates NON relevant coefficients
-
         pos_non = np.array(self.X.columns)[(coeff<relevance) & (coeff>0)]
         neg_non = np.array(self.X.columns)[(coeff>-relevance) & (coeff<0)]
         #filtered_columns_str = ", ".join(filtered_columns)
@@ -315,7 +319,7 @@ sdg1_model.set_model()
 sdg1_model.get_coef()
 sdg1_model.evaluate_preds(ridge_results)
 ridge_predict = sdg1_model.predict(ridge_predict)
-sdg1_model.scatter_hist()
+#sdg1_model.scatter_hist()
 
 # %%
 # Instance for the SDG 2
@@ -324,56 +328,49 @@ sdg2_model.set_model()
 sdg2_model.get_coef()
 sdg2_model.evaluate_preds(ridge_results)
 ridge_predict = sdg2_model.predict(ridge_predict)
-sdg2_model.scatter_hist()
+#sdg2_model.scatter_hist()
 # %%
+sdg3_model = RidgeModel("Index SDG 3",sat_mod[X_index_3], sdg_indexes["index_sdg3"])
+sdg3_model.set_model()
+sdg3_model.get_coef()
+sdg3_model.evaluate_preds(ridge_results)
+ridge_predict = sdg3_model.predict(ridge_predict)
 
-
-# %%
-
-
-# %%
-
-
-# %%
 
 
 # %%
 
-def run_all(model_name, 
-            title_name, 
-            X=pd.DataFrame, 
-            y=pd.DataFrame, 
-            ridge_results=pd.DataFrame, 
-            ridge_predict=pd.DataFrame): 
-    
+def run_all(): 
+    global Xs 
+    global ys
+    global ridge_predict
+    global ridge_results
+
     # Makes sure that the df are empty 
-    ridge_results.drop(ridge_results.index, inplace=True)
-    ridge_results.drop(ridge_results.columns, axis=1, inplace=True)
+    #ridge_results.drop(ridge_results.index, inplace=True)
+    #ridge_results.drop(ridge_results.columns, axis=0, inplace=True)
 
-    ridge_predict.drop(ridge_predict.index, inplace=True)
-    ridge_predict.drop(ridge_predict.columns, axis=1, inplace=True)
-
-    # Define X and y variables 
-    Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
-        X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]
-
-    y_variables = sdg_indexes.drop(columns= {"id", "mun_id"})
-
-    for y_variable, X in zip(y_variables, Xs):
-        
+    #ridge_predict.drop(ridge_predict.index, inplace=True)
+    #ridge_predict.drop(ridge_predict.columns, axis=0, inplace=True)
+    i=1
+    for y_variable, X_variable in zip(ys, Xs):
         # Set up model 
-        y = y_variables[y_variable]
-        X = sat_mod[X]
-
-        model = RidgeModel(y_variable, y,X)
+        y = sdg_indexes[y_variable]
+        X = sat_mod[X_variable]
+        model = f"sdg{i}_model"
+        
+        model = RidgeModel(y_variable, X, y)
         model.set_model()
         model.get_coef()
         model.evaluate_preds(ridge_results)
-        model.scatter_hist()
-        ridge_predict = sdg2_model.predict(ridge_predict)
+        #model.scatter_hist()
+        ridge_predict = model.predict(ridge_predict)
+
+        i = i+1
 
 
 # %%
+run_all()
 # %% [markdown]
 # ## Graph best fitters 
     

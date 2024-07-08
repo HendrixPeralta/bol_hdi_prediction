@@ -464,7 +464,7 @@ class RidgeModel:
         
         score_results.loc[len(score_results.index)] = [self.name, scores[0], scores[1], scores[2]]  
         score_results = score_results.round(4).sort_values(by="r2", ascending=False)
-
+        print("Scores stores you can see them in the ridge_results df")
     # =================
     # Optimizer 
     #opt_ri_model = model_optimizer(self.model)

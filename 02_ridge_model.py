@@ -27,60 +27,6 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from mlxtend.plotting import scatterplotmatrix 
 
-# %%
-
-# Returns the R2, MAE and MSE for each model which is later stored in a dataframe
-def evaluate_preds(model, X, y):
-    """
-    Performs evaluation comparison on y_true labels vs. y_pred labels
-    on a classification.
-    """
-    r2 = (np.mean(cross_val_score(model, X, y, scoring="r2")))*100
-    mae = np.mean(cross_val_score(model, X, y, scoring="neg_mean_absolute_error"))
-    mse = np.mean(cross_val_score(model, X, y, scoring="neg_mean_squared_error"))
-    metric_dict = [r2, mae, mse]
-    
-    return metric_dict
-
-# %%
-
-# Shows the coeffients for each of the X variables 
-def model_coef(fitted_model, X,y):
-    
-    print("*"*20, y_variable, "*"*20, "\n")
-    print(f"X variables:\n {np.array(X.columns)}\n")
-    print(f"Non CV score: {(fitted_model.score(X_test, y_test)*100).round(2)}\n")
-
-    coeff = fitted_model.coef_
-    
-    relevance = 1 
-
-    # Calculates relevant coefficients 
-    pos_rel = np.array(X.columns)[coeff>relevance]
-    neg_rel = np.array(X.columns)[coeff<-relevance]
-
-    # Calcuates NON relevant coefficients
-
-    pos_non = np.array(X.columns)[(coeff<relevance) & (coeff>0)]
-    neg_non = np.array(X.columns)[(coeff>-relevance) & (coeff<0)]
-#filtered_columns_str = ", ".join(filtered_columns)
-    
-    print("Relevant and positive:")
-    print(pos_rel)
-    print("\nRelevant and negative:")
-    print(neg_rel)
-    print("\n")
-    
-    print("NON relevant and positive:")
-    print(pos_non)
-    print("\n NON relevant and negative:")
-    print(neg_non)
-    print("\n")
-    
-    print(fitted_model.coef_)
-    print("="*80)
-    print("\n\n")
-
 
 # %%
 
@@ -398,8 +344,7 @@ class RidgeModel:
         self.model = linear_model.Ridge()
         self.fitted_model = self.model.fit(self.X_train, self.y_train);
         print("model fitted")
-    # ==================
-    
+    # ==================    
     # Shows the coefficients for each predictor
     def get_coef(self):
 
@@ -439,7 +384,6 @@ class RidgeModel:
         
         #model_coef(self.fitted_model,X,y)
     # ==================
-
     # Store the cross evaluation resilts into a df 
     def evaluate_preds(self, score_results):
         """
@@ -454,21 +398,6 @@ class RidgeModel:
         score_results.loc[len(score_results.index)] = [self.name, scores[0], scores[1], scores[2]]  
         score_results = score_results.round(4).sort_values(by="r2", ascending=False)
         print("Scores stores you can see them in the ridge_results df")
-    # =================
-    # Optimizer 
-    #opt_ri_model = model_optimizer(self.model)
-    #opt_ri_model.fit(X_train, y_train);
-    #print("Best parameters for: ", y_variable)
-    #print(opt_ri_model.best_params_)
-    #print("="*80)
-    #print("\n\n")
-    
-    #opt_scores = evaluate_preds(opt_ri_model, X, y)
-    #opt_ridge_results.loc[len(opt_ridge_results.index)] = [y_variable, opt_scores[0], opt_scores[1], 
-    #                                                       opt_scores[2]]
-
-    #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
-    #==================
 
     # Predicts and stores the prediction and real values to make graphs 
     def predict(self, store_predict):   
@@ -496,6 +425,21 @@ class RidgeModel:
         plt.tight_layout()
         plt.show()
 
+    # =================
+    # Optimizer 
+    #opt_ri_model = model_optimizer(self.model)
+    #opt_ri_model.fit(X_train, y_train);
+    #print("Best parameters for: ", y_variable)
+    #print(opt_ri_model.best_params_)
+    #print("="*80)
+    #print("\n\n")
+    
+    #opt_scores = evaluate_preds(opt_ri_model, X, y)
+    #opt_ridge_results.loc[len(opt_ridge_results.index)] = [y_variable, opt_scores[0], opt_scores[1], 
+    #                                                       opt_scores[2]]
+
+    #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
+    #==================
 # %%
 # Instance for the SDG 1 
 index_init = RidgeModel("Index SDG 1", sdg_indexes["index_sdg1"],sat_mod[X_index_1])

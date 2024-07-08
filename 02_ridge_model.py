@@ -29,7 +29,33 @@ from mlxtend.plotting import scatterplotmatrix
 
 
 # %%
+def run_all(): 
+    global Xs 
+    global ys
+    global ridge_predict
+    global ridge_results
 
+    # Makes sure that the df are empty 
+    #ridge_results.drop(ridge_results.index, inplace=True)
+    #ridge_results.drop(ridge_results.columns, axis=0, inplace=True)
+
+    #ridge_predict.drop(ridge_predict.index, inplace=True)
+    #ridge_predict.drop(ridge_predict.columns, axis=0, inplace=True)
+    i=1
+    for y_variable, X_variable in zip(ys, Xs):
+        # Set up model 
+        y = sdg_indexes[y_variable]
+        X = sat_mod[X_variable]
+        model = f"sdg{i}_model"
+        
+        model = RidgeModel(y_variable, X, y)
+        model.set_model()
+        model.get_coef()
+        ridge_results = model.evaluate_preds(ridge_results)
+        #model.scatter_hist()
+        ridge_predict = model.predict(ridge_predict)
+
+        i = i+1
 # Optimizes and save the models 
 def model_optimizer(model):
    
@@ -216,8 +242,6 @@ class RidgeModel:
 
         coeff = self.fitted_model.coef_.flatten()       
         relevance = 1 
-        print(f"Shape of coefficients: {coeff.shape}")
-        print(f"Number of X columns: {len(self.X.columns)}")
 
         # Calculates relevant coefficients 
         pos_rel = np.array(self.X.columns)[coeff>relevance]
@@ -345,36 +369,6 @@ sdg4_model.set_model()
 sdg4_model.get_coef()
 ridge_results = sdg4_model.evaluate_preds(ridge_results)
 ridge_predict = sdg4_model.predict(ridge_predict)
-# %%
-
-def run_all(): 
-    global Xs 
-    global ys
-    global ridge_predict
-    global ridge_results
-
-    # Makes sure that the df are empty 
-    #ridge_results.drop(ridge_results.index, inplace=True)
-    #ridge_results.drop(ridge_results.columns, axis=0, inplace=True)
-
-    #ridge_predict.drop(ridge_predict.index, inplace=True)
-    #ridge_predict.drop(ridge_predict.columns, axis=0, inplace=True)
-    i=1
-    for y_variable, X_variable in zip(ys, Xs):
-        # Set up model 
-        y = sdg_indexes[y_variable]
-        X = sat_mod[X_variable]
-        model = f"sdg{i}_model"
-        
-        model = RidgeModel(y_variable, X, y)
-        model.set_model()
-        model.get_coef()
-        ridge_results = model.evaluate_preds(ridge_results)
-        #model.scatter_hist()
-        ridge_predict = model.predict(ridge_predict)
-
-        i = i+1
-
 
 # %%
 run_all()

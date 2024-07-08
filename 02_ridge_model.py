@@ -364,22 +364,7 @@ mer = pd.merge(sat_mod[X_index_1 + ["id"]], sdg_indexes[["id", "index_sdg1"]], o
 
 # %%
 
-cols = list(mer.columns)
 
-cols.remove("id")
-#cols.remove("dep")
-#cols.remove("beni")
-cols.remove('Chuquisaca')
-cols.remove('Cochabamba')
-#cols.remove("La Paz")
-#cols.remove("Oruro")
-#cols.remove("Pando")
-cols.remove("Potosí")
-cols.remove("Santa Cruz")
-cols.remove("Tarija")
-scatterplotmatrix(mer[cols].values, figsize=(50,50), names=cols, alpha=0.5)
-plt.tight_layout()
-plt.show()
 
 # %%
 ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
@@ -390,7 +375,7 @@ ridge_predict = pd.DataFrame()
 
 class RidgeModel: 
 
-    def __init__(self, name, y, X, test_size=0.3, model = None):
+    def __init__(self, name, y=pd.DataFrame, X=pd.DataFrame, test_size=0.3, model = None):
         self.name = name
         self.X = X
         self.y = y
@@ -401,7 +386,11 @@ class RidgeModel:
         self.y_train = None
         self.y_test = None
         self.test_size = test_size
+        self.full_df = None
 
+        X.index.name = "id"
+        y.index.name = "id"
+        self.full_df = X.merge(y, on="id", how="outer")
     # Set up model 
     def set_model(self):
         np.random.seed(42)
@@ -489,13 +478,23 @@ class RidgeModel:
         col1 = self.name + "_pred"
         temp_predict = pd.DataFrame({col0: self.y_test, col1: y_pred}, index=self.y_test.index)
         temp_predict.index.name = "id"
-        print(temp_predict) 
         if store_predict.empty:
             store_predict = temp_predict
         else:
             store_predict = store_predict.merge(temp_predict, on="id", how="outer")
         print("Added Prediction results to the ridge_predict df")
         return store_predict
+    
+    def scatter_hist(self):
+        cols = list(self.full_df.columns)
+        non_continuous_vars = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz',
+            'Tarija', "id", "dep"]
+
+        col_eval = [col for col in cols if col not in non_continuous_vars]
+
+        scatterplotmatrix(self.full_df[col_eval].values, figsize=(50,50), names=col_eval, alpha=0.5)
+        plt.tight_layout()
+        plt.show()
 
 # %%
 index_init = RidgeModel("Index SDG 1", sdg_indexes["index_sdg1"],sat_mod[X_index_1])
@@ -508,6 +507,9 @@ index_init.get_coef()
 index_init.evaluate_preds(ridge_results)
 # %%
 ridge_predict = index_init.predict(ridge_predict)
+
+# %%
+index_init.scatter_hist()
 # %%
 index_sec = RidgeModel("Index SDG 2", sdg_indexes["index_sdg2"],sat_mod[X_index_2])
 # %%

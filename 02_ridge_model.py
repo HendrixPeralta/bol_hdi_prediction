@@ -27,7 +27,7 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from mlxtend.plotting import scatterplotmatrix 
 
-
+# TODO: Create a funciton that deletes the values of the dataframes ridge_predict, ridge_results, opt_ridge_results
 # %%
 def run_all(): 
     global Xs 
@@ -84,9 +84,10 @@ def model_optimizer(model):
 sdg_indexes = pd.read_csv("data/sdg_prediction/sdg_indexes.csv")
 sat_mod = pd.read_csv("data/sdg_prediction/sat_mod.csv")
 sdg_indicators = pd.read_csv("data/sdg_prediction/sdg_indicators_norm.csv")
-
+sat_true = pd.read_csv("./data/sdg_prediction/sat_true.csv")
 # Creates dommies based on the Bolivian departments  
 sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
+
 
 # %% [markdown]
 
@@ -234,6 +235,10 @@ X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', '
        'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnagr_land2012', 'lnurb_land2012', 'photov2019mean', "ln_slope500m2017mean", 
        'ln_access2016mean']
 
+#sat_true variables 
+X = ["agr_land2012", 'urb_land2012', 'perUrb_land2012', 'tr400_pop2012', 'pm25_2012', 'land_temp2012', 'ln_t400NTLpc2012',
+     'dist_road2017', 'ghsl2015', 'dist_diamond2015', 'mal_inci_rt_mean', 'dist_water2017mean', 'elev2017mean', 'dist_drug2017mean', 
+     'photov2019mean', 'access2016mean', 'slope500m2017mean', 'precCRU2012min'] 
 #'land_per_area_2012_urban_and_builtup'
 # %%
 # Stores scores of the basic model 
@@ -306,7 +311,7 @@ ridge_predict = sdg4_model.predict(ridge_predict)
 
 # Predictors NOT included in the model 
 erase_x5 = ['Chuquisaca', 'Pando', 'Santa Cruz', 'Tarija', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnurb_land2012',
-             "ln_slope500m2017mean", 'ln_access2016mean']
+             "ln_slope500m2017mean", 'ln_access2016mean', 'ln_dist_road2017']
 X_index_5 = [e for e in X if e not in erase_x5]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
@@ -453,7 +458,7 @@ imds_model = RidgeModel("SDI", sat_mod[X_imds], sdg_indexes["imds"])
 imds_model.set_model()
 imds_model.get_coef()
 ridge_results = imds_model.evaluate_preds(ridge_results)
-ridge_predict = imds_model.predict(ridge_predict)
+ridge_predict = imds_model.predict(ridge_predict) 
 # %% Definition for the iterative instancing 
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
         X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]

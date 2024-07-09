@@ -87,7 +87,7 @@ sdg_indicators = pd.read_csv("data/sdg_prediction/sdg_indicators_norm.csv")
 sat_true = pd.read_csv("./data/sdg_prediction/sat_true.csv")
 # Creates dommies based on the Bolivian departments  
 sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
-
+sat_true = sat_true.join(pd.get_dummies(sat_true.dep))
 
 # %% [markdown]
 

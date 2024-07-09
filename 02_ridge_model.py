@@ -235,10 +235,16 @@ X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', '
        'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnagr_land2012', 'lnurb_land2012', 'photov2019mean', "ln_slope500m2017mean", 
        'ln_access2016mean']
 
+# TODO: Add the population density variable 
 #sat_true variables 
-X = ["agr_land2012", 'urb_land2012', 'perUrb_land2012', 'tr400_pop2012', 'pm25_2012', 'land_temp2012', 'ln_t400NTLpc2012',
-     'dist_road2017', 'ghsl2015', 'dist_diamond2015', 'mal_inci_rt_mean', 'dist_water2017mean', 'elev2017mean', 'dist_drug2017mean', 
-     'photov2019mean', 'access2016mean', 'slope500m2017mean', 'precCRU2012min'] 
+X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'dist_drug2017mean',
+     'dist_road2017', 'elev2017mean', 'ghsl2015', 'land_temp2012', 'pm25_2012', 'precCRU2012mean', 'ln_t400NTLpc2012',
+     'tr400_pop2012', "agr_land2012", 'urb_land2012', 'photov2019mean', 'slope500m2017mean', 'access2016mean']
+     
+     
+ #    'perUrb_land2012', 
+ #    'dist_diamond2015', 'mal_inci_rt_mean', 'dist_water2017mean', 'elev2017mean',  
+        
 #'land_per_area_2012_urban_and_builtup'
 # %%
 # Stores scores of the basic model 
@@ -254,8 +260,12 @@ ridge_predict = pd.DataFrame()
 # Instance for the SDG 1 
 
 # Predictors NOT included in the model 
-erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min'
-        ]
+erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min']
+
+#TODO: Eliminate this statement 
+# Test unmodifyed X variables 
+erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'elev2017mean', 'land_temp2012', 'precCRU2012min']
+
 X_index_1 = [e for e in X if e not in erase_x1]
 
 sdg1_model = RidgeModel("Index SDG 1", sat_mod[X_index_1], sdg_indexes["index_sdg1"])
@@ -400,6 +410,11 @@ ridge_predict = sdg11_model.predict(ridge_predict)
 # Predictors NOT included in the model 
 erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_temp2012', 'ln_t400NTLpc2012', 
              'ln_tr400_pop2012', 'ln_dist_road2017', 'photov2019mean', "Beni"]
+
+#TODO: Eliminate this new statement
+# Test unmodifyed X variables 
+erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ghsl2015','land_temp2012', 'ln_t400NTLpc2012', 
+             'tr400_pop2012', 'dist_road2017', 'photov2019mean', "Beni"]
 X_index_13 = [e for e in X if e not in erase_x13]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 

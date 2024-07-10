@@ -237,7 +237,7 @@ class RidgeModel:
 X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 
      'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 'ln_pm25_2012', 
      'ln_precCRU2012mean', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', "lnagr_land2012", 'lnurb_land2012', 'photov2019mean', 
-     'ln_slope500m2017mean','ln_access2016mean', "ln_density_pop2015count"]
+     'ln_slope500m2017mean','ln_access2016mean', "ln_density_pop2015count", 'land_per_area_2012_full_forest']
      
      
  #    'perUrb_land2012', 

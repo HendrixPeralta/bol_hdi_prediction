@@ -286,7 +286,7 @@ ridge_predict = sdg2_model.predict(ridge_predict)
 # Predictors NOT included in the model 
 erase_x3 = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'ln_dist_drug2017mean', 'ln_dist_road2017', 
             'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'lnagr_land2012', 
-            'photov2019mean', "ln_slope500m2017mean", 'ln_access2016mean']
+            'photov2019mean', "ln_slope500m2017mean", 'ln_access2016mean', 'ln_precCRU2012mean']
 X_index_3 = [e for e in X if e not in erase_x3]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 

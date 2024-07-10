@@ -136,7 +136,7 @@ class RidgeModel:
         print(f"X variables:\n {np.array(self.X.columns)}\n")
         print(f"Non CV score: {(self.fitted_model.score(self.X_test, self.y_test)*100).round(2)}\n")
 
-        coeff = self.fitted_model.coef_.flatten()       
+        coeff = self.fitted_model.coef_.flatten()      
         relevance = 1 
 
         # Calculates relevant coefficients 
@@ -160,7 +160,7 @@ class RidgeModel:
         print(neg_non)
         print("\n")
         
-        print(self.fitted_model.coef_)
+        print(np.round(self.fitted_model.coef_.flatten(),4))
         print("="*80)
         print("\n\n")
         
@@ -236,7 +236,7 @@ class RidgeModel:
 X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 
      'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 'ln_pm25_2012', 
      'ln_precCRU2012mean', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', "lnagr_land2012", 'lnurb_land2012', 'photov2019mean', 
-     'ln_slope500m2017mean','ln_access2016mean']
+     'ln_slope500m2017mean','ln_access2016mean', "ln_density_pop2015count"]
      
      
  #    'perUrb_land2012', 
@@ -257,7 +257,8 @@ ridge_predict = pd.DataFrame()
 # Instance for the SDG 1 
 
 # Predictors NOT included in the model 
-erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min']
+erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 
+            'ln_dist_drug2017mean', 'ln_slope500m2017mean', 'ln_dist_road2017', 'lnagr_land2012']
 
 X_index_1 = [e for e in X if e not in erase_x1]
 

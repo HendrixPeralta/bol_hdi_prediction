@@ -357,7 +357,7 @@ ridge_predict = sdg8_model.predict(ridge_predict)
 # %% Instance for the SDG 9
 
 erase_x9 = ['Beni', 'Potosí', 'Santa Cruz', 'ln_land_temp2012', 'ln_precCRU2012min', 'lnagr_land2012',
-            "ln_slope500m2017mean", 'ln_access2016mean']
+            "ln_slope500m2017mean", 'ln_access2016mean', 'ln_precCRU2012mean']
 X_index_9 = [e for e in X if e not in erase_x9]
 
 sdg9_model = RidgeModel("Index SDG 9", sat_mod[X_index_9], sdg_indexes["index_sdg9"])

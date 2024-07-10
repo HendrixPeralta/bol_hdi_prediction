@@ -272,7 +272,7 @@ ridge_predict = sdg1_model.predict(ridge_predict)
 # Instance for the SDG 2 
 
 erase_x2 = ['Beni', 'La Paz', 'ln_dist_drug2017mean','ln_t400NTLpc2012','lnagr_land2012','photov2019mean',
-            'ln_land_temp2012', 'Chuquisaca', 'ln_pm25_2012', 'ln_dist_road2017']
+            'ln_land_temp2012', 'Chuquisaca', 'ln_pm25_2012', 'ln_dist_road2017', 'Cochabamba']
 X_index_2 = [e for e in X if e not in erase_x2]
 
 sdg2_model = RidgeModel("Index SDG 2",sat_mod[X_index_2], sdg_indexes["index_sdg2"])

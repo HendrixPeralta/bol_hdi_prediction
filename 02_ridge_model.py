@@ -30,6 +30,7 @@ from mlxtend.plotting import scatterplotmatrix
 # TODO: Create a funciton that deletes the values of the dataframes ridge_predict, ridge_results, opt_ridge_results
 # %%
 def run_all(): 
+ # FIXME: When call is does not have access to the modified X and Y variables 
     global Xs 
     global ys
     global ridge_predict

@@ -368,7 +368,7 @@ ridge_predict = sdg9_model.predict(ridge_predict)
 # %% Instance for the SDG 10 
 
 erase_x10 = ['Santa Cruz', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_land_temp2012', 'ln_pm25_2012', 
-             'ln_t400NTLpc2012',"ln_slope500m2017mean"]
+             'ln_t400NTLpc2012',"ln_slope500m2017mean", 'Tarija', 'lnagr_land2012']
 X_index_10 = [e for e in X if e not in erase_x10]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 

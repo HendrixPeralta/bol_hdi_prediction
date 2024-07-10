@@ -451,7 +451,7 @@ ridge_predict = sdg17_model.predict(ridge_predict)
 # %% Instance for the SDG imds
 
 erase_imds = ['Beni', 'La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min',
-               'lnagr_land2012', "ln_slope500m2017mean", 'ln_access2016mean']
+               'lnagr_land2012', "ln_slope500m2017mean", 'ln_access2016mean', 'land_per_area_2012_full_forest']
 X_imds = [e for e in X if e not in erase_imds]
 
 imds_model = RidgeModel("SDI", sat_mod[X_imds], sdg_indexes["imds"])

@@ -323,7 +323,7 @@ ridge_predict = sdg5_model.predict(ridge_predict)
 # %% Instance for the SDG 6 
 
 erase_x6 = ['Chuquisaca', 'Cochabamba', 'La Paz', 'Pando', 'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_land_temp2012', 
-            'ln_precCRU2012min', "ln_slope500m2017mean", 'ln_access2016mean']
+            'ln_precCRU2012min', "ln_slope500m2017mean", 'ln_access2016mean', 'ln_precCRU2012mean']
 X_index_6 = [e for e in X if e not in erase_x6]
 #        * Should add 'ln_access2016mean' later again in increased the score slightly but was irrelevant
 

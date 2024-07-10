@@ -305,7 +305,7 @@ ridge_predict = sdg3_model.predict(ridge_predict)
 
 erase_x4 = ['Cochabamba', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_pm25_2012',  
             'ln_t400NTLpc2012', "ln_slope500m2017mean", 'ln_access2016mean', 'lnagr_land2012', 'photov2019mean',
-            'Beni']
+            'Beni', 'Chuquisaca']
 X_index_4 = [e for e in X if e not in erase_x4]
 
 sdg4_model = RidgeModel("Index SDG 4",sat_mod[X_index_4], sdg_indexes["index_sdg4"])

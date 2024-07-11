@@ -347,7 +347,7 @@ ridge_predict = sdg5_model.predict(ridge_predict)
 
 erase_x6 = ['Chuquisaca', 'Cochabamba', 'La Paz', 'Pando', 'ln_dist_drug2017mean', 'ln_elev2017mean', 
             'ln_land_temp2012', 'ln_precCRU2012min', "ln_slope500m2017mean", 'ln_access2016mean', 
-            'ln_precCRU2012mean', 'ln_density_pop2015count']
+            'ln_precCRU2012mean', 'ln_density_pop2015count', 'land_per_area_2012_cropland_natural_vegetation_mosaic']
 X_index_6 = [e for e in X if e not in erase_x6]
 #        * Should add 'ln_access2016mean' later again in increased the score slightly but was irrelevant
 

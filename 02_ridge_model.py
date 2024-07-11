@@ -27,10 +27,10 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from mlxtend.plotting import scatterplotmatrix 
 
-# TODO: Create a funciton that deletes the values of the dataframes ridge_predict, ridge_results, opt_ridge_results
+# TODO: Create a functiton that deletes the values of the dataframes ridge_predict, ridge_results, opt_ridge_results
 # %%
 def run_all(): 
- # FIXME: When call is does not have access to the modified X and Y variables 
+ # FIXME: When called - does not have access to the modified X and Y variables 
     global Xs 
     global ys
     global ridge_predict
@@ -91,17 +91,7 @@ sdg_indicators = pd.read_csv("data/sdg_prediction/sdg_indicators_norm.csv")
 sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
 #sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
 
-# %% [markdown]
 
-
-# %%
-#X = sat_mod[[ "ln_t400NTLpc2012", "ln_tr400_pop2012", 'lnEGDPpc2012', 'ln_perUrb_land2012',  "ln_pm25_2012", "ln_land_temp2012"]]
-
-#X = sat_mod[['ln_access2016mean' 'ln_elev2017mean']]
-
-# %% [markdown]
-
-#'dist_diamond2015'  was not relevant on any model 
 # %% 
 # # Ridge model 
 class RidgeModel: 
@@ -210,6 +200,24 @@ class RidgeModel:
         plt.tight_layout()
         plt.show()
 
+    def model_optimizer(self):
+    
+        alpha_space = np.logspace(-4,0,30)
+        alpha_space 
+
+        grid = {"alpha": alpha_space,
+                "copy_X": [True, False],
+                "max_iter": [None, 10, 100, 200, 500, 1000, 10000], 
+                "solver": ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]}
+
+        np.random.seed(42)
+        opt_ri_model= RandomizedSearchCV(estimator = self.model,
+                                        param_distributions=grid,
+                                        n_iter=100,
+                                        cv=5,
+                                        verbose=0)
+
+        return opt_ri_model
     # =================
     # Optimizer 
     #opt_ri_model = model_optimizer(self.model)
@@ -232,18 +240,26 @@ class RidgeModel:
 #             'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
 #              'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min'
 
-# TODO: Add the population density variable 
+
 #sat_mod variables 
 X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 
-     'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 'ln_pm25_2012', 
-     'ln_precCRU2012mean', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', "lnagr_land2012", 'lnurb_land2012', 'photov2019mean', 
-     'ln_slope500m2017mean','ln_access2016mean', "ln_density_pop2015count", 'land_per_area_2012_full_forest']
+     'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 
+     'ln_pm25_2012','ln_precCRU2012mean', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 
+      'photov2019mean','ln_slope500m2017mean','ln_access2016mean', "ln_density_pop2015count", 
+     'land_per_area_2012_full_forest','land_per_area_2012_cropland_natural_vegetation_mosaic',
+     'lnurb_land2012', "lnagr_land2012"]
      
-     
+  # 'lnurb_land2012',    "lnagr_land2012", 
  #    'perUrb_land2012', 
  #    'dist_diamond2015', 'mal_inci_rt_mean', 'dist_water2017mean', 'ln_elev2017mean',  
         
 #'land_per_area_2012_urban_and_builtup'
+# %% 
+# %% [markdown]
+
+#'dist_diamond2015'  was not relevant on any model 
+# , 'ln_mal_inci_rt_mean' Didnt make any difference
+
 # %%
 # Stores scores of the basic model 
 ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
@@ -260,7 +276,7 @@ ridge_predict = pd.DataFrame()
 # Predictors NOT included in the model 
 erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 
             'ln_dist_drug2017mean', 'ln_slope500m2017mean', 'ln_dist_road2017', 'lnagr_land2012', 
-            'land_per_area_2012_full_forest']
+            'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic']
 
 X_index_1 = [e for e in X if e not in erase_x1]
 
@@ -465,8 +481,10 @@ Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_
 
 ys = sdg_indexes.drop(columns= {"id", "mun_id"})
 # %% [markdown]
-# ## Graph best fitters 
-    
+# # Graph best fitters 
+# ## Subtitle 
+# ### a smaller title 
+# Normal text  **bold text**    
 # %% GRAPHS 
 fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
                                          ncols=4, 

@@ -110,6 +110,7 @@ class RidgeModel:
         self.y_test = None
         self.test_size = test_size
         self.full_df = None
+        self.cvr2 = None
 
         X.index.name = "id"
         y.index.name = "id"
@@ -172,8 +173,10 @@ class RidgeModel:
         
         score_results.loc[len(score_results.index)] = [self.name, scores[0], scores[1], scores[2]]  
         score_results = score_results.round(4).sort_values(by="r2", ascending=False)
-        #print("Scores stores you can see them in the ridge_results df")
-
+        
+        # Saves the CV R2 into the object
+        self.cvr2 = r2
+        
         return score_results
 
     # Predicts and stores the prediction and real values to make graphs 

@@ -176,7 +176,7 @@ class RidgeModel:
         
         # Saves the CV R2 into the object
         self.cvr2 = r2
-        
+
         return score_results
 
     # Predicts and stores the prediction and real values to make graphs 
@@ -495,10 +495,10 @@ ys = sdg_indexes.drop(columns= {"id", "mun_id"})
 # ### a smaller title 
 # Normal text  **bold text**    
 # %% GRAPHS 
-def scatterplots(title1, x1, y1,
-                 title2, x2, y2,
-                 title3, x3, y3,
-                 title4, x4, y4): 
+def scatterplots(title1, x1, y1, cvr21,
+                 title2, x2, y2, cvr22,
+                 title3, x3, y3, cvr23,
+                 title4, x4, y4, cvr24,): 
     
     fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
                                             ncols=4, 
@@ -518,11 +518,11 @@ def scatterplots(title1, x1, y1,
 
     # Labels 
     corr = np.corrcoef(g_x, g_y)[0,1]
-    ax0.text(0.05, 0.95, f"Corr. coef.{corr:.2f}",
+    ax0.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
              transform=ax0.transAxes,
              fontsize=12,
              verticalalignment="top")
-    ax0.text(0.05, 0.90, f"CV. R2:{70}",
+    ax0.text(0.05, 0.90, f"CV. R2: {cvr21:.2f}",
              transform=ax0.transAxes,
              fontsize=12,
              verticalalignment="top")
@@ -541,11 +541,11 @@ def scatterplots(title1, x1, y1,
     
     # Labels 
     corr = np.corrcoef(g_x, g_y)[0,1]
-    ax1.text(0.05, 0.95, f"Corr. coef.{corr:.2f}",
+    ax1.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
              transform=ax1.transAxes,
              fontsize=12,
              verticalalignment="top")
-    ax1.text(0.05, 0.90, f"CV. R2:{70}",
+    ax1.text(0.05, 0.90, f"CV. R2:{cvr22:.2f}",
              transform=ax1.transAxes,
              fontsize=12,
              verticalalignment="top")
@@ -563,11 +563,11 @@ def scatterplots(title1, x1, y1,
     ax2.plot(g_x,p(g_x),"r-")
 
     corr = np.corrcoef(g_x, g_y)[0,1]
-    ax2.text(0.05, 0.95, f"Corr. coef.{corr:.2f}",
+    ax2.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
              transform=ax2.transAxes,
              fontsize=12,
              verticalalignment="top")
-    ax2.text(0.05, 0.90, f"CV. R2:{70}",
+    ax2.text(0.05, 0.90, f"CV. R2:{cvr23:.2f}",
              transform=ax2.transAxes,
              fontsize=12,
              verticalalignment="top")
@@ -586,25 +586,25 @@ def scatterplots(title1, x1, y1,
     ax3.plot(g_x,p(g_x),"r-")
 
     corr = np.corrcoef(g_x, g_y)[0,1]
-    ax3.text(0.05, 0.95, f"Corr. coef.{corr:.2f}",
+    ax3.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
              transform=ax3.transAxes,
              fontsize=12,
              verticalalignment="top")
-    ax3.text(0.05, 0.90, f"CV. R2:{70}",
+    ax3.text(0.05, 0.90, f"CV. R2:{cvr24:.2f}",
              transform=ax3.transAxes,
              fontsize=12,
              verticalalignment="top")
 
 # %%
-scatterplots("SDG1", "Index SDG 1_true", 'Index SDG 1_pred',
-             "SDG7", 'Index SDG 7_true', 'Index SDG 7_pred',
-             "SDI", 'SDI_true', 'SDI_pred',
-             "SDG9", 'Index SDG 9_true', 'Index SDG 9_pred')
+scatterplots("SDG1", "Index SDG 1_true", 'Index SDG 1_pred', sdg1_model.cvr2,
+             "SDG7", 'Index SDG 7_true', 'Index SDG 7_pred', sdg7_model.cvr2,
+             "SDI", 'SDI_true', 'SDI_pred', imds_model.cvr2,
+             "SDG11", 'Index SDG 11_true', 'Index SDG 11_pred', sdg11_model.cvr2)
 
-scatterplots("SDG9", "Index SDG 9_true", 'Index SDG 9_pred',
-             "SDG13", 'Index SDG 13_true', 'Index SDG 13_pred',
-             "SDG10", "Index SDG 10_true", 'Index SDG 10_pred',
-             "SDG2", 'Index SDG 2_true', 'Index SDG 2_pred')
+scatterplots("SDG9", "Index SDG 9_true", 'Index SDG 9_pred', sdg9_model.cvr2,
+             "SDG13", 'Index SDG 13_true', 'Index SDG 13_pred', sdg13_model.cvr2,
+             "SDG10", "Index SDG 10_true", 'Index SDG 10_pred', sdg10_model.cvr2,
+             "SDG2", 'Index SDG 2_true', 'Index SDG 2_pred', sdg2_model.cvr2,)
 # %% [markdown]
 # # Adjust Hyperparameters 
 

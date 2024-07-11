@@ -25,7 +25,9 @@ from sklearn.pipeline import make_pipeline
 
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
+
 from mlxtend.plotting import scatterplotmatrix 
+import scipy.stats as stats
 
 # TODO: Create a functiton that deletes the values of the dataframes ridge_predict, ridge_results, opt_ridge_results
 # %%
@@ -511,8 +513,18 @@ def scatterplots(title1, x1, y1,
     p = np.poly1d(z)
     ax0.plot(g_x,p(g_x),"r-")
 
-
-    # Graph 1 
+    # Labels 
+    corr = np.corrcoef(g_x, g_y)[0,1]
+    ax0.text(0.05, 0.95, f"Corr. coef.{corr:.2f}",
+             transform=ax0.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    ax0.text(0.05, 0.90, f"CV. R2:{70}",
+             transform=ax0.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    # ================================
+    # Graph 2 
     g_x = ridge_predict[x2]
     g_y = ridge_predict[y2]
 
@@ -523,9 +535,19 @@ def scatterplots(title1, x1, y1,
     z = np.polyfit(g_x, g_y, 1)
     p = np.poly1d(z)
     ax1.plot(g_x,p(g_x),"r-")
-
-
-    # Graph 1 
+    
+    # Labels 
+    corr = np.corrcoef(g_x, g_y)[0,1]
+    ax1.text(0.05, 0.95, f"Corr. coef.{corr:.2f}",
+             transform=ax1.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    ax1.text(0.05, 0.90, f"CV. R2:{70}",
+             transform=ax1.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    # ================================    
+    # Graph 3 
     g_x = ridge_predict[x3]
     g_y = ridge_predict[y3]
 
@@ -537,8 +559,18 @@ def scatterplots(title1, x1, y1,
     p = np.poly1d(z)
     ax2.plot(g_x,p(g_x),"r-")
 
-
-    # Graph 1 
+    corr = np.corrcoef(g_x, g_y)[0,1]
+    ax2.text(0.05, 0.95, f"Corr. coef.{corr:.2f}",
+             transform=ax2.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    ax2.text(0.05, 0.90, f"CV. R2:{70}",
+             transform=ax2.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    # ================================    
+    
+    # Graph 4 
     g_x = ridge_predict[x4]
     g_y = ridge_predict[y4]
 
@@ -550,12 +582,26 @@ def scatterplots(title1, x1, y1,
     p = np.poly1d(z)
     ax3.plot(g_x,p(g_x),"r-")
 
+    corr = np.corrcoef(g_x, g_y)[0,1]
+    ax3.text(0.05, 0.95, f"Corr. coef.{corr:.2f}",
+             transform=ax3.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    ax3.text(0.05, 0.90, f"CV. R2:{70}",
+             transform=ax3.transAxes,
+             fontsize=12,
+             verticalalignment="top")
 
 # %%
 scatterplots("SDG1", "Index SDG 1_true", 'Index SDG 1_pred',
              "SDG7", 'Index SDG 7_true', 'Index SDG 7_pred',
              "SDI", 'SDI_true', 'SDI_pred',
              "SDG9", 'Index SDG 9_true', 'Index SDG 9_pred')
+
+scatterplots("SDG9", "Index SDG 9_true", 'Index SDG 9_pred',
+             "SDG13", 'Index SDG 13_true', 'Index SDG 13_pred',
+             "SDG10", "Index SDG 10_true", 'Index SDG 10_pred',
+             "SDG2", 'Index SDG 2_true', 'Index SDG 2_pred')
 # %% [markdown]
 # # Adjust Hyperparameters 
 

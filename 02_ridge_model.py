@@ -421,7 +421,8 @@ ridge_predict = sdg11_model.predict(ridge_predict)
 # %% Instance for the SDG 13
 
 erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_temp2012','ln_tr400_pop2012', 
-             'ln_dist_road2017', 'photov2019mean', "Beni",'land_per_area_2012_full_forest']
+             'ln_dist_road2017', 'photov2019mean', "Beni",'land_per_area_2012_full_forest',
+             'land_per_area_2012_cropland_natural_vegetation_mosaic']
 X_index_13 = [e for e in X if e not in erase_x13]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 

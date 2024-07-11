@@ -58,6 +58,109 @@ def run_all():
         ridge_predict = model.predict(ridge_predict)
 
         i = i+1
+
+# %%
+# %% GRAPHS 
+def scatterplots(title1, x1, y1, cvr21,
+                 title2, x2, y2, cvr22,
+                 title3, x3, y3, cvr23,
+                 title4, x4, y4, cvr24,): 
+    
+    fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
+                                            ncols=4, 
+                                            figsize=(20, 7))
+
+    # Graph 1 
+    g_x = ridge_predict[x1]
+    g_y = ridge_predict[y1]
+
+    ax0.scatter(x = g_x, y = g_y)
+    ax0.set(xlabel=x1, ylabel=y1, title=title1)
+
+    # add trendline
+    z = np.polyfit(g_x, g_y, 1)
+    p = np.poly1d(z)
+    ax0.plot(g_x,p(g_x),"r-")
+
+    # Labels 
+    corr = np.corrcoef(g_x, g_y)[0,1]
+    ax0.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
+             transform=ax0.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    ax0.text(0.05, 0.90, f"CV. R2: {cvr21:.2f}",
+             transform=ax0.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    # ================================
+    # Graph 2 
+    g_x = ridge_predict[x2]
+    g_y = ridge_predict[y2]
+
+    ax1.scatter(x = g_x, y = g_y)
+    ax1.set(xlabel=x2, ylabel=y2, title=title2)
+
+    # add trendline
+    z = np.polyfit(g_x, g_y, 1)
+    p = np.poly1d(z)
+    ax1.plot(g_x,p(g_x),"r-")
+    
+    # Labels 
+    corr = np.corrcoef(g_x, g_y)[0,1]
+    ax1.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
+             transform=ax1.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    ax1.text(0.05, 0.90, f"CV. R2:{cvr22:.2f}",
+             transform=ax1.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    # ================================    
+    # Graph 3 
+    g_x = ridge_predict[x3]
+    g_y = ridge_predict[y3]
+
+    ax2.scatter(x = g_x, y = g_y)
+    ax2.set(xlabel=x3, ylabel=y3, title=title3)
+
+    # add trendline
+    z = np.polyfit(g_x, g_y, 1)
+    p = np.poly1d(z)
+    ax2.plot(g_x,p(g_x),"r-")
+
+    corr = np.corrcoef(g_x, g_y)[0,1]
+    ax2.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
+             transform=ax2.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    ax2.text(0.05, 0.90, f"CV. R2:{cvr23:.2f}",
+             transform=ax2.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    # ================================    
+    
+    # Graph 4 
+    g_x = ridge_predict[x4]
+    g_y = ridge_predict[y4]
+
+    ax3.scatter(x = g_x, y = g_y)
+    ax3.set(xlabel=x4, ylabel=y4, title=title4)
+
+    # add trendline
+    z = np.polyfit(g_x, g_y, 1)
+    p = np.poly1d(z)
+    ax3.plot(g_x,p(g_x),"r-")
+
+    corr = np.corrcoef(g_x, g_y)[0,1]
+    ax3.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
+             transform=ax3.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+    ax3.text(0.05, 0.90, f"CV. R2:{cvr24:.2f}",
+             transform=ax3.transAxes,
+             fontsize=12,
+             verticalalignment="top")
+# %%    
 # Optimizes and save the models 
 def model_optimizer(model):
    
@@ -80,6 +183,7 @@ def model_optimizer(model):
 
 
     #rs_y_preds = opt_ri_model.predict(X_test)
+
 # %% [markdown]
 # # Import satellite and SDG data 
 
@@ -494,106 +598,7 @@ ys = sdg_indexes.drop(columns= {"id", "mun_id"})
 # ## Subtitle 
 # ### a smaller title 
 # Normal text  **bold text**    
-# %% GRAPHS 
-def scatterplots(title1, x1, y1, cvr21,
-                 title2, x2, y2, cvr22,
-                 title3, x3, y3, cvr23,
-                 title4, x4, y4, cvr24,): 
-    
-    fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
-                                            ncols=4, 
-                                            figsize=(20, 7))
 
-    # Graph 1 
-    g_x = ridge_predict[x1]
-    g_y = ridge_predict[y1]
-
-    ax0.scatter(x = g_x, y = g_y)
-    ax0.set(xlabel=x1, ylabel=y1, title=title1)
-
-    # add trendline
-    z = np.polyfit(g_x, g_y, 1)
-    p = np.poly1d(z)
-    ax0.plot(g_x,p(g_x),"r-")
-
-    # Labels 
-    corr = np.corrcoef(g_x, g_y)[0,1]
-    ax0.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
-             transform=ax0.transAxes,
-             fontsize=12,
-             verticalalignment="top")
-    ax0.text(0.05, 0.90, f"CV. R2: {cvr21:.2f}",
-             transform=ax0.transAxes,
-             fontsize=12,
-             verticalalignment="top")
-    # ================================
-    # Graph 2 
-    g_x = ridge_predict[x2]
-    g_y = ridge_predict[y2]
-
-    ax1.scatter(x = g_x, y = g_y)
-    ax1.set(xlabel=x2, ylabel=y2, title=title2)
-
-    # add trendline
-    z = np.polyfit(g_x, g_y, 1)
-    p = np.poly1d(z)
-    ax1.plot(g_x,p(g_x),"r-")
-    
-    # Labels 
-    corr = np.corrcoef(g_x, g_y)[0,1]
-    ax1.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
-             transform=ax1.transAxes,
-             fontsize=12,
-             verticalalignment="top")
-    ax1.text(0.05, 0.90, f"CV. R2:{cvr22:.2f}",
-             transform=ax1.transAxes,
-             fontsize=12,
-             verticalalignment="top")
-    # ================================    
-    # Graph 3 
-    g_x = ridge_predict[x3]
-    g_y = ridge_predict[y3]
-
-    ax2.scatter(x = g_x, y = g_y)
-    ax2.set(xlabel=x3, ylabel=y3, title=title3)
-
-    # add trendline
-    z = np.polyfit(g_x, g_y, 1)
-    p = np.poly1d(z)
-    ax2.plot(g_x,p(g_x),"r-")
-
-    corr = np.corrcoef(g_x, g_y)[0,1]
-    ax2.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
-             transform=ax2.transAxes,
-             fontsize=12,
-             verticalalignment="top")
-    ax2.text(0.05, 0.90, f"CV. R2:{cvr23:.2f}",
-             transform=ax2.transAxes,
-             fontsize=12,
-             verticalalignment="top")
-    # ================================    
-    
-    # Graph 4 
-    g_x = ridge_predict[x4]
-    g_y = ridge_predict[y4]
-
-    ax3.scatter(x = g_x, y = g_y)
-    ax3.set(xlabel=x4, ylabel=y4, title=title4)
-
-    # add trendline
-    z = np.polyfit(g_x, g_y, 1)
-    p = np.poly1d(z)
-    ax3.plot(g_x,p(g_x),"r-")
-
-    corr = np.corrcoef(g_x, g_y)[0,1]
-    ax3.text(0.05, 0.95, f"Corr. coef: {corr:.2f}",
-             transform=ax3.transAxes,
-             fontsize=12,
-             verticalalignment="top")
-    ax3.text(0.05, 0.90, f"CV. R2:{cvr24:.2f}",
-             transform=ax3.transAxes,
-             fontsize=12,
-             verticalalignment="top")
 
 # %%
 scatterplots("SDG1", "Index SDG 1_true", 'Index SDG 1_pred', sdg1_model.cvr2,

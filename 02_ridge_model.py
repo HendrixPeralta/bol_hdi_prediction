@@ -359,7 +359,8 @@ ridge_predict = sdg6_model.predict(ridge_predict)
 # %% Instance for the SDG 7 
 
 erase_x7 = ['La Paz', 'Oruro', 'ln_land_temp2012', 'ln_precCRU2012min', 'photov2019mean', 
-            "ln_slope500m2017mean", 'ln_dist_drug2017mean', 'land_per_area_2012_full_forest']
+            "ln_slope500m2017mean", 'ln_dist_drug2017mean', 'land_per_area_2012_full_forest',
+            'land_per_area_2012_cropland_natural_vegetation_mosaic']
 X_index_7 = [e for e in X if e not in erase_x7]
 
 sdg7_model = RidgeModel("Index SDG 7", sat_mod[X_index_7], sdg_indexes["index_sdg7"])

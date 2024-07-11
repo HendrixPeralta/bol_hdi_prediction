@@ -490,61 +490,72 @@ ys = sdg_indexes.drop(columns= {"id", "mun_id"})
 # ### a smaller title 
 # Normal text  **bold text**    
 # %% GRAPHS 
-fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
-                                         ncols=4, 
-                                         figsize=(20, 7))
+def scatterplots(title1, x1, y1,
+                 title2, x2, y2,
+                 title3, x3, y3,
+                 title4, x4, y4): 
+    
+    fig, ((ax0, ax1, ax2, ax3)) = plt.subplots(nrows=1, 
+                                            ncols=4, 
+                                            figsize=(20, 7))
 
-# Graph 1 
-g_x = ridge_predict["index_sdg1_true"]
-g_y = ridge_predict["index_sdg1_pred"]
+    # Graph 1 
+    g_x = ridge_predict[x1]
+    g_y = ridge_predict[y1]
 
-ax0.scatter(x = g_x, y = g_y)
-ax0.set(xlabel="index_sdg1_true", ylabel="index_sdg1_pred", title="SDG1")
+    ax0.scatter(x = g_x, y = g_y)
+    ax0.set(xlabel=x1, ylabel=y1, title=title1)
 
-# add trendline
-z = np.polyfit(g_x, g_y, 1)
-p = np.poly1d(z)
-ax0.plot(g_x,p(g_x),"r-")
-
-
-# Graph 1 
-g_x = ridge_predict["imds_true"]
-g_y = ridge_predict["imds_pred"]
-
-ax1.scatter(x = g_x, y = g_y)
-ax1.set(xlabel="imds_true", ylabel="imds_abs_pred", title="imds")
-
-# add trendline
-z = np.polyfit(g_x, g_y, 1)
-p = np.poly1d(z)
-ax1.plot(g_x,p(g_x),"r-")
+    # add trendline
+    z = np.polyfit(g_x, g_y, 1)
+    p = np.poly1d(z)
+    ax0.plot(g_x,p(g_x),"r-")
 
 
-# Graph 1 
-g_x = ridge_predict["index_sdg11_true"]
-g_y = ridge_predict["index_sdg11_pred"]
+    # Graph 1 
+    g_x = ridge_predict[x2]
+    g_y = ridge_predict[y2]
 
-ax2.scatter(x = g_x, y = g_y)
-ax2.set(xlabel="index_sdg11_true", ylabel="index_sdg11_pred", title="index_sdg11")
+    ax1.scatter(x = g_x, y = g_y)
+    ax1.set(xlabel=x2, ylabel=y2, title=title2)
 
-# add trendline
-z = np.polyfit(g_x, g_y, 1)
-p = np.poly1d(z)
-ax2.plot(g_x,p(g_x),"r-")
+    # add trendline
+    z = np.polyfit(g_x, g_y, 1)
+    p = np.poly1d(z)
+    ax1.plot(g_x,p(g_x),"r-")
 
 
-# Graph 1 
-g_x = ridge_predict["index_sdg9_true"]
-g_y = ridge_predict["index_sdg9_pred"]
+    # Graph 1 
+    g_x = ridge_predict[x3]
+    g_y = ridge_predict[y3]
 
-ax3.scatter(x = g_x, y = g_y)
-ax3.set(xlabel="index_sdg9_true", ylabel="index_sdg9_pred", title="index_sdg9")
+    ax2.scatter(x = g_x, y = g_y)
+    ax2.set(xlabel=x3, ylabel=y3, title=title3)
 
-# add trendline
-z = np.polyfit(g_x, g_y, 1)
-p = np.poly1d(z)
-ax3.plot(g_x,p(g_x),"r-")
+    # add trendline
+    z = np.polyfit(g_x, g_y, 1)
+    p = np.poly1d(z)
+    ax2.plot(g_x,p(g_x),"r-")
 
+
+    # Graph 1 
+    g_x = ridge_predict[x4]
+    g_y = ridge_predict[y4]
+
+    ax3.scatter(x = g_x, y = g_y)
+    ax3.set(xlabel=x4, ylabel=y4, title=title4)
+
+    # add trendline
+    z = np.polyfit(g_x, g_y, 1)
+    p = np.poly1d(z)
+    ax3.plot(g_x,p(g_x),"r-")
+
+
+# %%
+scatterplots("SDG1", "Index SDG 1_true", 'Index SDG 1_pred',
+             "SDG7", 'Index SDG 7_true', 'Index SDG 7_pred',
+             "SDI", 'SDI_true', 'SDI_pred',
+             "SDG9", 'Index SDG 9_true', 'Index SDG 9_pred')
 # %% [markdown]
 # # Adjust Hyperparameters 
 

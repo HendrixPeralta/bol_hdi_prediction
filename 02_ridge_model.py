@@ -372,7 +372,8 @@ X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', '
 # %% [markdown]
 
 #'dist_diamond2015'  was not relevant on any model 
-# , 'ln_mal_inci_rt_mean' Didnt make any difference
+# 'land_per_area_2012_water' was not relevant on any model 
+# 'ln_mal_inci_rt_mean' Didnt make any difference
 
 # %%
 # Stores scores of the basic model 

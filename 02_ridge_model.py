@@ -29,6 +29,84 @@ from sklearn.compose import ColumnTransformer
 from mlxtend.plotting import scatterplotmatrix 
 import scipy.stats as stats
 
+
+# %% 
+
+# Set up features and labels names 
+feature_name = ["Log EGDP", 
+            "Agricultural land", 
+            "Urban land",
+            "Percentage of urban land",
+            "Log Population",
+            "Log PM2.5",
+            "log Land temperature",
+            "Log NTL",
+            "Log Distance to road",
+            "Log GHSL",
+            "Distance to Diamonds Extraction site", 
+            "Log Malaria rate",
+            "Log Distance to water",
+            "Log Elevation",
+            "Log Distance to drug site",
+            "Photovoltaic potential",
+            "Log Access to city",
+            "Log Slope",
+            "Log Precipitation",
+            "Log Population Density",
+            "Croplands",
+            "Forest land",
+            "Urban Built up",
+            "Savannas and Grasslands",
+            "shrublands",
+            "Vegetation"]
+
+feature_code = [
+        'lnEGDPpc2012', 
+        'lnagr_land2012', 
+        'lnurb_land2012',
+        'perUrb_land2012',
+        'ln_tr400_pop2012',
+        'ln_pm25_2012',
+        'ln_land_temp2012',
+        'ln_t400NTLpc2012',
+        'ln_dist_road2017',
+        'ln_ghsl2015',
+        'dist_diamond2015', 
+        'ln_mal_inci_rt_mean',
+        'ln_dist_water2017mean',
+        'ln_elev2017mean',
+        'ln_dist_drug2017mean',
+        'photov2019mean',
+        'ln_access2016mean',
+        'ln_slope500m2017mean',
+        'ln_precCRU2012mean',
+        "ln_density_pop2015count",
+        "land_per_area_2012_croplands",
+        "land_per_area_2012_full_forest ",
+        "land_per_area_2012_urban_and_builtup",
+        "land_per_area_2012_full_savannas_grasslands",
+        "land_per_area_2012_full_shrublands",
+        "land_per_area_2012_cropland_natural_vegetation_mosaic"]
+
+label_description = [
+        "No poverty",
+        "Zero hunger",
+        "Good health and well-being",
+        "Quality education",
+        "Gender equality",
+        "Clean water and sanitization",
+        "Affordable and clean energy",
+        "Decent work and economic growth",
+        "Industry, innovation and infraestructure",
+        "Reduced inequalities",
+        "Sustainable cities and communities",
+        "Climate action",
+        "Life on land",
+        "Peace, justice and strong institutions",
+        "Parnerships for the goals",
+        "Sustainable Development Index"
+]
+# %%
 # TODO: Create a functiton that deletes the values of the dataframes ridge_predict, ridge_results, opt_ridge_results
 # %%
 def run_all(): 
@@ -187,6 +265,17 @@ def model_optimizer(model):
 
     #rs_y_preds = opt_ri_model.predict(X_test)
 
+
+# %%
+def fill_usage_table(model):
+    mask = []    
+    #used_X = [e for e in model.X_name if e not in dep_dummies]
+    for var in feature_code:
+        if var in model.X_name:
+            mask.append(1)
+        else:
+            mask.append(0) 
+    usage_table.loc[len(usage_table)] = mask
 # %% [markdown]
 # # Import satellite and SDG data 
 
@@ -639,93 +728,15 @@ all_X = [e for e in X if e not in dep_dummies]
 
     #return 1 if var in used_X else 0 for var in all_X
 # %%
-feature_name = ["Log EGDP", 
-            "Agricultural land", 
-            "Urban land",
-            "Percentage of urban land",
-            "Log Population",
-            "Log PM2.5",
-            "log Land temperature",
-            "Log NTL",
-            "Log Distance to road",
-            "Log GHSL",
-            "Distance to Diamonds Extraction site", 
-            "Log Malaria rate",
-            "Log Distance to water",
-            "Log Elevation",
-            "Log Distance to drug site",
-            "Photovoltaic potential",
-            "Log Access to city",
-            "Log Slope",
-            "Log Precipitation",
-            "Log Population Density",
-            "Croplands",
-            "Forest land",
-            "Urban Built up",
-            "Savannas and Grasslands",
-            "shrublands",
-            "Vegetation"]
 
-feature_code = ['lnEGDPpc2012', 
-                'lnagr_land2012', 
-                'lnurb_land2012',
-                'perUrb_land2012',
-                'ln_tr400_pop2012',
-                'ln_pm25_2012',
-                'ln_land_temp2012',
-                'ln_t400NTLpc2012',
-                'ln_dist_road2017',
-                'ln_ghsl2015',
-                'dist_diamond2015', 
-                'ln_mal_inci_rt_mean',
-                'ln_dist_water2017mean',
-                'ln_elev2017mean',
-                'ln_dist_drug2017mean',
-                'photov2019mean',
-                'ln_access2016mean',
-                'ln_slope500m2017mean',
-                'ln_precCRU2012mean',
-                "ln_density_pop2015count",
-                "land_per_area_2012_croplands",
-                "land_per_area_2012_full_forest ",
-                "land_per_area_2012_urban_and_builtup",
-                "land_per_area_2012_full_savannas_grasslands",
-                "land_per_area_2012_full_shrublands",
-                "land_per_area_2012_cropland_natural_vegetation_mosaic"]
-
-label_description = [
-        "No poverty",
-        "Zero hunger",
-        "Good health and well-being",
-        "Quality education",
-        "Gender equality",
-        "Clean water and sanitization",
-        "Affordable and clean energy",
-        "Decent work and economic growth",
-        "Industry, innovation and infraestructure",
-        "Reduced inequalities",
-        "Sustainable cities and communities",
-        "Climate action",
-        "Life on land",
-        "Peace, justice and strong institutions",
-        "Parnerships for the goals",
-        "Sustainable Development Index"
-]
 
 usage_table = pd.DataFrame()
 
+# Assigns the columns names to the df  
 for var in feature_code:
     usage_table[var] = []
 
-def fill_usage_table(model):
-    mask = []    
-    used_X = [e for e in model.X_name if e not in dep_dummies]
-    for var in feature_code:
-        if var in model.X_name:
-            mask.append(1)
-        else:
-            mask.append(0) 
-    usage_table.loc[len(usage_table)] = mask
+
 
 models_sdg = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,
               sdg8_model,sdg9_model,sdg10_model,sdg11_model,sdg13_model,sdg15_model,sdg16_model,
@@ -742,17 +753,6 @@ for code, name in zip(feature_code,feature_name):
 usage_table["SDGs"] = label_description
 usage_table.set_index("SDGs")
 
-#usage_table = usage_table.transpose() 
-
-fig, ax = plt.subplots(figsize=(50,30))
-ax.axis("tight")
-ax.axis("off")
-ax.table(cellText=usage_table.values, 
-         colLabels=usage_table.columns,
-         rowLabels=usage_table["SDGs"],
-         cellLoc="center",
-         loc="center",
-         colColours=['#d3d3d3']*len(usage_table.columns))
 
 usage_table.to_csv("./data/sdg_prediction/used_x_models.csv", index=False)
 # %%

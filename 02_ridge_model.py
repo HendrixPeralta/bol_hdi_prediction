@@ -218,7 +218,7 @@ class RidgeModel:
         self.test_size = test_size
         self.full_df = None
         self.cvr2 = None
-        self.X_names = X.columns
+        self.X_name = X.columns
         X.index.name = "id"
         y.index.name = "id"
         self.full_df = X.merge(y, on="id", how="outer")
@@ -633,12 +633,11 @@ scatterplots("SDG9", "Index SDG 9_true", 'Index SDG 9_pred', sdg9_model.cvr2,
 # %%
 #mer = pd.merge(sat_mod[X_index_1 + ["id"]], sdg_indexes[["id", "index_sdg1"]], on="id", how="outer")
 # %%
-def createMask(all_features, features_used):
-    dep_dummies = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz','Tarija',] 
-    all_X = [e for e in all_features if e not in dep_dummies]
-    used_X = [e for e in features_used if e not in dep_dummies]
 
-    return 1 if var in used_X else 0 for var in all_X
+dep_dummies = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz','Tarija',] 
+all_X = [e for e in X if e not in dep_dummies]
+
+    #return 1 if var in used_X else 0 for var in all_X
 # %%
 feature_name = ["Log EGDP", 
             "Agricultural land", 
@@ -693,8 +692,67 @@ feature_code = ['lnEGDPpc2012',
                 "land_per_area_2012_full_savannas_grasslands",
                 "land_per_area_2012_full_shrublands",
                 "land_per_area_2012_cropland_natural_vegetation_mosaic"]
+
+label_description = [
+        "No poverty",
+        "Zero hunger",
+        "Good health and well-being",
+        "Quality education",
+        "Gender equality",
+        "Clean water and sanitization",
+        "Affordable and clean energy",
+        "Decent work and economic growth",
+        "Industry, innovation and infraestructure",
+        "Reduced inequalities",
+        "Sustainable cities and communities",
+        "Climate action",
+        "Life on land",
+        "Peace, justice and strong institutions",
+        "Parnerships for the goals",
+        "Sustainable Development Index"
+]
+
 usage_table = pd.DataFrame()
-for var in feature_name:
+
+for var in feature_code:
     usage_table[var] = []
-usage_table
+
+def fill_usage_table(model):
+    mask = []    
+    used_X = [e for e in model.X_name if e not in dep_dummies]
+    for var in feature_code:
+        if var in model.X_name:
+            mask.append(1)
+        else:
+            mask.append(0) 
+    usage_table.loc[len(usage_table)] = mask
+
+models_sdg = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,
+              sdg8_model,sdg9_model,sdg10_model,sdg11_model,sdg13_model,sdg15_model,sdg16_model,
+              sdg17_model,imds_model]
+
+for model in models_sdg:
+    fill_usage_table(model)
+
+for code, name in zip(feature_code,feature_name):
+    usage_table = usage_table.rename(columns={code:name})
+
+
+
+usage_table["SDGs"] = label_description
+usage_table.set_index("SDGs")
+
+#usage_table = usage_table.transpose() 
+
+fig, ax = plt.subplots(figsize=(50,30))
+ax.axis("tight")
+ax.axis("off")
+ax.table(cellText=usage_table.values, 
+         colLabels=usage_table.columns,
+         rowLabels=usage_table["SDGs"],
+         cellLoc="center",
+         loc="center",
+         colColours=['#d3d3d3']*len(usage_table.columns))
+
+usage_table.to_csv("./data/sdg_prediction/used_x_models.csv")
 # %%

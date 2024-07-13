@@ -162,7 +162,8 @@ def scatterplots(title1, x1, y1, cvr21,
              verticalalignment="top")
 # %%  
 # 
-# FIXME: Check if this is the right way to optimize the models - should i pass the model already fitted?  
+# TODO: Check if this is the right way to optimize the models - should i pass the model already fitted?  
+# FIXME: Add MAE to the graphs
 # Optimizes and save the models 
 def model_optimizer(model):
    
@@ -407,7 +408,9 @@ ridge_predict = sdg1_model.predict(ridge_predict)
 
 erase_x2 = ['Beni', 'La Paz', 'ln_dist_drug2017mean','ln_t400NTLpc2012','lnagr_land2012','photov2019mean',
             'ln_land_temp2012', 'Chuquisaca', 'ln_pm25_2012', 'ln_dist_road2017', 'Cochabamba', 
-            'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic']
+            'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic',
+            'lnurb_land2012']
+
 X_index_2 = [e for e in X if e not in erase_x2]
 
 sdg2_model = RidgeModel("Index SDG 2",sat_mod[X_index_2], sdg_indexes["index_sdg2"])

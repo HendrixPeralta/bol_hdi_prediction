@@ -133,7 +133,7 @@ def scatterplots(title1, x1, y1, cvr21,
              transform=ax2.transAxes,
              fontsize=12,
              verticalalignment="top")
-    ax2.text(0.05, 0.90, f"CV. R2: {cvr23.2f}%",
+    ax2.text(0.05, 0.90, f"CV. R2: {cvr23:.2f}%",
              transform=ax2.transAxes,
              fontsize=12,
              verticalalignment="top")

@@ -754,5 +754,5 @@ ax.table(cellText=usage_table.values,
          loc="center",
          colColours=['#d3d3d3']*len(usage_table.columns))
 
-usage_table.to_csv("./data/sdg_prediction/used_x_models.csv")
+usage_table.to_csv("./data/sdg_prediction/used_x_models.csv", index=False)
 # %%

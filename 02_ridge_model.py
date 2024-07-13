@@ -88,7 +88,7 @@ def scatterplots(title1, x1, y1, cvr21,
              transform=ax0.transAxes,
              fontsize=12,
              verticalalignment="top")
-    ax0.text(0.05, 0.90, f"CV. R2: {cvr21:.2f}",
+    ax0.text(0.05, 0.90, f"CV. R2: {cvr21:.2f}%",
              transform=ax0.transAxes,
              fontsize=12,
              verticalalignment="top")
@@ -111,7 +111,7 @@ def scatterplots(title1, x1, y1, cvr21,
              transform=ax1.transAxes,
              fontsize=12,
              verticalalignment="top")
-    ax1.text(0.05, 0.90, f"CV. R2:{cvr22:.2f}",
+    ax1.text(0.05, 0.90, f"CV. R2: {cvr22:.2f}%",
              transform=ax1.transAxes,
              fontsize=12,
              verticalalignment="top")
@@ -133,7 +133,7 @@ def scatterplots(title1, x1, y1, cvr21,
              transform=ax2.transAxes,
              fontsize=12,
              verticalalignment="top")
-    ax2.text(0.05, 0.90, f"CV. R2:{cvr23:.2f}",
+    ax2.text(0.05, 0.90, f"CV. R2: {cvr23.2f}%",
              transform=ax2.transAxes,
              fontsize=12,
              verticalalignment="top")
@@ -156,11 +156,13 @@ def scatterplots(title1, x1, y1, cvr21,
              transform=ax3.transAxes,
              fontsize=12,
              verticalalignment="top")
-    ax3.text(0.05, 0.90, f"CV. R2:{cvr24:.2f}",
+    ax3.text(0.05, 0.90, f"CV. R2: {cvr24:.2f}%",
              transform=ax3.transAxes,
              fontsize=12,
              verticalalignment="top")
-# %%    
+# %%  
+# 
+# FIXME: Check if this is the right way to optimize the models - should i pass the model already fitted?  
 # Optimizes and save the models 
 def model_optimizer(model):
    
@@ -219,6 +221,7 @@ class RidgeModel:
         X.index.name = "id"
         y.index.name = "id"
         self.full_df = X.merge(y, on="id", how="outer")
+
     # Set up model 
     def set_model(self):
         np.random.seed(42)
@@ -226,6 +229,7 @@ class RidgeModel:
         self.model = linear_model.Ridge()
         self.fitted_model = self.model.fit(self.X_train, self.y_train);
         print("model fitted")
+
     # ==================    
     # Shows the coefficients for each predictor
     def get_coef(self):
@@ -264,6 +268,7 @@ class RidgeModel:
         
         #model_coef(self.fitted_model,X,y)
     # ==================
+   
     # Store the cross evaluation resilts into a df 
     def evaluate_preds(self, score_results):
         """

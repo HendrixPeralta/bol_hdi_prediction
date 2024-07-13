@@ -736,23 +736,20 @@ usage_table = pd.DataFrame()
 for var in feature_code:
     usage_table[var] = []
 
-
-
 models_sdg = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,
               sdg8_model,sdg9_model,sdg10_model,sdg11_model,sdg13_model,sdg15_model,sdg16_model,
               sdg17_model,imds_model]
 
+# Fills the table using 1 and 0 
 for model in models_sdg:
     fill_usage_table(model)
 
+# Rename the table columns 
 for code, name in zip(feature_code,feature_name):
     usage_table = usage_table.rename(columns={code:name})
 
-
-
 usage_table["SDGs"] = label_description
-usage_table.set_index("SDGs")
-
+usage_table.set_index("SDGs", inplace=True)
 
 usage_table.to_csv("./data/sdg_prediction/used_x_models.csv", index=False)
 # %%

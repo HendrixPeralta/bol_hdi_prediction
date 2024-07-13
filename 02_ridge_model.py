@@ -709,13 +709,14 @@ ys = sdg_indexes.drop(columns= {"id", "mun_id"})
 # %%
 scatterplots("SDG1", "Index SDG 1_true", 'Index SDG 1_pred', sdg1_model.cvr2,
              "SDG7", 'Index SDG 7_true', 'Index SDG 7_pred', sdg7_model.cvr2,
-             "SDI", 'SDI_true', 'SDI_pred', imds_model.cvr2,
-             "SDG11", 'Index SDG 11_true', 'Index SDG 11_pred', sdg11_model.cvr2)
+             "SDG9", "Index SDG 9_true", 'Index SDG 9_pred', sdg9_model.cvr2,
+             "SDG13", 'Index SDG 13_true', 'Index SDG 13_pred', sdg13_model.cvr2
+             )
 
-scatterplots("SDG9", "Index SDG 9_true", 'Index SDG 9_pred', sdg9_model.cvr2,
-             "SDG13", 'Index SDG 13_true', 'Index SDG 13_pred', sdg13_model.cvr2,
+scatterplots("SDI", 'SDI_true', 'SDI_pred', imds_model.cvr2,
+             "SDG11", 'Index SDG 11_true', 'Index SDG 11_pred', sdg11_model.cvr2,
              "SDG10", "Index SDG 10_true", 'Index SDG 10_pred', sdg10_model.cvr2,
-             "SDG2", 'Index SDG 2_true', 'Index SDG 2_pred', sdg2_model.cvr2,)
+             "SDG2", 'Index SDG 6_true', 'Index SDG 6_pred', sdg6_model.cvr2,)
 # %% [markdown]
 # # Adjust Hyperparameters 
 
@@ -752,4 +753,7 @@ usage_table["SDGs"] = label_description
 usage_table.set_index("SDGs", inplace=True)
 
 usage_table.to_csv("./data/sdg_prediction/used_x_models.csv", index=False)
+# %%
+ridge_results.to_latex(index=False,
+                       float_format= "{:.2f}".format)
 # %%

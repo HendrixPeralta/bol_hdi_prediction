@@ -518,6 +518,7 @@ ridge_predict = sdg9_model.predict(ridge_predict)
 erase_x10 = ['Santa Cruz', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_land_temp2012', 'ln_pm25_2012', 
              'ln_t400NTLpc2012',"ln_slope500m2017mean", 'Tarija', 'lnagr_land2012', 'ln_density_pop2015count',
              ]
+
 X_index_10 = [e for e in X if e not in erase_x10]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
@@ -530,7 +531,9 @@ ridge_predict = sdg10_model.predict(ridge_predict)
 
 erase_x11 = ['Beni', 'Cochabamba', 'Pando','Santa Cruz', 'ln_dist_drug2017mean', 'photov2019mean',
              'ln_slope500m2017mean', 'ln_elev2017mean', 'ln_access2016mean','ln_t400NTLpc2012', 'ln_pm25_2012',
-             'land_per_area_2012_full_forest' ]
+             'land_per_area_2012_full_forest'
+            ]
+        
 X_index_11 = [e for e in X if e not in erase_x11]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
@@ -543,7 +546,8 @@ ridge_predict = sdg11_model.predict(ridge_predict)
 
 erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_temp2012','ln_tr400_pop2012', 
              'ln_dist_road2017', 'photov2019mean', "Beni",'land_per_area_2012_full_forest',
-             'land_per_area_2012_cropland_natural_vegetation_mosaic']
+             'land_per_area_2012_cropland_natural_vegetation_mosaic', 'ln_t400NTLpc2012',
+             'lnagr_land2012']
 X_index_13 = [e for e in X if e not in erase_x13]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 

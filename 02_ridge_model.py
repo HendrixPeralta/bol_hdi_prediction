@@ -218,7 +218,7 @@ class RidgeModel:
         self.test_size = test_size
         self.full_df = None
         self.cvr2 = None
-
+        self.X_names = X.columns
         X.index.name = "id"
         y.index.name = "id"
         self.full_df = X.merge(y, on="id", how="outer")
@@ -306,8 +306,8 @@ class RidgeModel:
     
     def scatter_hist(self):
         cols = list(self.full_df.columns)
-        non_continuous_vars = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz',
-            'Tarija', "id", "dep"]
+        non_continuous_vars = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 
+                               'Santa Cruz','Tarija', "id", "dep"]
 
         col_eval = [col for col in cols if col not in non_continuous_vars]
 
@@ -596,7 +596,8 @@ ridge_predict = sdg17_model.predict(ridge_predict)
 
 erase_imds = ['Beni', 'La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'ln_elev2017mean', 'ln_land_temp2012', 
               'ln_precCRU2012min', 'lnagr_land2012', "ln_slope500m2017mean", 'ln_access2016mean', 
-              'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic']
+              'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic',
+              'ln_dist_drug2017mean','ln_pm25_2012']
 X_imds = [e for e in X if e not in erase_imds]
 
 imds_model = RidgeModel("SDI", sat_mod[X_imds], sdg_indexes["imds"])
@@ -631,3 +632,69 @@ scatterplots("SDG9", "Index SDG 9_true", 'Index SDG 9_pred', sdg9_model.cvr2,
 
 # %%
 #mer = pd.merge(sat_mod[X_index_1 + ["id"]], sdg_indexes[["id", "index_sdg1"]], on="id", how="outer")
+# %%
+def createMask(all_features, features_used):
+    dep_dummies = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz','Tarija',] 
+    all_X = [e for e in all_features if e not in dep_dummies]
+    used_X = [e for e in features_used if e not in dep_dummies]
+
+    return 1 if var in used_X else 0 for var in all_X
+# %%
+feature_name = ["Log EGDP", 
+            "Agricultural land", 
+            "Urban land",
+            "Percentage of urban land",
+            "Log Population",
+            "Log PM2.5",
+            "log Land temperature",
+            "Log NTL",
+            "Log Distance to road",
+            "Log GHSL",
+            "Distance to Diamonds Extraction site", 
+            "Log Malaria rate",
+            "Log Distance to water",
+            "Log Elevation",
+            "Log Distance to drug site",
+            "Photovoltaic potential",
+            "Log Access to city",
+            "Log Slope",
+            "Log Precipitation",
+            "Log Population Density",
+            "Croplands",
+            "Forest land",
+            "Urban Built up",
+            "Savannas and Grasslands",
+            "shrublands",
+            "Vegetation"]
+
+feature_code = ['lnEGDPpc2012', 
+                'lnagr_land2012', 
+                'lnurb_land2012',
+                'perUrb_land2012',
+                'ln_tr400_pop2012',
+                'ln_pm25_2012',
+                'ln_land_temp2012',
+                'ln_t400NTLpc2012',
+                'ln_dist_road2017',
+                'ln_ghsl2015',
+                'dist_diamond2015', 
+                'ln_mal_inci_rt_mean',
+                'ln_dist_water2017mean',
+                'ln_elev2017mean',
+                'ln_dist_drug2017mean',
+                'photov2019mean',
+                'ln_access2016mean',
+                'ln_slope500m2017mean',
+                'ln_precCRU2012mean',
+                "ln_density_pop2015count",
+                "land_per_area_2012_croplands",
+                "land_per_area_2012_full_forest ",
+                "land_per_area_2012_urban_and_builtup",
+                "land_per_area_2012_full_savannas_grasslands",
+                "land_per_area_2012_full_shrublands",
+                "land_per_area_2012_cropland_natural_vegetation_mosaic"]
+usage_table = pd.DataFrame()
+for var in feature_name:
+    usage_table[var] = []
+usage_table
+# %%

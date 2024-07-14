@@ -451,7 +451,7 @@ X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', '
      'ln_pm25_2012','ln_precCRU2012mean', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 
       'photov2019mean','ln_slope500m2017mean','ln_access2016mean', "ln_density_pop2015count", 
      'land_per_area_2012_full_forest','land_per_area_2012_cropland_natural_vegetation_mosaic',
-     'lnurb_land2012', "lnagr_land2012"]
+     'lnurb_land2012', "lnagr_land2012",'lnEGDPpc2012']
      
   # 'lnurb_land2012',    "lnagr_land2012", 
  #    'perUrb_land2012', 
@@ -713,12 +713,12 @@ ys = sdg_indexes.drop(columns= {"id", "mun_id"})
 
 # %%
 scatterplots("SDG1", "Index SDG 1_true", 'Index SDG 1_pred', sdg1_model.cvr2,
+             "SDI", 'SDI_true', 'SDI_pred', imds_model.cvr2,
              "SDG7", 'Index SDG 7_true', 'Index SDG 7_pred', sdg7_model.cvr2,
              "SDG9", "Index SDG 9_true", 'Index SDG 9_pred', sdg9_model.cvr2,
-             "SDG13", 'Index SDG 13_true', 'Index SDG 13_pred', sdg13_model.cvr2
              )
 
-scatterplots("SDI", 'SDI_true', 'SDI_pred', imds_model.cvr2,
+scatterplots("SDG13", 'Index SDG 13_true', 'Index SDG 13_pred', sdg13_model.cvr2,
              "SDG11", 'Index SDG 11_true', 'Index SDG 11_pred', sdg11_model.cvr2,
              "SDG10", "Index SDG 10_true", 'Index SDG 10_pred', sdg10_model.cvr2,
              "SDG2", 'Index SDG 6_true', 'Index SDG 6_pred', sdg6_model.cvr2,)

@@ -739,13 +739,14 @@ dep_dummies = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'P
 all_X = [e for e in X if e not in dep_dummies]
 
     #return 1 if var in used_X else 0 for var in all_X
+
+# %% [Markdown]
+
+# ###This table indicated wich features are being used on each model
 # %%
-
-
 usage_table = pd.DataFrame()
-
-# Assigns the columns names to the df  
 for var in feature_code:
+    # Assigns the columns names to the df  
     usage_table[var] = []
 
 models_sdg = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,
@@ -754,12 +755,14 @@ models_sdg = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_m
 
 # Fills the table using 1 and 0 
 for model in models_sdg:
+    # Fill the df with 1 and 0 depending if the model uses the feature or not
     fill_usage_table(model)
 
 # Rename the table columns 
 for code, name in zip(feature_code,feature_name):
     usage_table = usage_table.rename(columns={code:name})
 
+# Change the name of the labels and uses the description instead SDG! -> No Poverty 
 usage_table["SDGs"] = label_description
 usage_table.set_index("SDGs", inplace=True)
 

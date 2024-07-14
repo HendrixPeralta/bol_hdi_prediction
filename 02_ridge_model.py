@@ -4,8 +4,8 @@ import numpy as np
 import pandas as pd
 import sklearn as ktl
 import pickle
-import matplotlib.pylab as plt
-import seaborn
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
@@ -311,7 +311,7 @@ class RidgeModel:
         X.index.name = "id"
         y.index.name = "id"
         self.full_df = X.merge(y, on="id", how="outer")
-
+        self.r2_folds = None
     # Set up model 
     def set_model(self):
         np.random.seed(42)
@@ -365,7 +365,8 @@ class RidgeModel:
         Performs evaluation comparison on y_true labels vs. y_pred labels
         on a classification.
         """
-        r2 = (np.mean(cross_val_score(self.model, self.X, self.y, scoring="r2")))*100
+        self.r2_folds = cross_val_score(self.model, self.X, self.y, scoring="r2")*100
+        r2 = np.mean(self.r2_folds)
         mae = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_absolute_error"))
         mse = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_squared_error"))
         scores = [r2, mae, mse]
@@ -766,4 +767,26 @@ usage_table.to_csv("./data/sdg_prediction/used_x_models.csv", index=False)
 # %%
 ridge_results.to_latex(index=False,
                        float_format= "{:.2f}".format)
+# %%
+r2_models = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,
+              sdg8_model,sdg9_model,sdg10_model,sdg11_model,sdg13_model,
+              sdg17_model,imds_model]
+
+dic = {}
+for model in r2_models: 
+    dic[model.name] = model.r2_folds
+
+
+fig, ax = plt.subplots()
+ax.boxplot(dic.values(), vert=0, )
+ax.set_yticklabels(dic.keys())
+ax.set_title("R2 of each SDG in 5 folds")
+ax.set(xlabel="R2")
+plt.vlines([70], ymin=0, ymax=15 , colors="r", linestyles="--")
+#ax.set_xlim(0, 100) 
+ax.text(0.83, 0.3, "R2 = 70",
+        transform=ax.transAxes,
+        fontsize=10,
+        verticalalignment="top")
+
 # %%

@@ -598,7 +598,8 @@ ridge_predict = sdg8_model.predict(ridge_predict)
 
 erase_x9 = ['Beni', 'Potosí', 'Santa Cruz', 'ln_land_temp2012', 'ln_precCRU2012min', 'lnagr_land2012',
             "ln_slope500m2017mean", 'ln_access2016mean', 'ln_precCRU2012mean', 'lnurb_land2012',
-            'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic']
+            'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic',
+            'lnEGDPpc2012']
 X_index_9 = [e for e in X if e not in erase_x9]
 
 sdg9_model = RidgeModel("Index SDG 9", sat_mod[X_index_9], sdg_indexes["index_sdg9"])

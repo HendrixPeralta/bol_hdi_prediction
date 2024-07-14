@@ -265,7 +265,6 @@ def model_optimizer(model):
 
     #rs_y_preds = opt_ri_model.predict(X_test)
 
-
 # %%
 def fill_usage_table(model):
     mask = []    
@@ -407,7 +406,7 @@ class RidgeModel:
 
     def model_optimizer(self):
     
-        alpha_space = np.logspace(-4,0,30)
+        alpha_space = np.logspace(-4,0,100)
         alpha_space 
 
         grid = {"alpha": alpha_space,
@@ -418,11 +417,14 @@ class RidgeModel:
         np.random.seed(42)
         opt_ri_model= RandomizedSearchCV(estimator = self.model,
                                         param_distributions=grid,
-                                        n_iter=100,
-                                        cv=5,
+                                        n_iter=200,
+                                        cv=10,
                                         verbose=0)
 
-        return opt_ri_model
+        
+        opt_ri_model.fit(self.X_train, self.y_train)
+        r2 = np.mean(cross_val_score(opt_ri_model, self.X, self.y, scoring="r2")*100)
+        print(r2)
     # =================
     # Optimizer 
     #opt_ri_model = model_optimizer(self.model)
@@ -733,17 +735,15 @@ scatterplots("SDG13", 'Index SDG 13_true', 'Index SDG 13_pred', sdg13_model.cvr2
 
 # %%
 #mer = pd.merge(sat_mod[X_index_1 + ["id"]], sdg_indexes[["id", "index_sdg1"]], on="id", how="outer")
-# %%
-
-dep_dummies = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz','Tarija',] 
-all_X = [e for e in X if e not in dep_dummies]
-
-    #return 1 if var in used_X else 0 for var in all_X
 
 # %% [Markdown]
 
 # ###This table indicated wich features are being used on each model
+
 # %%
+dep_dummies = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz','Tarija',] 
+all_X = [e for e in X if e not in dep_dummies]
+
 usage_table = pd.DataFrame()
 for var in feature_code:
     # Assigns the columns names to the df  
@@ -774,6 +774,7 @@ ridge_results.to_latex(index=False,
 # %% [Markdown]
 
 # ## R2 boxplot
+
 # %%
 # Models list - the models 15 and 16 are not here since they are negatives 
 r2_models = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,

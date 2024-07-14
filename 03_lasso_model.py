@@ -16,7 +16,7 @@ from sklearn.model_selection import cross_val_score
 from sklearn.linear_model import LinearRegression
 from sklearn import linear_model
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
 
 from sklearn.model_selection import RandomizedSearchCV
 
@@ -107,33 +107,33 @@ label_description = [
         "Sustainable Development Index"
 ]
 # %%
-# TODO: Create a functiton that deletes the values of the dataframes ridge_predict, ridge_results, opt_ridge_results
+# TODO: Create a functiton that deletes the values of the dataframes lasso_predict, lasso_results, opt_lasso_results
 # %%
 def run_all(): 
  # FIXME: When called - does not have access to the modified X and Y variables 
     global Xs 
     global ys
-    global ridge_predict
-    global ridge_results
+    global lasso_predict
+    global lasso_results
 
     # Makes sure that the df are empty 
-    #ridge_results.drop(ridge_results.index, inplace=True)
-    #ridge_results.drop(ridge_results.columns, axis=0, inplace=True)
+    #lasso_results.drop(lasso_results.index, inplace=True)
+    #lasso_results.drop(lasso_results.columns, axis=0, inplace=True)
 
-    #ridge_predict.drop(ridge_predict.index, inplace=True)
-    #ridge_predict.drop(ridge_predict.columns, axis=0, inplace=True)
+    #lasso_predict.drop(lasso_predict.index, inplace=True)
+    #lasso_predict.drop(lasso_predict.columns, axis=0, inplace=True)
     i=1
     for y_variable, X_variable in zip(ys, Xs):
         # Set up model 
         y = sdg_indexes[y_variable]
         X = sat_mod[X_variable]
 
-        model = RidgeModel(y_variable, X, y)
+        model = LassoModel(y_variable, X, y)
         model.set_model()
         model.get_coef()
-        ridge_results = model.evaluate_preds(ridge_results)
+        lasso_results = model.evaluate_preds(lasso_results)
         #model.scatter_hist()
-        ridge_predict = model.predict(ridge_predict)
+        lasso_predict = model.predict(lasso_predict)
 
         i = i+1
 
@@ -149,8 +149,8 @@ def scatterplots(title1, x1, y1, cvr21,
                                             figsize=(20, 7))
 
     # Graph 1 
-    g_x = ridge_predict[x1]
-    g_y = ridge_predict[y1]
+    g_x = lasso_predict[x1]
+    g_y = lasso_predict[y1]
 
     ax0.scatter(x = g_x, y = g_y)
     ax0.set(xlabel=x1, ylabel=y1, title=title1)
@@ -172,8 +172,8 @@ def scatterplots(title1, x1, y1, cvr21,
              verticalalignment="top")
     # ================================
     # Graph 2 
-    g_x = ridge_predict[x2]
-    g_y = ridge_predict[y2]
+    g_x = lasso_predict[x2]
+    g_y = lasso_predict[y2]
 
     ax1.scatter(x = g_x, y = g_y)
     ax1.set(xlabel=x2, ylabel=y2, title=title2)
@@ -195,8 +195,8 @@ def scatterplots(title1, x1, y1, cvr21,
              verticalalignment="top")
     # ================================    
     # Graph 3 
-    g_x = ridge_predict[x3]
-    g_y = ridge_predict[y3]
+    g_x = lasso_predict[x3]
+    g_y = lasso_predict[y3]
 
     ax2.scatter(x = g_x, y = g_y)
     ax2.set(xlabel=x3, ylabel=y3, title=title3)
@@ -218,8 +218,8 @@ def scatterplots(title1, x1, y1, cvr21,
     # ================================    
     
     # Graph 4 
-    g_x = ridge_predict[x4]
-    g_y = ridge_predict[y4]
+    g_x = lasso_predict[x4]
+    g_y = lasso_predict[y4]
 
     ax3.scatter(x = g_x, y = g_y)
     ax3.set(xlabel=x4, ylabel=y4, title=title4)
@@ -290,8 +290,8 @@ sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
 
 
 # %% 
-# # Ridge model 
-class RidgeModel: 
+# # lasso model 
+class LassoModel: 
 
     def __init__(self, name, X=pd.DataFrame, y=pd.DataFrame, test_size=0.3, model = None):
         self.name = name
@@ -315,7 +315,7 @@ class RidgeModel:
     def set_model(self):
         np.random.seed(42)
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X,self.y, test_size = self.test_size) 
-        self.model = linear_model.Ridge()
+        self.model = linear_model.Lasso()
         self.fitted_model = self.model.fit(self.X_train, self.y_train);
         print("model fitted")
 
@@ -390,7 +390,7 @@ class RidgeModel:
             store_predict = temp_predict
         else:
             store_predict = store_predict.merge(temp_predict, on="id", how="outer")
-        #print("Added Prediction results to the ridge_predict df")
+        #print("Added Prediction results to the lasso_predict df")
         return store_predict
     
     def scatter_hist(self):
@@ -435,10 +435,10 @@ class RidgeModel:
     #print("\n\n")
     
     #opt_scores = evaluate_preds(opt_ri_model, X, y)
-    #opt_ridge_results.loc[len(opt_ridge_results.index)] = [y_variable, opt_scores[0], opt_scores[1], 
+    #opt_lasso_results.loc[len(opt_lasso_results.index)] = [y_variable, opt_scores[0], opt_scores[1], 
     #                                                       opt_scores[2]]
 
-    #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
+    #opt_results = opt_lasso_results.round(4).sort_values(by="r2", ascending=False)
     #==================
 
 # %%
@@ -470,13 +470,13 @@ X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', '
 
 # %%
 # Stores scores of the basic model 
-ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+lasso_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
 
 # Stores scores of the tuned model 
-opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+opt_lasso_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
 
 # Stores the y_preds and y_test values 
-ridge_predict = pd.DataFrame()
+lasso_predict = pd.DataFrame()
 
 # %% 
 # Instance for the SDG 1 
@@ -488,11 +488,11 @@ erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp
 
 X_index_1 = [e for e in X if e not in erase_x1]
 
-sdg1_model = RidgeModel("Index SDG 1", sat_mod[X_index_1], sdg_indexes["index_sdg1"])
+sdg1_model = LassoModel("Index SDG 1", sat_mod[X_index_1], sdg_indexes["index_sdg1"])
 sdg1_model.set_model()
 sdg1_model.get_coef()
-ridge_results = sdg1_model.evaluate_preds(ridge_results)
-ridge_predict = sdg1_model.predict(ridge_predict)
+lasso_results = sdg1_model.evaluate_preds(lasso_results)
+lasso_predict = sdg1_model.predict(lasso_predict)
 #sdg1_model.scatter_hist()
 
 # %%
@@ -509,11 +509,11 @@ erase_x2 = ['Beni', 'La Paz', 'ln_dist_drug2017mean','ln_t400NTLpc2012','lnagr_l
             'lnurb_land2012','ln_tr400_pop2012','ln_elev2017mean','ln_precCRU2012mean']
 X_index_2 = [e for e in X if e not in erase_x2]
 
-sdg2_model = RidgeModel("Index SDG 2",sat_mod[X_index_2], sdg_indexes["index_sdg2"])
+sdg2_model = LassoModel("Index SDG 2",sat_mod[X_index_2], sdg_indexes["index_sdg2"])
 sdg2_model.set_model()
 sdg2_model.get_coef()
-ridge_results = sdg2_model.evaluate_preds(ridge_results)
-ridge_predict = sdg2_model.predict(ridge_predict)
+lasso_results = sdg2_model.evaluate_preds(lasso_results)
+lasso_predict = sdg2_model.predict(lasso_predict)
 #sdg2_model.scatter_hist()
 # %% Instance for the SDG 3 
 
@@ -525,11 +525,11 @@ erase_x3 = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'ln_dist_drug2
 X_index_3 = [e for e in X if e not in erase_x3]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-sdg3_model = RidgeModel("Index SDG 3",sat_mod[X_index_3], sdg_indexes["index_sdg3"])
+sdg3_model = LassoModel("Index SDG 3",sat_mod[X_index_3], sdg_indexes["index_sdg3"])
 sdg3_model.set_model()
 sdg3_model.get_coef()
-ridge_results = sdg3_model.evaluate_preds(ridge_results)
-ridge_predict = sdg3_model.predict(ridge_predict)
+lasso_results = sdg3_model.evaluate_preds(lasso_results)
+lasso_predict = sdg3_model.predict(lasso_predict)
 
 # %% Instance for the SDG 4 
 
@@ -538,11 +538,11 @@ erase_x4 = ['Cochabamba', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_land_temp20
             'Beni', 'Chuquisaca']
 X_index_4 = [e for e in X if e not in erase_x4]
 
-sdg4_model = RidgeModel("Index SDG 4",sat_mod[X_index_4], sdg_indexes["index_sdg4"])
+sdg4_model = LassoModel("Index SDG 4",sat_mod[X_index_4], sdg_indexes["index_sdg4"])
 sdg4_model.set_model()
 sdg4_model.get_coef()
-ridge_results = sdg4_model.evaluate_preds(ridge_results)
-ridge_predict = sdg4_model.predict(ridge_predict)
+lasso_results = sdg4_model.evaluate_preds(lasso_results)
+lasso_predict = sdg4_model.predict(lasso_predict)
 
 # %% Instance for the SDG 5 
 
@@ -552,11 +552,11 @@ erase_x5 = ['Chuquisaca', 'Pando', 'Santa Cruz', 'Tarija', 'ln_t400NTLpc2012', '
 X_index_5 = [e for e in X if e not in erase_x5]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-sdg5_model = RidgeModel("Index SDG 5", sat_mod[X_index_5], sdg_indexes["index_sdg5"])
+sdg5_model = LassoModel("Index SDG 5", sat_mod[X_index_5], sdg_indexes["index_sdg5"])
 sdg5_model.set_model()
 sdg5_model.get_coef()
-ridge_results = sdg5_model.evaluate_preds(ridge_results)
-ridge_predict = sdg5_model.predict(ridge_predict)
+lasso_results = sdg5_model.evaluate_preds(lasso_results)
+lasso_predict = sdg5_model.predict(lasso_predict)
 # %% Instance for the SDG 6 
 
 erase_x6 = ['Chuquisaca', 'Cochabamba', 'La Paz', 'Pando', 'ln_dist_drug2017mean', 'ln_elev2017mean', 
@@ -567,11 +567,11 @@ erase_x6 = ['Chuquisaca', 'Cochabamba', 'La Paz', 'Pando', 'ln_dist_drug2017mean
 X_index_6 = [e for e in X if e not in erase_x6]
 #        * Should add 'ln_access2016mean' later again in increased the score slightly but was irrelevant
 
-sdg6_model = RidgeModel("Index SDG 6", sat_mod[X_index_6], sdg_indexes["index_sdg6"])
+sdg6_model = LassoModel("Index SDG 6", sat_mod[X_index_6], sdg_indexes["index_sdg6"])
 sdg6_model.set_model()
 sdg6_model.get_coef()
-ridge_results = sdg6_model.evaluate_preds(ridge_results)
-ridge_predict = sdg6_model.predict(ridge_predict)
+lasso_results = sdg6_model.evaluate_preds(lasso_results)
+lasso_predict = sdg6_model.predict(lasso_predict)
 # %% Instance for the SDG 7 
 
 erase_x7 = ['La Paz', 'Oruro', 'ln_land_temp2012', 'ln_precCRU2012min', 'photov2019mean', 
@@ -579,11 +579,11 @@ erase_x7 = ['La Paz', 'Oruro', 'ln_land_temp2012', 'ln_precCRU2012min', 'photov2
             'land_per_area_2012_cropland_natural_vegetation_mosaic', 'Potosí']
 X_index_7 = [e for e in X if e not in erase_x7]
 
-sdg7_model = RidgeModel("Index SDG 7", sat_mod[X_index_7], sdg_indexes["index_sdg7"])
+sdg7_model = LassoModel("Index SDG 7", sat_mod[X_index_7], sdg_indexes["index_sdg7"])
 sdg7_model.set_model()
 sdg7_model.get_coef()
-ridge_results = sdg7_model.evaluate_preds(ridge_results)
-ridge_predict = sdg7_model.predict(ridge_predict)
+lasso_results = sdg7_model.evaluate_preds(lasso_results)
+lasso_predict = sdg7_model.predict(lasso_predict)
 # %% Instance for the SDG 8 
 
 erase_x8 = ['Cochabamba', 'Oruro', 'Potosí', 'ln_dist_road2017', 'ln_elev2017mean','ln_t400NTLpc2012', 
@@ -592,11 +592,11 @@ erase_x8 = ['Cochabamba', 'Oruro', 'Potosí', 'ln_dist_road2017', 'ln_elev2017me
             'lnurb_land2012', 'lnagr_land2012']
 X_index_8 = [e for e in X if e not in erase_x8]
 
-sdg8_model = RidgeModel("Index SDG 8", sat_mod[X_index_8], sdg_indexes["index_sdg8"])
+sdg8_model = LassoModel("Index SDG 8", sat_mod[X_index_8], sdg_indexes["index_sdg8"])
 sdg8_model.set_model()
 sdg8_model.get_coef()
-ridge_results = sdg8_model.evaluate_preds(ridge_results)
-ridge_predict = sdg8_model.predict(ridge_predict)
+lasso_results = sdg8_model.evaluate_preds(lasso_results)
+lasso_predict = sdg8_model.predict(lasso_predict)
 # %% Instance for the SDG 9
 
 erase_x9 = ['Beni', 'Potosí', 'Santa Cruz', 'ln_land_temp2012', 'ln_precCRU2012min', 'lnagr_land2012',
@@ -605,11 +605,11 @@ erase_x9 = ['Beni', 'Potosí', 'Santa Cruz', 'ln_land_temp2012', 'ln_precCRU2012
             'lnEGDPpc2012']
 X_index_9 = [e for e in X if e not in erase_x9]
 
-sdg9_model = RidgeModel("Index SDG 9", sat_mod[X_index_9], sdg_indexes["index_sdg9"])
+sdg9_model = LassoModel("Index SDG 9", sat_mod[X_index_9], sdg_indexes["index_sdg9"])
 sdg9_model.set_model()
 sdg9_model.get_coef()
-ridge_results = sdg9_model.evaluate_preds(ridge_results)
-ridge_predict = sdg9_model.predict(ridge_predict)
+lasso_results = sdg9_model.evaluate_preds(lasso_results)
+lasso_predict = sdg9_model.predict(lasso_predict)
 # %% Instance for the SDG 10 
 
 erase_x10 = ['Santa Cruz', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_land_temp2012', 'ln_pm25_2012', 
@@ -619,11 +619,11 @@ erase_x10 = ['Santa Cruz', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_land_
 X_index_10 = [e for e in X if e not in erase_x10]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-sdg10_model = RidgeModel("Index SDG 10", sat_mod[X_index_10], sdg_indexes["index_sdg10"])
+sdg10_model = LassoModel("Index SDG 10", sat_mod[X_index_10], sdg_indexes["index_sdg10"])
 sdg10_model.set_model()
 sdg10_model.get_coef()
-ridge_results = sdg10_model.evaluate_preds(ridge_results)
-ridge_predict = sdg10_model.predict(ridge_predict)
+lasso_results = sdg10_model.evaluate_preds(lasso_results)
+lasso_predict = sdg10_model.predict(lasso_predict)
 # %% Instance for the SDG 11
 
 #erase_x11 = ['Beni', 'Cochabamba', 'Pando','Santa Cruz', 'ln_dist_drug2017mean', 'photov2019mean',
@@ -636,11 +636,11 @@ erase_x11 = ['ln_dist_drug2017mean','Pando','ln_slope500m2017mean', 'ln_access20
 X_index_11 = [e for e in X if e not in erase_x11]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-sdg11_model = RidgeModel("Index SDG 11", sat_mod[X_index_11], sdg_indexes["index_sdg11"])
+sdg11_model = LassoModel("Index SDG 11", sat_mod[X_index_11], sdg_indexes["index_sdg11"])
 sdg11_model.set_model()
 sdg11_model.get_coef()
-ridge_results = sdg11_model.evaluate_preds(ridge_results)
-ridge_predict = sdg11_model.predict(ridge_predict)
+lasso_results = sdg11_model.evaluate_preds(lasso_results)
+lasso_predict = sdg11_model.predict(lasso_predict)
 # %% Instance for the SDG 13
 
 erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_temp2012','ln_tr400_pop2012', 
@@ -650,22 +650,22 @@ erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_
 X_index_13 = [e for e in X if e not in erase_x13]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
-sdg13_model = RidgeModel("Index SDG 13", sat_mod[X_index_13], sdg_indexes["index_sdg13"])
+sdg13_model = LassoModel("Index SDG 13", sat_mod[X_index_13], sdg_indexes["index_sdg13"])
 sdg13_model.set_model()
 sdg13_model.get_coef()
-ridge_results = sdg13_model.evaluate_preds(ridge_results)
-ridge_predict = sdg13_model.predict(ridge_predict)
+lasso_results = sdg13_model.evaluate_preds(lasso_results)
+lasso_predict = sdg13_model.predict(lasso_predict)
 # %% Instance for the SDG 14
 
 erase_x15 = ['La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 
              'ln_precCRU2012min', 'ln_t400NTLpc2012', 'ln_tr400_pop2012','ln_slope500m2017mean']
 X_index_15 = [e for e in X if e not in erase_x15]
 
-sdg15_model = RidgeModel("Index SDG 15", sat_mod[X_index_15], sdg_indexes["index_sdg15"])
+sdg15_model = LassoModel("Index SDG 15", sat_mod[X_index_15], sdg_indexes["index_sdg15"])
 sdg15_model.set_model()
 sdg15_model.get_coef()
-ridge_results = sdg15_model.evaluate_preds(ridge_results)
-ridge_predict = sdg15_model.predict(ridge_predict)
+lasso_results = sdg15_model.evaluate_preds(lasso_results)
+lasso_predict = sdg15_model.predict(lasso_predict)
 
 # %% Instance for the SDG 16
 
@@ -674,22 +674,22 @@ erase_x16 = ['Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'ln_dist_drug2017mean', 
              'photov2019mean', "ln_slope500m2017mean", 'ln_access2016mean', 'ln_precCRU2012mean', 'lnurb_land2012']
 X_index_16 = [e for e in X if e not in erase_x16]
 
-sdg16_model = RidgeModel("Index SDG 16", sat_mod[X_index_16], sdg_indexes["index_sdg16"])
+sdg16_model = LassoModel("Index SDG 16", sat_mod[X_index_16], sdg_indexes["index_sdg16"])
 sdg16_model.set_model()
 sdg16_model.get_coef()
-ridge_results = sdg16_model.evaluate_preds(ridge_results)
-ridge_predict = sdg16_model.predict(ridge_predict)
+lasso_results = sdg16_model.evaluate_preds(lasso_results)
+lasso_predict = sdg16_model.predict(lasso_predict)
 # %% Instance for the SDG 17
 
 erase_x17 = ['Chuquisaca', 'Cochabamba', 'Potosí', 'Santa Cruz','ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_ghsl2015', 
              'ln_land_temp2012', "ln_slope500m2017mean"]
 X_index_17 = [e for e in X if e not in erase_x17]
 
-sdg17_model = RidgeModel("Index SDG 17", sat_mod[X_index_17], sdg_indexes["index_sdg17"])
+sdg17_model = LassoModel("Index SDG 17", sat_mod[X_index_17], sdg_indexes["index_sdg17"])
 sdg17_model.set_model()
 sdg17_model.get_coef()
-ridge_results = sdg17_model.evaluate_preds(ridge_results)
-ridge_predict = sdg17_model.predict(ridge_predict)
+lasso_results = sdg17_model.evaluate_preds(lasso_results)
+lasso_predict = sdg17_model.predict(lasso_predict)
 
 # %% Instance for the SDG imds
 
@@ -702,11 +702,11 @@ erase_imds =['ln_land_temp2012','Santa Cruz','Oruro', 'Beni', 'ln_dist_drug2017m
              'ln_dist_road2017','ln_access2016mean','ln_pm25_2012']
 X_imds = [e for e in X if e not in erase_imds]
 
-imds_model = RidgeModel("SDI", sat_mod[X_imds], sdg_indexes["imds"])
+imds_model = LassoModel("SDI", sat_mod[X_imds], sdg_indexes["imds"])
 imds_model.set_model()
 imds_model.get_coef()
-ridge_results = imds_model.evaluate_preds(ridge_results)
-ridge_predict = imds_model.predict(ridge_predict) 
+lasso_results = imds_model.evaluate_preds(lasso_results)
+lasso_predict = imds_model.predict(lasso_predict) 
 # %% Definition for the iterative instancing 
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
         X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]
@@ -768,7 +768,7 @@ usage_table.set_index("SDGs", inplace=True)
 
 usage_table.to_csv("./data/sdg_prediction/used_x_models.csv", index=False)
 # %%
-ridge_results.to_latex(index=False,
+lasso_results.to_latex(index=False,
                        float_format= "{:.2f}".format)
 
 # %% [Markdown]
@@ -799,20 +799,20 @@ ax.text(0.83, 0.3, "R2 = 70",
         verticalalignment="top")
 
 # %%
-alphas = np.linspace(0.01,500,100)
-lasso = linear_model.Lasso(max_iter=10000)
-coefs = []
+#alphas = np.linspace(0.01,500,100)
+#lasso = linear_model.Lasso(max_iter=10000)
+#coefs = []
 
-for a in alphas:
-    lasso.set_params(alpha=a)
-    lasso.fit(X_train, y_train)
-    coefs.append(lasso.coef_)
+#for a in alphas:
+#    lasso.set_params(alpha=a)
+#    lasso.fit(X_train, y_train)
+#    coefs.append(lasso.coef_)
 
-ax = plt.gca()
+#ax = plt.gca()
 
-ax.plot(alphas, coefs)
-ax.set_xscale('log')
-plt.axis('tight')
-plt.xlabel('alpha')
-plt.ylabel('Standardized Coefficients')
-plt.title('Lasso coefficients as a function of alpha');
+#ax.plot(alphas, coefs)
+#ax.set_xscale('log')
+#plt.axis('tight')
+#plt.xlabel('alpha')
+#plt.ylabel('Standardized Coefficients')
+#plt.title('Lasso coefficients as a function of alpha');

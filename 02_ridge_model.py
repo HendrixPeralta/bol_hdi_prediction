@@ -767,15 +767,20 @@ usage_table.to_csv("./data/sdg_prediction/used_x_models.csv", index=False)
 # %%
 ridge_results.to_latex(index=False,
                        float_format= "{:.2f}".format)
+
+# %% [Markdown]
+
+# ## R2 boxplot
 # %%
+# Models list - the models 15 and 16 are not here since they are negatives 
 r2_models = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,
               sdg8_model,sdg9_model,sdg10_model,sdg11_model,sdg13_model,
               sdg17_model,imds_model]
 
 dic = {}
 for model in r2_models: 
+    # The dictionary will store the 5 folds data using the model name as a key
     dic[model.name] = model.r2_folds
-
 
 fig, ax = plt.subplots()
 ax.boxplot(dic.values(), vert=0, )

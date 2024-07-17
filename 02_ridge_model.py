@@ -364,10 +364,10 @@ class RidgeModel:
         Performs evaluation comparison on y_true labels vs. y_pred labels
         on a classification.
         """
-        self.r2_folds = cross_val_score(self.model, self.X, self.y, scoring="r2")*100
+        self.r2_folds = cross_val_score(self.model, self.X, self.y, scoring="r2", cv=10)*100
         r2 = np.mean(self.r2_folds)
-        mae = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_absolute_error"))
-        mse = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_squared_error"))
+        mae = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_absolute_error", cv=10))
+        mse = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_squared_error", cv=10))
         scores = [r2, mae, mse]
         
         score_results.loc[len(score_results.index)] = [self.name, scores[0], scores[1], scores[2]]  
@@ -766,7 +766,7 @@ for code, name in zip(feature_code,feature_name):
 usage_table["SDGs"] = label_description
 usage_table.set_index("SDGs", inplace=True)
 
-usage_table.to_csv("./data/sdg_prediction/used_x_models.csv", index=False)
+usage_table.to_csv("./data/sdg_prediction/used_x_models.csv")
 # %%
 ridge_results.to_latex(index=False,
                        float_format= "{:.2f}".format)

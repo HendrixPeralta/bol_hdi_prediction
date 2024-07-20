@@ -246,32 +246,6 @@ def scatterplots(title1, x1, y1, cvr21,
              transform=ax3.transAxes,
              fontsize=12,
              verticalalignment="top")
-# %%  
-# 
-# TODO: Check if this is the right way to optimize the models - should i pass the model already fitted?  
-# FIXME: Add MAE to the graphs
-# Optimizes and save the models 
-def model_optimizer(model):
-   
-    alpha_space = np.logspace(-4,0,30)
-    alpha_space 
-
-    grid = {"alpha": alpha_space,
-            "copy_X": [True, False],
-            "max_iter": [None, 10, 100, 200, 500, 1000, 10000], 
-            "solver": ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]}
-
-    np.random.seed(42)
-    opt_ri_model= RandomizedSearchCV(estimator = model,
-                                    param_distributions=grid,
-                                    n_iter=100,
-                                    cv=5,
-                                    verbose=0)
-
-    return opt_ri_model
-
-
-    #rs_y_preds = opt_ri_model.predict(X_test)
 
 # %%
 def fill_usage_table(model):

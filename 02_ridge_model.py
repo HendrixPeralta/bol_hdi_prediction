@@ -768,8 +768,8 @@ usage_table.set_index("SDGs", inplace=True)
 
 usage_table.to_csv("./data/sdg_prediction/used_x_models.csv")
 # %%
-ridge_results.to_latex(index=False,
-                       float_format= "{:.2f}".format)
+print(ridge_results.to_latex(index=False,
+                       float_format= "{:.2f}".format))
 
 # %% [Markdown]
 

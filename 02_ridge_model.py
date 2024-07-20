@@ -115,7 +115,15 @@ def run_all():
     global ys
     global ridge_predict
     global ridge_results
+    global opt_ridge_results
+    # Stores scores of the basic model 
+    ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
 
+    # Stores scores of the tuned model 
+    opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+
+    # Stores the y_preds and y_test values 
+    ridge_predict = pd.DataFrame()
     # Makes sure that the df are empty 
     #ridge_results.drop(ridge_results.index, inplace=True)
     #ridge_results.drop(ridge_results.columns, axis=0, inplace=True)

@@ -289,7 +289,7 @@ class RidgeModel:
         self.full_df = None
         self.cvr2 = None
         self.X_name = X.columns
-        #X.index.name = "id"
+        X.index.name = "id"
         y.index.name = "id"
         self.full_df = X.merge(y, on="id", how="outer")
         self.r2_folds = None
@@ -468,7 +468,7 @@ erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp
             'ln_dist_drug2017mean', 'ln_slope500m2017mean', 'ln_dist_road2017', 'lnagr_land2012', 
             'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic']
 
-X_index_1 = [e for e in X if e not in erase_x1] + ["id"]
+X_index_1 = [e for e in X if e not in erase_x1]
 
 sdg1_model = RidgeModel("Index SDG 1", sat_mod[X_index_1], sdg_indexes["index_sdg1"])
 sdg1_model.set_model()
@@ -489,7 +489,7 @@ erase_x2 = ['Beni', 'La Paz', 'ln_dist_drug2017mean','ln_t400NTLpc2012','lnagr_l
             'ln_land_temp2012', 'Chuquisaca', 'ln_pm25_2012', 'ln_dist_road2017', 'Cochabamba', 
             'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic',
             'lnurb_land2012','ln_tr400_pop2012','ln_elev2017mean','ln_precCRU2012mean']
-X_index_2 = [e for e in X if e not in erase_x2] + ["id"]
+X_index_2 = [e for e in X if e not in erase_x2]
 
 sdg2_model = RidgeModel("Index SDG 2",sat_mod[X_index_2], sdg_indexes["index_sdg2"])
 sdg2_model.set_model()
@@ -504,7 +504,7 @@ erase_x3 = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'ln_dist_drug2
             'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'lnagr_land2012', 
             'photov2019mean', "ln_slope500m2017mean", 'ln_access2016mean', 'ln_precCRU2012mean',
             'land_per_area_2012_full_forest']
-X_index_3 = [e for e in X if e not in erase_x3] + ["id"]
+X_index_3 = [e for e in X if e not in erase_x3]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
 sdg3_model = RidgeModel("Index SDG 3",sat_mod[X_index_3], sdg_indexes["index_sdg3"])
@@ -518,7 +518,7 @@ ridge_predict = sdg3_model.predict(ridge_predict)
 erase_x4 = ['Cochabamba', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_pm25_2012',  
             'ln_t400NTLpc2012', "ln_slope500m2017mean", 'ln_access2016mean', 'lnagr_land2012', 'photov2019mean',
             'Beni', 'Chuquisaca']
-X_index_4 = [e for e in X if e not in erase_x4] + ["id"]
+X_index_4 = [e for e in X if e not in erase_x4]
 
 sdg4_model = RidgeModel("Index SDG 4",sat_mod[X_index_4], sdg_indexes["index_sdg4"])
 sdg4_model.set_model()
@@ -531,7 +531,7 @@ ridge_predict = sdg4_model.predict(ridge_predict)
 erase_x5 = ['Chuquisaca', 'Pando', 'Santa Cruz', 'Tarija', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 'lnurb_land2012',
              "ln_slope500m2017mean", 'ln_access2016mean', 'ln_dist_road2017', 'ln_land_temp2012', 
              'ln_density_pop2015count', 'land_per_area_2012_cropland_natural_vegetation_mosaic','lnEGDPpc2012']
-X_index_5 = [e for e in X if e not in erase_x5] + ["id"]
+X_index_5 = [e for e in X if e not in erase_x5]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
 sdg5_model = RidgeModel("Index SDG 5", sat_mod[X_index_5], sdg_indexes["index_sdg5"])
@@ -546,7 +546,7 @@ erase_x6 = ['Chuquisaca', 'Cochabamba', 'La Paz', 'Pando', 'ln_dist_drug2017mean
             'ln_precCRU2012mean', 'ln_density_pop2015count',
             'land_per_area_2012_cropland_natural_vegetation_mosaic','lnEGDPpc2012']
 
-X_index_6 = [e for e in X if e not in erase_x6] + ["id"]
+X_index_6 = [e for e in X if e not in erase_x6]
 #        * Should add 'ln_access2016mean' later again in increased the score slightly but was irrelevant
 
 sdg6_model = RidgeModel("Index SDG 6", sat_mod[X_index_6], sdg_indexes["index_sdg6"])
@@ -559,7 +559,7 @@ ridge_predict = sdg6_model.predict(ridge_predict)
 erase_x7 = ['La Paz', 'Oruro', 'ln_land_temp2012', 'ln_precCRU2012min', 'photov2019mean', 
             "ln_slope500m2017mean", 'ln_dist_drug2017mean', 'land_per_area_2012_full_forest',
             'land_per_area_2012_cropland_natural_vegetation_mosaic', 'Potosí']
-X_index_7 = [e for e in X if e not in erase_x7] + ["id"]
+X_index_7 = [e for e in X if e not in erase_x7]
 
 sdg7_model = RidgeModel("Index SDG 7", sat_mod[X_index_7], sdg_indexes["index_sdg7"])
 sdg7_model.set_model()
@@ -572,9 +572,9 @@ erase_x8 = ['Cochabamba', 'Oruro', 'Potosí', 'ln_dist_road2017', 'ln_elev2017me
             'ln_tr400_pop2012','photov2019mean','ln_access2016mean','ln_land_temp2012', 'ln_density_pop2015count',
             'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic',
             'lnurb_land2012', 'lnagr_land2012']
-X_index_8 = [e for e in X if e not in erase_x8] + ["id"]
+X_index_8 = [e for e in X if e not in erase_x8]
 
-sdg8_model = RidgeModel("Index SDG 8", sat_mod[X_index_8 ], sdg_indexes["index_sdg8"])
+sdg8_model = RidgeModel("Index SDG 8", sat_mod[X_index_8], sdg_indexes["index_sdg8"])
 sdg8_model.set_model()
 sdg8_model.get_coef()
 ridge_results = sdg8_model.evaluate_preds(ridge_results)
@@ -585,7 +585,7 @@ erase_x9 = ['Beni', 'Potosí', 'Santa Cruz', 'ln_land_temp2012', 'ln_precCRU2012
             "ln_slope500m2017mean", 'ln_access2016mean', 'ln_precCRU2012mean', 'lnurb_land2012',
             'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic',
             'lnEGDPpc2012']
-X_index_9 = [e for e in X if e not in erase_x9] + ["id"]
+X_index_9 = [e for e in X if e not in erase_x9]
 
 sdg9_model = RidgeModel("Index SDG 9", sat_mod[X_index_9], sdg_indexes["index_sdg9"])
 sdg9_model.set_model()
@@ -598,7 +598,7 @@ erase_x10 = ['Santa Cruz', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_land_
              'ln_t400NTLpc2012',"ln_slope500m2017mean", 'Tarija', 'lnagr_land2012', 'ln_density_pop2015count',
              ]
 
-X_index_10 = [e for e in X if e not in erase_x10] + ["id"]
+X_index_10 = [e for e in X if e not in erase_x10]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
 sdg10_model = RidgeModel("Index SDG 10", sat_mod[X_index_10], sdg_indexes["index_sdg10"])
@@ -615,7 +615,7 @@ ridge_predict = sdg10_model.predict(ridge_predict)
 erase_x11 = ['ln_dist_drug2017mean','Pando','ln_slope500m2017mean', 'ln_access2016mean',
              'land_per_area_2012_full_forest','ln_pm25_2012','lnagr_land2012', 'ln_t400NTLpc2012',
              'ln_precCRU2012mean']        
-X_index_11 = [e for e in X if e not in erase_x11] + ["id"]
+X_index_11 = [e for e in X if e not in erase_x11]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
 sdg11_model = RidgeModel("Index SDG 11", sat_mod[X_index_11], sdg_indexes["index_sdg11"])
@@ -629,7 +629,7 @@ erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_
              'ln_dist_road2017', 'photov2019mean', "Beni",'land_per_area_2012_full_forest',
              'land_per_area_2012_cropland_natural_vegetation_mosaic', 'ln_t400NTLpc2012',
              'lnagr_land2012']
-X_index_13 = [e for e in X if e not in erase_x13] + ["id"]
+X_index_13 = [e for e in X if e not in erase_x13]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 
 sdg13_model = RidgeModel("Index SDG 13", sat_mod[X_index_13], sdg_indexes["index_sdg13"])
@@ -641,7 +641,7 @@ ridge_predict = sdg13_model.predict(ridge_predict)
 
 erase_x15 = ['La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 
              'ln_precCRU2012min', 'ln_t400NTLpc2012', 'ln_tr400_pop2012','ln_slope500m2017mean']
-X_index_15 = [e for e in X if e not in erase_x15] + ["id"]
+X_index_15 = [e for e in X if e not in erase_x15]
 
 sdg15_model = RidgeModel("Index SDG 15", sat_mod[X_index_15], sdg_indexes["index_sdg15"])
 sdg15_model.set_model()
@@ -654,7 +654,7 @@ ridge_predict = sdg15_model.predict(ridge_predict)
 erase_x16 = ['Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'ln_dist_drug2017mean', 'ln_elev2017mean', 'ln_ghsl2015', 
              'ln_land_temp2012','ln_pm25_2012', 'ln_precCRU2012min', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 
              'photov2019mean', "ln_slope500m2017mean", 'ln_access2016mean', 'ln_precCRU2012mean', 'lnurb_land2012']
-X_index_16 = [e for e in X if e not in erase_x16] + ["id"]
+X_index_16 = [e for e in X if e not in erase_x16]
 
 sdg16_model = RidgeModel("Index SDG 16", sat_mod[X_index_16], sdg_indexes["index_sdg16"])
 sdg16_model.set_model()
@@ -665,7 +665,7 @@ ridge_predict = sdg16_model.predict(ridge_predict)
 
 erase_x17 = ['Chuquisaca', 'Cochabamba', 'Potosí', 'Santa Cruz','ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_ghsl2015', 
              'ln_land_temp2012', "ln_slope500m2017mean"]
-X_index_17 = [e for e in X if e not in erase_x17] + ["id"]
+X_index_17 = [e for e in X if e not in erase_x17]
 
 sdg17_model = RidgeModel("Index SDG 17", sat_mod[X_index_17], sdg_indexes["index_sdg17"])
 sdg17_model.set_model()
@@ -682,7 +682,7 @@ ridge_predict = sdg17_model.predict(ridge_predict)
 erase_imds =['ln_land_temp2012','Santa Cruz','Oruro', 'Beni', 'ln_dist_drug2017mean','ln_elev2017mean',
              'land_per_area_2012_cropland_natural_vegetation_mosaic','ln_slope500m2017mean',
              'ln_dist_road2017','ln_access2016mean','ln_pm25_2012']
-X_imds = [e for e in X if e not in erase_imds] + ["id"]
+X_imds = [e for e in X if e not in erase_imds]
 
 imds_model = RidgeModel("SDI", sat_mod[X_imds], sdg_indexes["imds"])
 imds_model.set_model()

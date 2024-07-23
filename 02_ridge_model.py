@@ -436,7 +436,7 @@ X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', '
      'ln_pm25_2012','ln_precCRU2012mean', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 
       'photov2019mean','ln_slope500m2017mean','ln_access2016mean', "ln_density_pop2015count", 
      'land_per_area_2012_full_forest','land_per_area_2012_cropland_natural_vegetation_mosaic',
-     'lnurb_land2012', "lnagr_land2012",'lnEGDPpc2012']
+     'lnurb_land2012', "lnagr_land2012",'lnEGDPpc2012', "airTemp2012.mean"]
      
   # 'lnurb_land2012',    "lnagr_land2012", 
  #    'perUrb_land2012', 

@@ -489,7 +489,7 @@ ridge_predict = sdg1_model.predict(ridge_predict)
 erase_x2 = ['Beni', 'La Paz', 'ln_dist_drug2017mean','ln_t400NTLpc2012','lnagr_land2012','photov2019mean',
             'ln_land_temp2012', 'Chuquisaca', 'ln_pm25_2012', 'ln_dist_road2017', 'Cochabamba', 
             'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic',
-            'lnurb_land2012','ln_tr400_pop2012','ln_elev2017mean','ln_precCRU2012mean', 'airTemp2012.mean']
+            'lnurb_land2012','ln_tr400_pop2012','ln_elev2017mean','ln_precCRU2012mean']
 
 X_index_2 = [e for e in X if e not in erase_x2]
 

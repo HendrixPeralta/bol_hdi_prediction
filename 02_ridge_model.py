@@ -293,6 +293,8 @@ class RidgeModel:
         y.index.name = "id"
         self.full_df = X.merge(y, on="id", how="outer")
         self.r2_folds = None
+        self.opt_r2_folds = None
+        
     # Set up model 
     def set_model(self):
         np.random.seed(42)
@@ -386,7 +388,7 @@ class RidgeModel:
         plt.tight_layout()
         plt.show()
 
-    def model_optimizer(self):
+    def model_optimizer(self, opt_ridge_results):
     
         alpha_space = np.logspace(-4,0,100)
         alpha_space 
@@ -405,23 +407,10 @@ class RidgeModel:
 
         
         opt_ri_model.fit(self.X_train, self.y_train)
-        r2 = np.mean(cross_val_score(opt_ri_model, self.X, self.y, scoring="r2")*100)
-        print(r2)
-    # =================
-    # Optimizer 
-    #opt_ri_model = model_optimizer(self.model)
-    #opt_ri_model.fit(X_train, y_train);
-    #print("Best parameters for: ", y_variable)
-    #print(opt_ri_model.best_params_)
-    #print("="*80)
-    #print("\n\n")
-    
-    #opt_scores = evaluate_preds(opt_ri_model, X, y)
-    #opt_ridge_results.loc[len(opt_ridge_results.index)] = [y_variable, opt_scores[0], opt_scores[1], 
-    #                                                       opt_scores[2]]
+        self.opt_r2_folds = cross_val_score(opt_ri_model, self.X, self.y, scoring="r2")*100
+        r2 = np.mean(self.opt_r2_folds)
 
-    #opt_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
-    #==================
+        print(r2)
 
 # %%
 #   Basic predictors 

@@ -550,7 +550,7 @@ ridge_predict = sdg5_model.predict(ridge_predict)
 erase_x6 = ['Chuquisaca', 'Cochabamba', 'La Paz', 'Pando', 'ln_dist_drug2017mean', 'ln_elev2017mean', 
             'ln_land_temp2012', 'ln_precCRU2012min', "ln_slope500m2017mean", 'ln_access2016mean', 
             'ln_precCRU2012mean', 'ln_density_pop2015count',
-            'land_per_area_2012_cropland_natural_vegetation_mosaic','lnEGDPpc2012' 'airTemp2012.mean']
+            'land_per_area_2012_cropland_natural_vegetation_mosaic','lnEGDPpc2012', 'airTemp2012.mean']
 
 X_index_6 = [e for e in X if e not in erase_x6]
 #        * Should add 'ln_access2016mean' later again in increased the score slightly but was irrelevant
@@ -564,7 +564,7 @@ ridge_predict = sdg6_model.predict(ridge_predict)
 
 erase_x7 = ['La Paz', 'Oruro', 'ln_land_temp2012', 'ln_precCRU2012min', 'photov2019mean', 
             "ln_slope500m2017mean", 'ln_dist_drug2017mean', 'land_per_area_2012_full_forest',
-            'land_per_area_2012_cropland_natural_vegetation_mosaic', 'Potosí']
+            'land_per_area_2012_cropland_natural_vegetation_mosaic', 'Potosí','airTemp2012.mean']
 X_index_7 = [e for e in X if e not in erase_x7]
 
 sdg7_model = RidgeModel("Index SDG 7", sat_mod[X_index_7], sdg_indexes["index_sdg7"])

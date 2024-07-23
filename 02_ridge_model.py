@@ -257,6 +257,17 @@ def fill_usage_table(model):
         else:
             mask.append(0) 
     usage_table.loc[len(usage_table)] = mask
+
+# %%
+def optimize():
+    global opt_ridge_results
+    models = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,
+              sdg8_model,sdg9_model,sdg10_model,sdg11_model,sdg13_model,
+              sdg17_model,imds_model]
+    
+    for model in models:
+        opt_ridge_results = model.model_optimizer(opt_ridge_results)
+        
 # %% [markdown]
 # # Import satellite and SDG data 
 
@@ -748,6 +759,8 @@ usage_table["SDGs"] = label_description
 usage_table.set_index("SDGs", inplace=True)
 
 usage_table.to_csv("./data/sdg_prediction/used_x_models.csv")
+# %% [Markdown]
+# ## Latex tables 
 # %%
 print(ridge_results.to_latex(index=False,
                        float_format= "{:.2f}".format))

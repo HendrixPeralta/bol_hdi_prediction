@@ -686,7 +686,8 @@ ridge_predict = sdg17_model.predict(ridge_predict)
 #              'ln_dist_drug2017mean','ln_pm25_2012', 'land_per_area_2012_full_forest']
 erase_imds =['ln_land_temp2012','Santa Cruz','Oruro', 'Beni', 'ln_dist_drug2017mean','ln_elev2017mean',
              'land_per_area_2012_cropland_natural_vegetation_mosaic','ln_slope500m2017mean',
-             'ln_dist_road2017','ln_access2016mean','ln_pm25_2012']
+             'ln_dist_road2017','ln_access2016mean','ln_pm25_2012', 'airTemp2012.mean']
+
 X_imds = [e for e in X if e not in erase_imds]
 
 imds_model = RidgeModel("SDI", sat_mod[X_imds], sdg_indexes["imds"])

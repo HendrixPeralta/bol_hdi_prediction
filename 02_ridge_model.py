@@ -620,7 +620,7 @@ ridge_predict = sdg10_model.predict(ridge_predict)
 
 erase_x11 = ['ln_dist_drug2017mean','Pando','ln_slope500m2017mean', 'ln_access2016mean',
              'land_per_area_2012_full_forest','ln_pm25_2012','lnagr_land2012', 'ln_t400NTLpc2012',
-             'ln_precCRU2012mean']        
+             'ln_precCRU2012mean', 'airTemp2012.mean']        
 X_index_11 = [e for e in X if e not in erase_x11]
 #        * Should add NTL later again in increased the score slightly but was irrelevant
 

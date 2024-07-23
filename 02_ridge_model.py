@@ -466,8 +466,7 @@ ridge_predict = pd.DataFrame()
 # Predictors NOT included in the model 
 erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 
             'ln_dist_drug2017mean', 'ln_slope500m2017mean', 'ln_dist_road2017', 'lnagr_land2012', 
-            'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic',
-            'airTemp2012.mean']
+            'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic']
 
 X_index_1 = [e for e in X if e not in erase_x1]
 
@@ -670,7 +669,7 @@ ridge_predict = sdg16_model.predict(ridge_predict)
 # %% Instance for the SDG 17
 
 erase_x17 = ['Chuquisaca', 'Cochabamba', 'Potosí', 'Santa Cruz','ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_ghsl2015', 
-             'ln_land_temp2012', "ln_slope500m2017mean"]
+             'ln_land_temp2012', "ln_slope500m2017mean", 'lnurb_land2012']
 X_index_17 = [e for e in X if e not in erase_x17]
 
 sdg17_model = RidgeModel("Index SDG 17", sat_mod[X_index_17], sdg_indexes["index_sdg17"])

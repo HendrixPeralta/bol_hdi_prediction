@@ -346,10 +346,10 @@ class RidgeModel:
         Performs evaluation comparison on y_true labels vs. y_pred labels
         on a classification.
         """
-        self.r2_folds = cross_val_score(self.model, self.X, self.y, scoring="r2", cv=10)*100
+        self.r2_folds = cross_val_score(self.model, self.X, self.y, scoring="r2", cv=5)*100
         r2 = np.mean(self.r2_folds)
-        mae = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_absolute_error", cv=10))
-        mse = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_squared_error", cv=10))
+        mae = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_absolute_error", cv=5))
+        mse = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_squared_error", cv=5))
         scores = [r2, mae, mse]
         
         score_results.loc[len(score_results.index)] = [self.name, scores[0], scores[1], scores[2]]  

@@ -294,7 +294,7 @@ class RidgeModel:
         self.full_df = X.merge(y, on="id", how="outer")
         self.r2_folds = None
         self.opt_r2_folds = None
-        
+
     # Set up model 
     def set_model(self):
         np.random.seed(42)
@@ -409,9 +409,13 @@ class RidgeModel:
         opt_ri_model.fit(self.X_train, self.y_train)
         self.opt_r2_folds = cross_val_score(opt_ri_model, self.X, self.y, scoring="r2")*100
         r2 = np.mean(self.opt_r2_folds)
+        mae = np.mean(cross_val_score(opt_ri_model, self.X, self.y, scoring="neg_mean_absolute_error"))
+        mse = np.mean(cross_val_score(opt_ri_model, self.X, self.y, scoring="neg_mean_squared_error"))
+        
+        opt_ridge_results.loc[len(opt_ridge_results.index)] = [self.name, r2, mae, mse]
+        opt_ridge_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=True)
 
-        print(r2)
-
+        return opt_ridge_results
 # %%
 #   Basic predictors 
 #            'ln_ghsl2015', 'lnagr_land2012', 'lnurb_land2012','ln_land_temp2012', 'ln_tr400_pop2012', 'ln_dist_road2017',

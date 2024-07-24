@@ -251,7 +251,7 @@ def feature_usage_table(model):
     usage_table.loc[len(usage_table)] = mask
 
 def feature_coef_table(model):
-    global features_coef
+    global coef_table
 
     features_temp = pd.DataFrame(columns=["feature", model.name])
 
@@ -261,10 +261,10 @@ def feature_coef_table(model):
     for coef, feature in zip(coefs, features):
         features_temp.loc[len(features_temp.index)] = [feature, coef]
 
-    if features_coef.empty:
-        features_coef = features_temp
+    if coef_table.empty:
+        coef_table = features_temp
     else: 
-        features_coef = features_coef.merge(features_temp, on="feature", how="outer")
+        coef_table = coef_table.merge(features_temp, on="feature", how="outer")
     
 # %%
 def optimize():
@@ -749,7 +749,7 @@ dep_dummies = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'P
 all_X = [e for e in X if e not in dep_dummies]
 
 usage_table = pd.DataFrame()
-features_coef = pd.DataFrame()
+coef_table = pd.DataFrame()
 
 for var in feature_code:
     # Assigns the columns names to the df  
@@ -780,13 +780,15 @@ usage_table.to_csv("./data/sdg_prediction/used_x_models.csv")
 # ================== Features Coef table ======================
 
 # Make the features the columns of the df 
-features_coef = features_coef.set_index("feature")
-features_coef = features_coef.transpose()
+coef_table = coef_table.set_index("feature")
+coef_table = coef_table.transpose()
 
-features_coef = features_coef.drop(columns=dep_dummies) # Drop all the fix effects coefficients 
-features_coef = features_coef.fillna(0) # Features that are not using the model will be assigned a 0 coefficient
+coef_table = coef_table.drop(columns=dep_dummies) # Drop all the fix effects coefficients 
+coef_table = coef_table.fillna(0) # Features that are not using the model will be assigned a 0 coefficient
 
-
+# Rename the table columns 
+for code, name in zip(feature_code,feature_name):
+    coef_table = coef_table.rename(columns={code:name})
 
 # %% [Markdown]
 # ## Latex tables 

@@ -240,7 +240,7 @@ def scatterplots(title1, x1, y1, cvr21,
              verticalalignment="top")
 
 # %%
-def fill_usage_table(model):
+def feature_usage_table(model):
     mask = []    
     #used_X = [e for e in model.X_name if e not in dep_dummies]
     for var in feature_code:
@@ -250,6 +250,23 @@ def fill_usage_table(model):
             mask.append(0) 
     usage_table.loc[len(usage_table)] = mask
 
+def feature_coef_table(model):
+    global features_coef
+
+    features_temp = pd.DataFrame(columns=["feature", model.name])
+
+    features = model.X.columns 
+    coefs = model.fitted_model.coef_.flatten()
+
+    for coef, feature in zip(coefs, features):
+        features_temp.loc[len(features_temp.index)] = [feature, coef]
+
+    if features_coef.empty:
+        features_coef = features_temp
+    else: 
+        features_coef.merge(features_coef, on="feature", how="outer")
+    
+    features_coef
 # %%
 def optimize():
     global opt_ridge_results
@@ -733,6 +750,8 @@ dep_dummies = ['Beni', 'Chuquisaca','Cochabamba', 'La Paz', 'Oruro', 'Pando', 'P
 all_X = [e for e in X if e not in dep_dummies]
 
 usage_table = pd.DataFrame()
+features_coef = pd.DataFrame()
+
 for var in feature_code:
     # Assigns the columns names to the df  
     usage_table[var] = []
@@ -744,7 +763,8 @@ models_sdg = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_m
 # Fills the table using 1 and 0 
 for model in models_sdg:
     # Fill the df with 1 and 0 depending if the model uses the feature or not
-    fill_usage_table(model)
+    feature_usage_table(model)
+    feature_coef_table(model)
 
 # Rename the table columns 
 for code, name in zip(feature_code,feature_name):
@@ -787,5 +807,8 @@ ax.text(0.83, 0.3, "R2 = 70",
         transform=ax.transAxes,
         fontsize=10,
         verticalalignment="top")
+
+# %%
+
 
 # %%

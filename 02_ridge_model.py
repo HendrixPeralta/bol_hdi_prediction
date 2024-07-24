@@ -304,16 +304,21 @@ class RidgeModel:
         self.name = name
         self.X = X
         self.y = y
+        self.y_preds_label = None
+        self.X_preds_label = None
+
         self.model = model
         self.fitted_model = None
         self.X_train = None
         self.X_test = None
         self.y_train = None
+
         self.y_test = None
         self.test_size = test_size
         self.full_df = None
         self.cvr2 = None
         self.X_name = X.columns
+
         X.index.name = "id"
         y.index.name = "id"
         self.full_df = X.merge(y, on="id", how="outer")

@@ -82,7 +82,7 @@ feature_code = [
         'ln_precCRU2012mean',
         "ln_density_pop2015count",
         "land_per_area_2012_croplands",
-        "land_per_area_2012_full_forest ",
+        "land_per_area_2012_full_forest",
         "land_per_area_2012_urban_and_builtup",
         "land_per_area_2012_full_savannas_grasslands",
         "land_per_area_2012_full_shrublands",

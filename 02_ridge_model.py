@@ -801,6 +801,7 @@ coef_table = coef_table[ordered_columns]
 coef_table["SDG"] = label_description
 coef_table.set_index("SDG", inplace=True)
 
+coef_table = coef_table.round(2)
 coef_table.to_csv("./data/sdg_prediction/coef_table.csv")
 
 # =============================================================

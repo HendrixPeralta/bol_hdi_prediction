@@ -777,10 +777,11 @@ usage_table["SDGs"] = label_description
 usage_table.set_index("SDGs", inplace=True)
 
 usage_table.to_csv("./data/sdg_prediction/used_x_models.csv")
+
 # =============================================================
 
-# ================== Features Coef table ======================
 
+# ================== Features Coef table ======================
 # Make the features the columns of the df 
 coef_table = coef_table.set_index("feature")
 coef_table = coef_table.transpose()
@@ -793,7 +794,9 @@ for code, name in zip(feature_code,feature_name):
     coef_table = coef_table.rename(columns={code:name})
 
 ordered_columns = [col for col in feature_name if col in coef_table.columns]
-coef_table = coef_table[ordered_columns]    
+coef_table = coef_table[ordered_columns]   
+coef_table.to_csv("./data/sdg_prediction/coef_table.csv")
+
 # =============================================================
 # %% [Markdown]
 # ## Latex tables 

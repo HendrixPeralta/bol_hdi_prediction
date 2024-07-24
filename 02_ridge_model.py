@@ -242,7 +242,7 @@ def scatterplots(title1, x1, y1, cvr21,
 # %%
 def feature_usage_table(model):
     mask = []    
-    #used_X = [e for e in model.X_name if e not in dep_dummies]
+    # Only uses the features that are in the curated feature list without dummies
     for var in feature_code:
         if var in model.X_name:
             mask.append(1)
@@ -264,9 +264,8 @@ def feature_coef_table(model):
     if features_coef.empty:
         features_coef = features_temp
     else: 
-        features_coef.merge(features_coef, on="feature", how="outer")
+        features_coef = features_coef.merge(features_temp, on="feature", how="outer")
     
-    features_coef
 # %%
 def optimize():
     global opt_ridge_results

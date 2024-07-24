@@ -305,7 +305,7 @@ class RidgeModel:
         self.X = X
         self.y = y
         self.y_preds_label = None
-        self.X_preds_label = None
+        self.y_true_label = None
 
         self.model = model
         self.fitted_model = None

@@ -792,6 +792,9 @@ coef_table = coef_table.fillna(0) # Features that are not using the model will b
 for code, name in zip(feature_code,feature_name):
     coef_table = coef_table.rename(columns={code:name})
 
+ordered_columns = [col for col in feature_name if col in coef_table.columns]
+coef_table = coef_table[ordered_columns]    
+# =============================================================
 # %% [Markdown]
 # ## Latex tables 
 # %%

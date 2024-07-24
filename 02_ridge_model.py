@@ -783,6 +783,9 @@ usage_table.to_csv("./data/sdg_prediction/used_x_models.csv")
 features_coef = features_coef.set_index("feature")
 features_coef = features_coef.transpose()
 
+features_coef = features_coef.drop(columns=dep_dummies) # Drop all the fix effects coefficients 
+features_coef = features_coef.fillna(0) # Features that are not using the model will be assigned a 0 coefficient
+
 
 
 # %% [Markdown]

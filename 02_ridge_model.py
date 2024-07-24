@@ -30,8 +30,6 @@ from mlxtend.plotting import scatterplotmatrix
 import scipy.stats as stats
 
 
-# %% 
-
 # Set up features and labels names 
 feature_name = ["Log EGDP", 
             "Agricultural land", 
@@ -832,7 +830,7 @@ for model in r2_models:
     # The dictionary will store the 5 folds data using the model name as a key
     dic[model.name] = model.r2_folds
 
-fig, ax = plt.subplots()
+fig, ax = plt.subplots(figsize=(10,7))
 ax.boxplot(dic.values(), vert=0, )
 ax.set_yticklabels(dic.keys())
 ax.set_title("R2 of each SDG in 5 folds")
@@ -843,8 +841,5 @@ ax.text(0.83, 0.3, "R2 = 70",
         transform=ax.transAxes,
         fontsize=10,
         verticalalignment="top")
-
-# %%
-
 
 # %%

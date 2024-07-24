@@ -772,7 +772,7 @@ for model in models_sdg:
 for code, name in zip(feature_code,feature_name):
     usage_table = usage_table.rename(columns={code:name})
 
-# Change the name of the labels and uses the description instead SDG! -> No Poverty 
+# Change the name of the labels and uses the description instead SDG1 -> No Poverty 
 usage_table["SDGs"] = label_description
 usage_table.set_index("SDGs", inplace=True)
 
@@ -793,8 +793,14 @@ coef_table = coef_table.fillna(0) # Features that are not using the model will b
 for code, name in zip(feature_code,feature_name):
     coef_table = coef_table.rename(columns={code:name})
 
+# Organizes the table acording to the order in the feature_name list 
 ordered_columns = [col for col in feature_name if col in coef_table.columns]
 coef_table = coef_table[ordered_columns]   
+
+# Change the name of the SDG by its descriptions 
+coef_table["SDG"] = label_description
+coef_table.set_index("SDG", inplace=True)
+
 coef_table.to_csv("./data/sdg_prediction/coef_table.csv")
 
 # =============================================================

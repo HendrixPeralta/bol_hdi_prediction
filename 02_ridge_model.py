@@ -391,7 +391,7 @@ class RidgeModel:
         return score_results
 
     # Predicts and stores the prediction and real values to make graphs 
-    def predict(self, store_predict):   
+    def save_predict(self, store_predict):   
         y_pred = self.model.predict(self.X_test)
 
         self.y_true_label = self.name.split(" ",2)[2] + " true"
@@ -496,7 +496,7 @@ sdg1_model = RidgeModel(label_description[0], sat_mod[X_index_1], sdg_indexes["i
 sdg1_model.set_model()
 sdg1_model.get_coef()
 ridge_results = sdg1_model.evaluate_preds(ridge_results)
-ridge_predict = sdg1_model.predict(ridge_predict)
+ridge_predict = sdg1_model.save_predict(ridge_predict)
 #sdg1_model.scatter_hist()
 
 # %%
@@ -518,7 +518,7 @@ sdg2_model = RidgeModel(label_description[1],sat_mod[X_index_2], sdg_indexes["in
 sdg2_model.set_model()
 sdg2_model.get_coef()
 ridge_results = sdg2_model.evaluate_preds(ridge_results)
-ridge_predict = sdg2_model.predict(ridge_predict)
+ridge_predict = sdg2_model.save_predict(ridge_predict)
 #sdg2_model.scatter_hist()
 # %% Instance for the SDG 3 
 
@@ -535,7 +535,7 @@ sdg3_model = RidgeModel(label_description[2],sat_mod[X_index_3], sdg_indexes["in
 sdg3_model.set_model()
 sdg3_model.get_coef()
 ridge_results = sdg3_model.evaluate_preds(ridge_results)
-ridge_predict = sdg3_model.predict(ridge_predict)
+ridge_predict = sdg3_model.save_predict(ridge_predict)
 
 # %% Instance for the SDG 4 
 
@@ -549,7 +549,7 @@ sdg4_model = RidgeModel(label_description[3],sat_mod[X_index_4], sdg_indexes["in
 sdg4_model.set_model()
 sdg4_model.get_coef()
 ridge_results = sdg4_model.evaluate_preds(ridge_results)
-ridge_predict = sdg4_model.predict(ridge_predict)
+ridge_predict = sdg4_model.save_predict(ridge_predict)
 
 # %% Instance for the SDG 5 
 
@@ -565,7 +565,7 @@ sdg5_model = RidgeModel(label_description[4], sat_mod[X_index_5], sdg_indexes["i
 sdg5_model.set_model()
 sdg5_model.get_coef()
 ridge_results = sdg5_model.evaluate_preds(ridge_results)
-ridge_predict = sdg5_model.predict(ridge_predict)
+ridge_predict = sdg5_model.save_predict(ridge_predict)
 # %% Instance for the SDG 6 
 
 erase_x6 = ['Chuquisaca', 'Cochabamba', 'La Paz', 'Pando', 'ln_dist_drug2017mean', 'ln_elev2017mean', 
@@ -580,7 +580,7 @@ sdg6_model = RidgeModel(label_description[5], sat_mod[X_index_6], sdg_indexes["i
 sdg6_model.set_model()
 sdg6_model.get_coef()
 ridge_results = sdg6_model.evaluate_preds(ridge_results)
-ridge_predict = sdg6_model.predict(ridge_predict)
+ridge_predict = sdg6_model.save_predict(ridge_predict)
 # %% Instance for the SDG 7 
 
 erase_x7 = ['La Paz', 'Oruro', 'ln_land_temp2012', 'ln_precCRU2012min', 'photov2019mean', 
@@ -592,7 +592,7 @@ sdg7_model = RidgeModel(label_description[6], sat_mod[X_index_7], sdg_indexes["i
 sdg7_model.set_model()
 sdg7_model.get_coef()
 ridge_results = sdg7_model.evaluate_preds(ridge_results)
-ridge_predict = sdg7_model.predict(ridge_predict)
+ridge_predict = sdg7_model.save_predict(ridge_predict)
 # %% Instance for the SDG 8 
 
 erase_x8 = ['Cochabamba', 'Oruro', 'Potosí', 'ln_dist_road2017', 'ln_elev2017mean','ln_t400NTLpc2012', 
@@ -605,7 +605,7 @@ sdg8_model = RidgeModel(label_description[7], sat_mod[X_index_8], sdg_indexes["i
 sdg8_model.set_model()
 sdg8_model.get_coef()
 ridge_results = sdg8_model.evaluate_preds(ridge_results)
-ridge_predict = sdg8_model.predict(ridge_predict)
+ridge_predict = sdg8_model.save_predict(ridge_predict)
 # %% Instance for the SDG 9
 
 erase_x9 = ['Beni', 'Potosí', 'Santa Cruz', 'ln_land_temp2012', 'ln_precCRU2012min', 'lnagr_land2012',
@@ -618,7 +618,7 @@ sdg9_model = RidgeModel(label_description[8], sat_mod[X_index_9], sdg_indexes["i
 sdg9_model.set_model()
 sdg9_model.get_coef()
 ridge_results = sdg9_model.evaluate_preds(ridge_results)
-ridge_predict = sdg9_model.predict(ridge_predict)
+ridge_predict = sdg9_model.save_predict(ridge_predict)
 # %% Instance for the SDG 10 
 
 erase_x10 = ['Santa Cruz', 'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_land_temp2012', 'ln_pm25_2012', 
@@ -632,7 +632,7 @@ sdg10_model = RidgeModel(label_description[9], sat_mod[X_index_10], sdg_indexes[
 sdg10_model.set_model()
 sdg10_model.get_coef()
 ridge_results = sdg10_model.evaluate_preds(ridge_results)
-ridge_predict = sdg10_model.predict(ridge_predict)
+ridge_predict = sdg10_model.save_predict(ridge_predict)
 # %% Instance for the SDG 11
 
 #erase_x11 = ['Beni', 'Cochabamba', 'Pando','Santa Cruz', 'ln_dist_drug2017mean', 'photov2019mean',
@@ -649,7 +649,7 @@ sdg11_model = RidgeModel(label_description[10], sat_mod[X_index_11], sdg_indexes
 sdg11_model.set_model()
 sdg11_model.get_coef()
 ridge_results = sdg11_model.evaluate_preds(ridge_results)
-ridge_predict = sdg11_model.predict(ridge_predict)
+ridge_predict = sdg11_model.save_predict(ridge_predict)
 # %% Instance for the SDG 13
 
 erase_x13 = ['Chuquisaca', 'La Paz', 'Oruro', 'Potosí', 'ln_ghsl2015','ln_land_temp2012','ln_tr400_pop2012', 
@@ -663,7 +663,7 @@ sdg13_model = RidgeModel(label_description[11], sat_mod[X_index_13], sdg_indexes
 sdg13_model.set_model()
 sdg13_model.get_coef()
 ridge_results = sdg13_model.evaluate_preds(ridge_results)
-ridge_predict = sdg13_model.predict(ridge_predict)
+ridge_predict = sdg13_model.save_predict(ridge_predict)
 # %% Instance for the SDG 14
 
 erase_x15 = ['La Paz', 'Oruro', 'Potosí', 'Santa Cruz', 'Tarija','ln_dist_drug2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 
@@ -674,7 +674,7 @@ sdg15_model = RidgeModel(label_description[12], sat_mod[X_index_15], sdg_indexes
 sdg15_model.set_model()
 sdg15_model.get_coef()
 ridge_results = sdg15_model.evaluate_preds(ridge_results)
-ridge_predict = sdg15_model.predict(ridge_predict)
+ridge_predict = sdg15_model.save_predict(ridge_predict)
 
 # %% Instance for the SDG 16
 
@@ -687,7 +687,7 @@ sdg16_model = RidgeModel(label_description[13], sat_mod[X_index_16], sdg_indexes
 sdg16_model.set_model()
 sdg16_model.get_coef()
 ridge_results = sdg16_model.evaluate_preds(ridge_results)
-ridge_predict = sdg16_model.predict(ridge_predict)
+ridge_predict = sdg16_model.save_predict(ridge_predict)
 # %% Instance for the SDG 17
 
 erase_x17 = ['Chuquisaca', 'Cochabamba', 'Potosí', 'Santa Cruz','ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_ghsl2015', 
@@ -698,7 +698,7 @@ sdg17_model = RidgeModel(label_description[14], sat_mod[X_index_17], sdg_indexes
 sdg17_model.set_model()
 sdg17_model.get_coef()
 ridge_results = sdg17_model.evaluate_preds(ridge_results)
-ridge_predict = sdg17_model.predict(ridge_predict)
+ridge_predict = sdg17_model.save_predict(ridge_predict)
 
 # %% Instance for the SDG imds
 
@@ -716,7 +716,7 @@ imds_model = RidgeModel(label_description[15], sat_mod[X_imds], sdg_indexes["imd
 imds_model.set_model()
 imds_model.get_coef()
 ridge_results = imds_model.evaluate_preds(ridge_results)
-ridge_predict = imds_model.predict(ridge_predict) 
+ridge_predict = imds_model.save_predict(ridge_predict) 
 # %% Definition for the iterative instancing 
 Xs = [X_index_1, X_index_2, X_index_3, X_index_4, X_index_5, X_index_6, X_index_7, X_index_8, X_index_9, 
         X_index_10, X_index_11, X_index_13, X_index_15, X_index_16, X_index_17, X_imds]

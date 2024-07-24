@@ -732,16 +732,16 @@ ys = sdg_indexes.drop(columns= {"id", "mun_id"})
 
 
 # %%
-scatterplots("SDG1", "Index SDG 1_true", 'Index SDG 1_pred', sdg1_model.cvr2,
-             "SDI", 'SDI_true', 'SDI_pred', imds_model.cvr2,
-             "SDG7", 'Index SDG 7_true', 'Index SDG 7_pred', sdg7_model.cvr2,
-             "SDG9", "Index SDG 9_true", 'Index SDG 9_pred', sdg9_model.cvr2,
+scatterplots(sdg1_model.name, sdg1_model.y_true_label, sdg1_model.y_preds_label, sdg1_model.cvr2,
+             imds_model.name, imds_model.y_true_label, imds_model.y_preds_label, imds_model.cvr2,
+             sdg7_model.name, sdg7_model.y_true_label, sdg7_model.y_preds_label, sdg7_model.cvr2,
+             sdg9_model.name, sdg9_model.y_true_label, sdg9_model.y_preds_label, sdg9_model.cvr2,
              )
 
-scatterplots("SDG13", 'Index SDG 13_true', 'Index SDG 13_pred', sdg13_model.cvr2,
-             "SDG11", 'Index SDG 11_true', 'Index SDG 11_pred', sdg11_model.cvr2,
-             "SDG10", "Index SDG 10_true", 'Index SDG 10_pred', sdg10_model.cvr2,
-             "SDG2", 'Index SDG 6_true', 'Index SDG 6_pred', sdg6_model.cvr2,)
+scatterplots(sdg13_model.name, sdg13_model.y_true_label, sdg13_model.y_preds_label, sdg13_model.cvr2,
+             sdg11_model.name, sdg11_model.y_true_label, sdg11_model.y_preds_label, sdg11_model.cvr2,
+             sdg10_model.name, sdg10_model.y_true_label, sdg10_model.y_preds_label, sdg10_model.cvr2,
+             sdg6_model.name, sdg6_model.y_true_label, sdg6_model.y_preds_label, sdg6_model.cvr2,)
 # %% [markdown]
 # # Adjust Hyperparameters 
 

@@ -1,17 +1,17 @@
-SDGs,Log EGDP,Agricultural land,Urban land,Percentage of urban land,Log Population,Log PM2.5,log Land temperature,Log NTL,Log Distance to road,Log GHSL,Distance to Diamonds Extraction site,Log Malaria rate,Log Distance to water,Log Elevation,Log Distance to drug site,Photovoltaic potential,Log Access to city,Log Slope,Log Precipitation,Log Population Density,Croplands,Forest land,Urban Built up,Savannas and Grasslands,shrublands,Vegetation
-No poverty,1,0,1,0,1,1,0,1,0,1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0
-Zero hunger,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0
-Good health and well-being,1,0,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1
-Quality education,1,0,1,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,0,1,0,0,0,1
-Gender equality,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0
-Clean water and sanitization,0,1,1,0,1,1,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0
-Affordable and clean energy,1,1,1,0,1,1,0,1,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0,0,0,0
-Decent work and economic growth,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0
-"Industry, innovation and infraestructure",0,0,0,0,1,1,0,1,1,1,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,0
-Reduced inequalities,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,1,1,0,1,0,0,1,0,0,0,1
-Sustainable cities and communities,1,0,1,0,1,0,1,0,1,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1
-Climate action,1,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,1,1,1,1,0,0,0,0,0,0
-Life on land,1,1,1,0,0,1,0,0,1,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,1
-"Peace, justice and strong institutions",1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1
-Parnerships for the goals,1,1,0,0,1,1,0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,1
-Sustainable Development Index,1,1,1,0,1,0,0,1,0,1,0,0,0,0,0,1,0,0,1,1,0,1,0,0,0,0
+SDGs,Log EGDP,Agricultural land,Urban land,Percentage of urban land,Log Population,Log PM2.5,log Land temperature,Log NTL,Log Distance to road,Log GHSL,Distance to Diamonds Extraction site,Log Malaria rate,Log Distance to water,Log Elevation,Log Distance to drug site,Photovoltaic potential,Log Access to city,Log Slope,Log Precipitation,Log Population Density,Croplands,Forest land,Urban Built up,Savannas and Grasslands,shrublands,Vegetation,Air Temperature
+No poverty,1,0,1,0,1,1,0,1,0,1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,1
+Zero hunger,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0
+Good health and well-being,1,0,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0
+Quality education,1,0,1,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,0,1,0,0,0,1,1
+Gender equality,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0
+Clean water and sanitization,0,1,1,0,1,1,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0
+Affordable and clean energy,1,1,1,0,1,1,0,1,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0,0,0,0,0
+Decent work and economic growth,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0
+"Industry, innovation and infraestructure",0,0,0,0,1,1,0,1,1,1,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0
+Reduced inequalities,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,1,1,0,1,0,0,1,0,0,0,1,1
+Sustainable cities and communities,1,0,1,0,1,0,1,0,1,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0
+Climate action,1,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,1,1,1,1,0,0,0,0,0,0,1
+Life on land,1,1,1,0,0,1,0,0,1,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,1,1
+"Peace, justice and strong institutions",1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,1
+Parnerships for the goals,1,1,0,0,1,1,0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,1,1
+Sustainable Development Index,1,1,1,0,1,0,0,1,0,1,0,0,0,0,0,1,0,0,1,1,0,1,0,0,0,0,0

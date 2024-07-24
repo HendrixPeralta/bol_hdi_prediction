@@ -58,7 +58,8 @@ feature_name = ["Log EGDP",
             "Urban Built up",
             "Savannas and Grasslands",
             "shrublands",
-            "Vegetation"]
+            "Vegetation",
+            'Air Temperature']
 
 feature_code = [
         'lnEGDPpc2012', 
@@ -86,7 +87,8 @@ feature_code = [
         "land_per_area_2012_urban_and_builtup",
         "land_per_area_2012_full_savannas_grasslands",
         "land_per_area_2012_full_shrublands",
-        "land_per_area_2012_cropland_natural_vegetation_mosaic"]
+        "land_per_area_2012_cropland_natural_vegetation_mosaic",
+        'airTemp2012.mean']
 
 label_description = [
         "No poverty",

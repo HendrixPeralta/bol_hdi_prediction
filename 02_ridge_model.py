@@ -396,9 +396,10 @@ class RidgeModel:
     def predict(self, store_predict):   
         y_pred = self.model.predict(self.X_test)
 
-        col0 = self.name + "_true"
-        col1 = self.name + "_pred"
-        temp_predict = pd.DataFrame({col0: self.y_test, col1: y_pred}, index=self.y_test.index)
+        self.y_true_label = self.name.split(" ",2)[2] + " true"
+        self.y_preds_label = self.name.split(" ",2)[2] + " pred"
+        temp_predict = pd.DataFrame({self.y_true_label: self.y_test, self.y_preds_label: y_pred}, 
+                                    index=self.y_test.index)
         temp_predict.index.name = "id"
         if store_predict.empty:
             store_predict = temp_predict

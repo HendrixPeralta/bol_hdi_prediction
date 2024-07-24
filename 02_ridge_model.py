@@ -91,21 +91,21 @@ feature_code = [
         'airTemp2012.mean']
 
 label_description = [
-        "No poverty",
-        "Zero hunger",
-        "Good health and well-being",
-        "Quality education",
-        "Gender equality",
-        "Clean water and sanitization",
-        "Affordable and clean energy",
-        "Decent work and economic growth",
-        "Industry, innovation and infraestructure",
-        "Reduced inequalities",
-        "Sustainable cities and communities",
-        "Climate action",
-        "Life on land",
-        "Peace, justice and strong institutions",
-        "Parnerships for the goals",
+        "SDG 1: No poverty",
+        "SDG 2: Zero hunger",
+        "SDG 3: Good health and well-being",
+        "SDG 4: Quality education",
+        "SDG 5: Gender equality",
+        "SDG 6: Clean water and sanitization",
+        "SDG 7: Affordable and clean energy",
+        "SDG 8: Decent work and economic growth",
+        "SDG 9: Industry, innovation and infraestructure",
+        "SDG 10: Reduced inequalities",
+        "SDG 11: Sustainable cities and communities",
+        "SDG 13: Climate action",
+        "SDG 15: Life on land",
+        "SDG 16: Peace, justice and strong institutions",
+        "SDG 17: Parnerships for the goals",
         "Sustainable Development Index"
 ]
 # %%

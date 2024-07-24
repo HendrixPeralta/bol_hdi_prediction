@@ -1,17 +1,17 @@
 SDGs,Log EGDP,Agricultural land,Urban land,Percentage of urban land,Log Population,Log PM2.5,log Land temperature,Log NTL,Log Distance to road,Log GHSL,Distance to Diamonds Extraction site,Log Malaria rate,Log Distance to water,Log Elevation,Log Distance to drug site,Photovoltaic potential,Log Access to city,Log Slope,Log Precipitation,Log Population Density,Croplands,Forest land,Urban Built up,Savannas and Grasslands,shrublands,Vegetation,Air Temperature
-No poverty,1,0,1,0,1,1,0,1,0,1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,1
-Zero hunger,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0
-Good health and well-being,1,0,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0
-Quality education,1,0,1,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,0,1,0,0,0,1,1
-Gender equality,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0
-Clean water and sanitization,0,1,1,0,1,1,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0
-Affordable and clean energy,1,1,1,0,1,1,0,1,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0,0,0,0,0
-Decent work and economic growth,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0
-"Industry, innovation and infraestructure",0,0,0,0,1,1,0,1,1,1,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0
-Reduced inequalities,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,1,1,0,1,0,0,1,0,0,0,1,1
-Sustainable cities and communities,1,0,1,0,1,0,1,0,1,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0
-Climate action,1,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,1,1,1,1,0,0,0,0,0,0,1
-Life on land,1,1,1,0,0,1,0,0,1,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,1,1
-"Peace, justice and strong institutions",1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,1
-Parnerships for the goals,1,1,0,0,1,1,0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,1,1
+SDG 1: No poverty,1,0,1,0,1,1,0,1,0,1,0,0,0,0,0,1,1,0,1,1,0,0,0,0,0,0,1
+SDG 2: Zero hunger,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,1,0,0,0,0,0,0,0
+SDG 3: Good health and well-being,1,0,1,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0
+SDG 4: Quality education,1,0,1,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,1,1,0,1,0,0,0,1,1
+SDG 5: Gender equality,0,1,0,0,0,1,0,0,0,1,0,0,0,1,1,1,0,0,1,0,0,1,0,0,0,0,0
+SDG 6: Clean water and sanitization,0,1,1,0,1,1,0,1,1,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0
+SDG 7: Affordable and clean energy,1,1,1,0,1,1,0,1,1,1,0,0,0,1,0,0,1,0,1,1,0,0,0,0,0,0,0
+SDG 8: Decent work and economic growth,1,0,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,1,1,0,0,0,0,0,0,0,0
+"SDG 9: Industry, innovation and infraestructure",0,0,0,0,1,1,0,1,1,1,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,0,0
+SDG 10: Reduced inequalities,1,0,1,0,1,0,0,0,0,1,0,0,0,1,0,1,1,0,1,0,0,1,0,0,0,1,1
+SDG 11: Sustainable cities and communities,1,0,1,0,1,0,1,0,1,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,1,0
+SDG 13: Climate action,1,0,1,0,0,1,0,0,0,0,0,0,0,1,1,0,1,1,1,1,0,0,0,0,0,0,1
+SDG 15: Life on land,1,1,1,0,0,1,0,0,1,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,1,1
+"SDG 16: Peace, justice and strong institutions",1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,0,1,0,0,0,1,1
+SDG 17: Parnerships for the goals,1,1,0,0,1,1,0,1,0,0,0,0,0,1,0,1,1,0,1,1,0,1,0,0,0,1,1
 Sustainable Development Index,1,1,1,0,1,0,0,1,0,1,0,0,0,0,0,1,0,0,1,1,0,1,0,0,0,0,0

@@ -119,9 +119,6 @@ def run_all():
     # Stores scores of the basic model 
     ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
 
-    # Stores scores of the tuned model 
-    opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
-
     # Stores the y_preds and y_test values 
     ridge_predict = pd.DataFrame()
     # Makes sure that the df are empty 
@@ -261,6 +258,10 @@ def fill_usage_table(model):
 # %%
 def optimize():
     global opt_ridge_results
+
+    # Stores scores of the tuned model 
+    opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"]) 
+    
     models = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,
               sdg8_model,sdg9_model,sdg10_model,sdg11_model,sdg13_model,
               sdg17_model,imds_model]

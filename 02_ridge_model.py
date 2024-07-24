@@ -121,12 +121,7 @@ def run_all():
 
     # Stores the y_preds and y_test values 
     ridge_predict = pd.DataFrame()
-    # Makes sure that the df are empty 
-    #ridge_results.drop(ridge_results.index, inplace=True)
-    #ridge_results.drop(ridge_results.columns, axis=0, inplace=True)
 
-    #ridge_predict.drop(ridge_predict.index, inplace=True)
-    #ridge_predict.drop(ridge_predict.columns, axis=0, inplace=True)
     i=1
     for y_variable, X_variable in zip(ys, Xs):
         # Set up model 
@@ -261,7 +256,7 @@ def optimize():
 
     # Stores scores of the tuned model 
     opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"]) 
-    
+
     models = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,
               sdg8_model,sdg9_model,sdg10_model,sdg11_model,sdg13_model,
               sdg17_model,imds_model]

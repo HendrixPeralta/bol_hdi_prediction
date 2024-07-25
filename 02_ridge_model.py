@@ -12,21 +12,17 @@ from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
 
 from sklearn.model_selection import cross_val_score
+from sklearn.pipeline import make_pipeline
+from mlxtend.plotting import scatterplotmatrix 
 
 from sklearn.linear_model import LinearRegression
 from sklearn import linear_model
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import Ridge
-
 from sklearn.model_selection import RandomizedSearchCV
-
 from sklearn.preprocessing import StandardScaler
-from sklearn.pipeline import make_pipeline
-
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
-
-from mlxtend.plotting import scatterplotmatrix 
 import scipy.stats as stats
 
 from condensedModels import RidgeModel
@@ -301,13 +297,14 @@ sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
 #             'ln_dist_drug2017mean', 'ln_pm25_2012', 'photov2019mean', 'Beni', 'Chuquisaca', 'Cochabamba', 'La Paz',
 #              'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 'ln_precCRU2012min'
 
+# TODO: Add missing X variables 
 #sat_mod variables 
 X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 
      'ln_dist_drug2017mean', 'ln_dist_road2017', 'ln_elev2017mean', 'ln_ghsl2015', 'ln_land_temp2012', 
      'ln_pm25_2012','ln_precCRU2012mean', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 
       'photov2019mean','ln_slope500m2017mean','ln_access2016mean', "ln_density_pop2015count", 
      'land_per_area_2012_full_forest','land_per_area_2012_cropland_natural_vegetation_mosaic',
-     'lnurb_land2012', "lnagr_land2012",'lnEGDPpc2012', "airTemp2012.mean"]
+     'lnurb_land2012', "lnagr_land2012",'lnEGDPpc2012', "airTemp2012.mean", 'dist_coast2017mean']
 
 #'land_per_area_2012_urban_and_builtup'
 # %% 

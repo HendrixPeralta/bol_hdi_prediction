@@ -395,7 +395,8 @@ ridge_predict = sdg4_model.save_predict(ridge_predict)
 erase_x5 = ['Chuquisaca', 'Pando', 'Santa Cruz', 'Tarija', 'ln_t400NTLpc2012', 'ln_tr400_pop2012', 
             'lnurb_land2012', "ln_slope500m2017mean", 'ln_access2016mean', 'ln_dist_road2017', 
             'ln_land_temp2012', 'ln_density_pop2015count', 
-            'land_per_area_2012_cropland_natural_vegetation_mosaic','lnEGDPpc2012', 'airTemp2012.mean']
+            'land_per_area_2012_cropland_natural_vegetation_mosaic','lnEGDPpc2012', 'airTemp2012.mean',
+            'dist_coast2017mean']
 
 X_index_5 = [e for e in X if e not in erase_x5]
 #        * Should add NTL later again in increased the score slightly but was irrelevant

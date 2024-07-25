@@ -316,10 +316,10 @@ X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', '
 
 # %%
 # Stores scores of the basic model 
-ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+ridge_results = pd.DataFrame(columns=["Label", "r2", "MAE", "MSE"])
 
 # Stores scores of the tuned model 
-opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"])
+opt_ridge_results = pd.DataFrame(columns=["Label", "r2", "MAE", "MSE"])
 
 # Stores the y_preds and y_test values 
 ridge_predict = pd.DataFrame()

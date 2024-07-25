@@ -130,7 +130,7 @@ def run_all():
         model.get_coef()
         ridge_results = model.evaluate_preds(ridge_results)
         #model.scatter_hist()
-        ridge_predict = model.predict(ridge_predict)
+        ridge_predict = model.save_predict(ridge_predict)
 
         i = i+1
 

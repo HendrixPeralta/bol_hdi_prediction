@@ -688,6 +688,11 @@ ax = sns.boxplot(data=plot_data, y="model", x="r2_value",
                  legend="full")
 ax.axvline(70, color="black", dashes=(2,2))
 
+ax.text(0.83, 0.3, "R2 = 70",
+        transform=ax.transAxes,
+        fontsize=10,
+        verticalalignment="top",
+        color="darkred")
 
 # fig, ax = plt.subplots(figsize=(10,7))
 # ax.boxplot(dic.values(), vert=0)
@@ -700,6 +705,8 @@ ax.axvline(70, color="black", dashes=(2,2))
 #         transform=ax.transAxes,
 #         fontsize=10,
 #         verticalalignment="top")
+
+# %%
 
 # %%
 # create sample DataFrame

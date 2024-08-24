@@ -735,7 +735,31 @@ ax_coef_heatmap.set_xlabel("Satellite Predictors", fontsize=18, fontdict={"weigh
 ax_coef_heatmap.set_ylabel("SDG Models", fontsize=18, fontdict={"weight":"bold"})
 
 # ---------------------------------------- heatmap
-fig.tight_layout()
-fig.show
+# fig.tight_layout()
+# fig.show
 
+# %%
+reset_grouped = grouped.reset_index("model")
+median_60 = reset_grouped.loc[reset_grouped["r2_value"] > 60]
+filter_coef_table = coef_table.loc[median_60["model"]]
+
+plt.figure(figsize=(20, 14))
+
+ax_coef_heatmap = sns.heatmap(data=filter_coef_table, 
+                 cbar=False,
+                 cmap="vlag_r", 
+                 mask=(filter_coef_table==0),
+                 annot=True,
+                 square=True,                 
+                 annot_kws={"fontsize":16})
+# ax.tick_params(axis='y', labelrotation=45, labelsize=12)
+ax_coef_heatmap.set_title("Coefficients of the Predictors Used on Each Model", 
+                          pad=15, 
+                          fontsize=22, 
+                          fontdict={"weight": "bold"})
+ax_coef_heatmap.tick_params(axis='y', labelsize=20)
+ax_coef_heatmap.tick_params(axis='x', labelsize=20)
+
+ax_coef_heatmap.set_xlabel("Satellite Predictors", fontsize=18, fontdict={"weight":"bold"})
+ax_coef_heatmap.set_ylabel("SDG Models", fontsize=18, fontdict={"weight":"bold"})
 # %%

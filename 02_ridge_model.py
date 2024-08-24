@@ -680,18 +680,17 @@ grouped = plot_data.loc[:,["model", "r2_value"]] \
             .median() \
             .sort_values(by="r2_value", ascending=False)
 
-fig, (ax_r2_boxplot, ax_coef_heatmap) = plt.subplots(2,1, figsize=(20,28))
+# fig, (ax_r2_boxplot, ax_coef_heatmap) = plt.subplots(2,1, figsize=(20,28))
 
 # Box Plot -------------------------------------------------------
-# plt.figure(figsize=(18, 10))
-sns.boxplot(data=plot_data, y="model", x="r2_value", 
+plt.figure(figsize=(20, 14))
+ax_r2_boxplot = sns.boxplot(data=plot_data, y="model", x="r2_value", 
                  width=0.6,
                  boxprops={"facecolor":"tab:blue",  "alpha":0.5},
                  order=grouped.index, 
                  showmeans=True,
                  meanprops = {'marker':'|','markeredgecolor':'tab:red','markersize':'13'},
-                 legend="full",
-                 ax=ax_r2_boxplot)
+                 legend="full")
 ax_r2_boxplot.set_title("Satellite Data Shows a Consistent High Predictive Power for SDG 1 and SDI", 
              fontsize=22,
              pad=13,
@@ -711,12 +710,14 @@ ax_r2_boxplot.text(0.83, 0.3, "R2 = 70",
 
 #  -------------------------------------------------------- boxplot 
 
+# %%
 
 # heatmap ---------------------------------------------------
 # cm = mcolors.LinearSegmentedColormap.from_list(cmap_name, color, N=n_bins)
-# plt.figure(figsize=(14, 10))
 
-sns.heatmap(data=coef_table, 
+plt.figure(figsize=(20, 14))
+
+ax_coef_heatmap = sns.heatmap(data=coef_table, 
                  cbar=False,
                  cmap="vlag_r", 
                  mask=(coef_table==0),

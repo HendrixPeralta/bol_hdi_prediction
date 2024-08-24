@@ -693,8 +693,8 @@ ax.set_title("Satellite Data Shows a Consistent High Predictive Power for SDG 1 
              fontsize=16,
              pad=13);
 
-ax.set_xlabel("R2 Values", fontsize=14)
-ax.set_ylabel("SDG Models", fontsize=14)
+ax.set_xlabel("R2 Values", fontsize=14, fontdict={"weight": "bold"})
+ax.set_ylabel("SDG Models", fontsize=14, fontdict={"weight": "bold"})
 
 ax.axvline(70, color="black", dashes=(2,2));
 ax.text(0.83, 0.3, "R2 = 70",
@@ -725,7 +725,7 @@ ax.text(0.83, 0.3, "R2 = 70",
 # cmap_name = "custom_cmap"
 
 # cm = mcolors.LinearSegmentedColormap.from_list(cmap_name, color, N=n_bins)
-plt.figure(figsize=(14, 8))
+plt.figure(figsize=(14, 10))
 ax = sns.heatmap(data=coef_table, 
                  cbar=False,
                  cmap="vlag_r", 
@@ -733,12 +733,12 @@ ax = sns.heatmap(data=coef_table,
                  annot=True,                 
                  annot_kws={"fontsize":12})
 # ax.tick_params(axis='y', labelrotation=45, labelsize=12)
-ax.set_title("Coefficients of the Predictors Used on Each Model", pad=15, fontsize=21)
+ax.set_title("Coefficients of the Predictors Used on Each Model", pad=15, fontsize=21, fontdict={"weight": "bold"})
 ax.tick_params(axis='y', labelsize=12)
 ax.tick_params(axis='x', labelsize=12)
 
-ax.set_xlabel("Satellite Predictors", fontsize=15)
-ax.set_ylabel("SDG Models", fontsize=15)
+ax.set_xlabel("Satellite Predictors", fontsize=18, fontdict={"weight":"bold"})
+ax.set_ylabel("SDG Models", fontsize=18, fontdict={"weight":"bold"})
 
 # show plot
 plt.show()

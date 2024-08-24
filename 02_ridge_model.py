@@ -5,6 +5,7 @@ import pandas as pd
 import sklearn as ktl
 import pickle
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 import seaborn as sns
 
 from sklearn.model_selection import train_test_split
@@ -679,20 +680,28 @@ grouped = plot_data.loc[:,["model", "r2_value"]] \
             .median() \
             .sort_values(by="r2_value", ascending=False)
 
+
 ax = sns.boxplot(data=plot_data, y="model", x="r2_value", 
                  width=0.7,
                  boxprops={"facecolor":"tab:blue",  "alpha":0.5},
                  order=grouped.index, 
                  showmeans=True,
-                 meanprops = {'marker':'|','markerfacecolor':'white','markeredgecolor':'tab:red','markersize':'8'},
-                 legend="full")
-ax.axvline(70, color="black", dashes=(2,2))
+                 meanprops = {'marker':'|','markeredgecolor':'tab:red','markersize':'8'},
+                 legend="full",
+                 )
+ax.set_title("Satellite Data Shows a Consistent High Predictive Power for SDG 1 and SDI", 
+             fontsize=16,
+             pad=13);
 
+ax.set_xlabel("R2 Values", fontsize=14)
+ax.set_ylabel("SDG Models", fontsize=14)
+
+ax.axvline(70, color="black", dashes=(2,2));
 ax.text(0.83, 0.3, "R2 = 70",
         transform=ax.transAxes,
         fontsize=10,
         verticalalignment="top",
-        color="darkred")
+        color="darkred");
 
 # fig, ax = plt.subplots(figsize=(10,7))
 # ax.boxplot(dic.values(), vert=0)
@@ -711,7 +720,20 @@ ax.text(0.83, 0.3, "R2 = 70",
 # %%
 # create sample DataFrame
 # create plot
-ax = sns.boxplot(x="Sensations", y="Temperature", data=df)
+# color = ["red", "white", "blue"]
+# n_bins = 1000
+# cmap_name = "custom_cmap"
 
+# cm = mcolors.LinearSegmentedColormap.from_list(cmap_name, color, N=n_bins)
+plt.figure(figsize=(10, 8))
+ax = sns.heatmap(data=coef_table, 
+                 cmap="vlag", 
+                 mask=(coef_table==0),
+                 annot=True,
+                 square=True,
+                 cbar=False,
+                 )
+# sns.color_palette("vlag", as_cmap=True)
 # show plot
 plt.show()
+# %%

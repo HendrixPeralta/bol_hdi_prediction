@@ -696,16 +696,16 @@ ax_r2_boxplot.set_title("Satellite Data Shows a Consistent High Predictive Power
              fontsize=22,
              pad=13,
              fontdict={"weight":"bold"});
-ax_r2_boxplot.set_xlabel("R2 Values", fontsize=14, fontdict={"weight": "bold"})
-ax_r2_boxplot.set_ylabel("SDG Models", fontsize=14, fontdict={"weight": "bold"})
+ax_r2_boxplot.set_xlabel("R2 Values", fontsize=18, fontdict={"weight": "bold"})
+ax_r2_boxplot.set_ylabel("SDG Models", fontsize=18, fontdict={"weight": "bold"})
 
-ax_r2_boxplot.tick_params(axis='y', labelsize=14)
-ax_r2_boxplot.tick_params(axis='x', labelsize=18)
+ax_r2_boxplot.tick_params(axis='y', labelsize=20)
+ax_r2_boxplot.tick_params(axis='x', labelsize=20)
 
 ax_r2_boxplot.axvline(70, color="black", dashes=(4,4));
 ax_r2_boxplot.text(0.83, 0.3, "R2 = 70",
         transform=ax_r2_boxplot.transAxes,
-        fontsize=16,
+        fontsize=18,
         verticalalignment="top",
         color="darkred");
 
@@ -721,17 +721,20 @@ sns.heatmap(data=coef_table,
                  cmap="vlag_r", 
                  mask=(coef_table==0),
                  annot=True,                 
-                 annot_kws={"fontsize":12})
+                 annot_kws={"fontsize":16})
 # ax.tick_params(axis='y', labelrotation=45, labelsize=12)
-ax_coef_heatmap.set_title("Coefficients of the Predictors Used on Each Model", pad=15, fontsize=21, fontdict={"weight": "bold"})
-ax_coef_heatmap.tick_params(axis='y', labelsize=12)
-ax_coef_heatmap.tick_params(axis='x', labelsize=12)
+ax_coef_heatmap.set_title("Coefficients of the Predictors Used on Each Model", 
+                          pad=15, 
+                          fontsize=22, 
+                          fontdict={"weight": "bold"})
+ax_coef_heatmap.tick_params(axis='y', labelsize=20)
+ax_coef_heatmap.tick_params(axis='x', labelsize=20)
 
 ax_coef_heatmap.set_xlabel("Satellite Predictors", fontsize=18, fontdict={"weight":"bold"})
 ax_coef_heatmap.set_ylabel("SDG Models", fontsize=18, fontdict={"weight":"bold"})
 
 # ---------------------------------------- heatmap
-
-
+fig.tight_layout()
+fig.show
 
 # %%

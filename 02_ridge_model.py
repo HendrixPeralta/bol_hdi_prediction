@@ -680,7 +680,7 @@ grouped = plot_data.loc[:,["model", "r2_value"]] \
             .median() \
             .sort_values(by="r2_value", ascending=False)
 
-
+plt.figure(figsize=(14, 8))
 ax = sns.boxplot(data=plot_data, y="model", x="r2_value", 
                  width=0.7,
                  boxprops={"facecolor":"tab:blue",  "alpha":0.5},

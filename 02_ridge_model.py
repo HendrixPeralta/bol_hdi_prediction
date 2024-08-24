@@ -680,68 +680,58 @@ grouped = plot_data.loc[:,["model", "r2_value"]] \
             .median() \
             .sort_values(by="r2_value", ascending=False)
 
-plt.figure(figsize=(18, 10))
-ax = sns.boxplot(data=plot_data, y="model", x="r2_value", 
+fig, (ax_r2_boxplot, ax_coef_heatmap) = plt.subplots(2,1, figsize=(20,28))
+
+# Box Plot -------------------------------------------------------
+# plt.figure(figsize=(18, 10))
+sns.boxplot(data=plot_data, y="model", x="r2_value", 
                  width=0.6,
                  boxprops={"facecolor":"tab:blue",  "alpha":0.5},
                  order=grouped.index, 
                  showmeans=True,
                  meanprops = {'marker':'|','markeredgecolor':'tab:red','markersize':'13'},
                  legend="full",
-                 )
-ax.set_title("Satellite Data Shows a Consistent High Predictive Power for SDG 1 and SDI", 
+                 ax=ax_r2_boxplot)
+ax_r2_boxplot.set_title("Satellite Data Shows a Consistent High Predictive Power for SDG 1 and SDI", 
              fontsize=22,
-             pad=13);
-ax.set_xlabel("R2 Values", fontsize=14, fontdict={"weight": "bold"})
-ax.set_ylabel("SDG Models", fontsize=14, fontdict={"weight": "bold"})
+             pad=13,
+             fontdict={"weight":"bold"});
+ax_r2_boxplot.set_xlabel("R2 Values", fontsize=14, fontdict={"weight": "bold"})
+ax_r2_boxplot.set_ylabel("SDG Models", fontsize=14, fontdict={"weight": "bold"})
 
-ax.tick_params(axis='y', labelsize=14)
-ax.tick_params(axis='x', labelsize=18)
+ax_r2_boxplot.tick_params(axis='y', labelsize=14)
+ax_r2_boxplot.tick_params(axis='x', labelsize=18)
 
-ax.axvline(70, color="black", dashes=(4,4));
-ax.text(0.83, 0.3, "R2 = 70",
-        transform=ax.transAxes,
+ax_r2_boxplot.axvline(70, color="black", dashes=(4,4));
+ax_r2_boxplot.text(0.83, 0.3, "R2 = 70",
+        transform=ax_r2_boxplot.transAxes,
         fontsize=16,
         verticalalignment="top",
         color="darkred");
 
-# fig, ax = plt.subplots(figsize=(10,7))
-# ax.boxplot(dic.values(), vert=0)
-# ax.set_yticklabels(dic.keys())
-# ax.set_title("R2 of each SDG in 5 folds")
-# ax.set(xlabel="R2")
-# plt.vlines([70], ymin=0, ymax=15 , colors="r", linestyles="--")
-# #ax.set_xlim(0, 100) 
-# ax.text(0.83, 0.3, "R2 = 70",
-#         transform=ax.transAxes,
-#         fontsize=10,
-#         verticalalignment="top")
+#  -------------------------------------------------------- boxplot 
 
-# %%
 
-# %%
-# create sample DataFrame
-# create plot
-# color = ["red", "white", "blue"]
-# n_bins = 1000
-# cmap_name = "custom_cmap"
-
+# heatmap ---------------------------------------------------
 # cm = mcolors.LinearSegmentedColormap.from_list(cmap_name, color, N=n_bins)
-plt.figure(figsize=(14, 10))
-ax = sns.heatmap(data=coef_table, 
+# plt.figure(figsize=(14, 10))
+
+sns.heatmap(data=coef_table, 
                  cbar=False,
                  cmap="vlag_r", 
                  mask=(coef_table==0),
                  annot=True,                 
                  annot_kws={"fontsize":12})
 # ax.tick_params(axis='y', labelrotation=45, labelsize=12)
-ax.set_title("Coefficients of the Predictors Used on Each Model", pad=15, fontsize=21, fontdict={"weight": "bold"})
-ax.tick_params(axis='y', labelsize=12)
-ax.tick_params(axis='x', labelsize=12)
+ax_coef_heatmap.set_title("Coefficients of the Predictors Used on Each Model", pad=15, fontsize=21, fontdict={"weight": "bold"})
+ax_coef_heatmap.tick_params(axis='y', labelsize=12)
+ax_coef_heatmap.tick_params(axis='x', labelsize=12)
 
-ax.set_xlabel("Satellite Predictors", fontsize=18, fontdict={"weight":"bold"})
-ax.set_ylabel("SDG Models", fontsize=18, fontdict={"weight":"bold"})
+ax_coef_heatmap.set_xlabel("Satellite Predictors", fontsize=18, fontdict={"weight":"bold"})
+ax_coef_heatmap.set_ylabel("SDG Models", fontsize=18, fontdict={"weight":"bold"})
 
-# show plot
-plt.show()
+# ---------------------------------------- heatmap
+
+
+
 # %%

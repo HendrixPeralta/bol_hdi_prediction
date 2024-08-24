@@ -681,10 +681,10 @@ grouped = plot_data.loc[:,["model", "r2_value"]] \
 
 ax = sns.boxplot(data=plot_data, y="model", x="r2_value", 
                  width=0.7,
-                 boxprops={"facecolor": (0.3, 0.5, 0.7, 0.5)},
+                 boxprops={"facecolor":"tab:blue",  "alpha":0.5},
                  order=grouped.index, 
                  showmeans=True,
-                 meanprops = {'marker':'|','markerfacecolor':'white','markeredgecolor':'red','markersize':'8'},
+                 meanprops = {'marker':'|','markerfacecolor':'white','markeredgecolor':'tab:red','markersize':'8'},
                  legend="full")
 ax.axvline(70, color="black", dashes=(2,2))
 

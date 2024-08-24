@@ -725,15 +725,15 @@ ax.text(0.83, 0.3, "R2 = 70",
 # cmap_name = "custom_cmap"
 
 # cm = mcolors.LinearSegmentedColormap.from_list(cmap_name, color, N=n_bins)
-plt.figure(figsize=(12, 8))
+plt.figure(figsize=(14, 8))
 ax = sns.heatmap(data=coef_table, 
-                 cmap="vlag", 
-                 mask=(coef_table==0),
-                 annot=True,
                  cbar=False,
-                 )
+                 cmap="vlag_r", 
+                 mask=(coef_table==0),
+                 annot=True,                 
+                 annot_kws={"fontsize":12})
 # ax.tick_params(axis='y', labelrotation=45, labelsize=12)
-
+ax.set_title("Coefficients of the Predictors Used on Each Model", pad=15, fontsize=21)
 ax.tick_params(axis='y', labelsize=12)
 ax.tick_params(axis='x', labelsize=12)
 

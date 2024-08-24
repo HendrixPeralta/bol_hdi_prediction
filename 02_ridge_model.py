@@ -663,16 +663,48 @@ for model in r2_models:
     # The dictionary will store the 5 folds data using the model name as a key
     dic[model.name] = model.r2_folds
 
-fig, ax = plt.subplots(figsize=(10,7))
-ax.boxplot(dic.values(), vert=0)
-ax.set_yticklabels(dic.keys())
-ax.set_title("R2 of each SDG in 5 folds")
-ax.set(xlabel="R2")
-plt.vlines([70], ymin=0, ymax=15 , colors="r", linestyles="--")
-#ax.set_xlim(0, 100) 
-ax.text(0.83, 0.3, "R2 = 70",
-        transform=ax.transAxes,
-        fontsize=10,
-        verticalalignment="top")
+dic_data = []
+for model in r2_models:
+    df = pd.DataFrame({
+        "model": [model.name] * len(model.r2_folds),
+        "r2_value": model.r2_folds
+
+    })
+    dic_data.append(df)
+
+plot_data=pd.concat(dic_data, ignore_index=True)
+
+grouped = plot_data.loc[:,["model", "r2_value"]] \
+            .groupby(["model"]) \
+            .median() \
+            .sort_values(by="r2_value", ascending=False)
+
+ax = sns.boxplot(data=plot_data, y="model", x="r2_value", 
+                 width=0.7,
+                 boxprops={"facecolor": (0.3, 0.5, 0.7, 0.5)},
+                 order=grouped.index, 
+                 showmeans=True,
+                 meanprops = {'marker':'|','markerfacecolor':'white','markeredgecolor':'red','markersize':'8'},
+                 legend="full")
+ax.axvline(70, color="black", dashes=(2,2))
+
+
+# fig, ax = plt.subplots(figsize=(10,7))
+# ax.boxplot(dic.values(), vert=0)
+# ax.set_yticklabels(dic.keys())
+# ax.set_title("R2 of each SDG in 5 folds")
+# ax.set(xlabel="R2")
+# plt.vlines([70], ymin=0, ymax=15 , colors="r", linestyles="--")
+# #ax.set_xlim(0, 100) 
+# ax.text(0.83, 0.3, "R2 = 70",
+#         transform=ax.transAxes,
+#         fontsize=10,
+#         verticalalignment="top")
 
 # %%
+# create sample DataFrame
+# create plot
+ax = sns.boxplot(x="Sensations", y="Temperature", data=df)
+
+# show plot
+plt.show()

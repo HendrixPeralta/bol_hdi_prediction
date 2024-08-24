@@ -680,26 +680,28 @@ grouped = plot_data.loc[:,["model", "r2_value"]] \
             .median() \
             .sort_values(by="r2_value", ascending=False)
 
-plt.figure(figsize=(14, 8))
+plt.figure(figsize=(18, 10))
 ax = sns.boxplot(data=plot_data, y="model", x="r2_value", 
-                 width=0.7,
+                 width=0.6,
                  boxprops={"facecolor":"tab:blue",  "alpha":0.5},
                  order=grouped.index, 
                  showmeans=True,
-                 meanprops = {'marker':'|','markeredgecolor':'tab:red','markersize':'8'},
+                 meanprops = {'marker':'|','markeredgecolor':'tab:red','markersize':'13'},
                  legend="full",
                  )
 ax.set_title("Satellite Data Shows a Consistent High Predictive Power for SDG 1 and SDI", 
-             fontsize=16,
+             fontsize=22,
              pad=13);
-
 ax.set_xlabel("R2 Values", fontsize=14, fontdict={"weight": "bold"})
 ax.set_ylabel("SDG Models", fontsize=14, fontdict={"weight": "bold"})
 
-ax.axvline(70, color="black", dashes=(2,2));
+ax.tick_params(axis='y', labelsize=14)
+ax.tick_params(axis='x', labelsize=18)
+
+ax.axvline(70, color="black", dashes=(4,4));
 ax.text(0.83, 0.3, "R2 = 70",
         transform=ax.transAxes,
-        fontsize=10,
+        fontsize=16,
         verticalalignment="top",
         color="darkred");
 

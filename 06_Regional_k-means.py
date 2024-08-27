@@ -72,9 +72,24 @@ plt.show()
 # geo_municipalities_w  = libpysal.weights.fuzzy_contiguity(geo_municipalities)
 geo_municipalities_w = Queen.from_dataframe(geo_municipalities)
 
+f, axs = plt.subplots(figsize=(15, 15))
+
+geo_municipalities.plot(
+        edgecolor="k", facecolor="w", ax=axs
+    )
+
+geo_municipalities_w.plot(
+        geo_municipalities,
+        ax=axs,
+        edge_kws=dict(color="r", linestyle=":", linewidth=1),
+        node_kws=dict(marker=""),
+    )
+
 # %%
 np.random.seed(42)
 # Calculate moran's i 
+
+# Moran's I =======================================================================  
 morans_i_result = [
     Moran(geo_municipalities[index], geo_municipalities_w) for index in sdg_indexes
 ]
@@ -91,9 +106,12 @@ morans_table = pd.DataFrame(
     columns=["Index", "Moran's I", "P-value"]
 ).set_index("Index")
 
-
+# ======================================================================= Moran's I  
 
 #%%
+
+
+# %%
 kmeans = KMeans(n_clusters=5)
 np.random.seed(42)
 # model = RegionKMeansHeuristic(geo_municipalities['index_sdg1'].values, 5, geo_municipalities_w)

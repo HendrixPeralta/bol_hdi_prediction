@@ -86,10 +86,10 @@ morans_i_result=[
 ]
 
 #display table
-# morans_table = pd.DataFrame(
-#     morans_i_result,
-#     columns=["Index", "Moran's I", "P-value"]
-# ).set_index("Index")
+morans_table = pd.DataFrame(
+    morans_i_result,
+    columns=["Index", "Moran's I", "P-value"]
+).set_index("Index")
 
 
 

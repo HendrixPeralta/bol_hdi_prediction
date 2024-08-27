@@ -178,6 +178,17 @@ for cluster in k5desc.T:
     print(f"{cluster}")
     print(k5desc.T[cluster].unstack())
 
+# %%
+# Draw distribution of the cluster members 
+tidy_geo_municipalities = geo_municipalities[sdg_indexes + ["k5cls"]].set_index("k5cls")
+# Creates a long version of the dataset
+tidy_geo_municipalities = tidy_geo_municipalities.stack()
+tidy_geo_municipalities = tidy_geo_municipalities.reset_index()
+# Rename Columns 
+tidy_geo_municipalities = tidy_geo_municipalities.rename(
+    columns={"level_1":"Attribute", 0:"Values"}
+)
+
 # ======================================================================= Multivariate K-means clustering
 
 # %%

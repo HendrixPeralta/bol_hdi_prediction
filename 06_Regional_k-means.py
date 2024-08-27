@@ -172,6 +172,11 @@ k5sizes = geo_municipalities.groupby("k5cls").size()
 k5means = geo_municipalities.groupby("k5cls")[sdg_indexes].mean()
 k5means.T.round(3)
 
+# Group clusters by label and describe
+k5desc = geo_municipalities.groupby("k5cls")[sdg_indexes].describe()
+for cluster in k5desc.T:
+    print(f"{cluster}")
+    print(k5desc.T[cluster].unstack())
 
 # ======================================================================= Multivariate K-means clustering
 

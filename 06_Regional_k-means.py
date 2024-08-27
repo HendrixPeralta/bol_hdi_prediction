@@ -133,7 +133,7 @@ _ = sns.pairplot(
 # ======================================================================= pairplot
 
 # %%
-# K-means clustering ======================================================================= 
+# Multivariate K-means clustering ======================================================================= 
 
 kmeans = KMeans(n_clusters=5)
 
@@ -164,6 +164,9 @@ geo_municipalities.plot(
 ax.set_axis_off()
 plt.show()
 
-# ======================================================================= K-means clustering
+# %%
+# Count the obrservations in each cluster
+k5sizes = geo_municipalities.groupby("k5cls").size()
+# ======================================================================= Multivariate K-means clustering
 
 # %%

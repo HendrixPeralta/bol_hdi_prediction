@@ -291,7 +291,7 @@ ax.set_axis_off()
 lisa = esda.moran.Moran_Local(geo_municipalities["imds"], geo_municipalities_queen_w)
 
 
-fig, axs = plt.subplots(2,2, figsize=(20,20))
+fig, axs = plt.subplots(2,2, figsize=(12,12))
 axs = axs.flatten()
 
 ax = axs[0]

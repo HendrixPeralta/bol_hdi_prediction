@@ -18,7 +18,8 @@ from spopt.region import RegionKMeansHeuristic
 import sklearn.cluster
 from sklearn.cluster import KMeans
 
-
+from sklearn.preprocessing import robust_scale # standarizes the variables 
+# db_scaled = robust_scale(db[cluster_variables]) # standarizes the variables 
 # %%
 geo_municipalities = gpd.read_file("data/shapefile/bolivia_adm3.shp")
 # %%
@@ -125,25 +126,33 @@ morans_table = pd.DataFrame(
 
 #%%
 # Bivariate correlation 
-
+# pairplot ======================================================================= 
 _ = sns.pairplot(
     geo_municipalities[sdg_indexes], kind="reg", diag_kind="kde"
 )
-
+# ======================================================================= pairplot
 
 # %%
+# K-means clustering ======================================================================= 
+
 kmeans = KMeans(n_clusters=5)
+
 np.random.seed(42)
 # model = RegionKMeansHeuristic(geo_municipalities['index_sdg1'].values, 5, geo_municipalities_queen_w)
 # model.solve()
-k5cls = kmeans.fit(geo_municipalities[['asdf_id', 'index_sdg1']])
-k5cls.labels_[:5]
-
-
+k5cls = kmeans.fit(geo_municipalities[sdg_indexes])
 
 # %%
-geo_municipalities["k5cls"] = k5cls
+k5cls.labels_[:5]
+
+ # %%
+
+geo_municipalities["k5cls"] = k5cls.labels_
+
+fig, ax = plt.subplots(1, figsize=(12,12))
+
 geo_municipalities.plot(
+    ax=ax,
     column="k5cls",
     categorical=True,
     cmap="tab20",
@@ -151,4 +160,10 @@ geo_municipalities.plot(
     edgecolor="w",
     legend=True
 )
+
+ax.set_axis_off()
+plt.show()
+
+# ======================================================================= K-means clustering
+
 # %%

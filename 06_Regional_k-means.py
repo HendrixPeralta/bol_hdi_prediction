@@ -1,4 +1,5 @@
 # %%
+import esda.moran
 import pandas as pd
 import numpy as np
 import geopandas as gpd
@@ -11,9 +12,9 @@ import libpysal
 from libpysal.weights import Queen, KNN
 
 from esda.moran import Moran
-
-import spopt
-from spopt.region import RegionKMeansHeuristic
+from pysal.explore import esda
+from pysal.lib import weights
+from splot import esda as esdaplot
 
 import sklearn.cluster
 from sklearn.cluster import KMeans
@@ -206,4 +207,145 @@ facets = sns.FacetGrid(
 _= facets.map(sns.kdeplot, "Values", fill=True).add_legend()
 # ======================================================================= Multivariate K-means clustering
 
+# %%
+
+k5cls = kmeans.fit(geo_municipalities[sdg_indexes])
+
+# %%
+k5cls.labels_[:5]
+
+ # %%
+
+geo_municipalities["k5cls"] = k5cls.labels_
+
+fig, ax = plt.subplots(1, figsize=(12,12))
+
+geo_municipalities.plot(
+    ax=ax,
+    column="k5cls",
+    categorical=True,
+    cmap="tab20",
+    figsize=(8,8),
+    edgecolor="w",
+    legend=True
+)
+
+ax.set_axis_off()
+plt.show()
+
+# %%
+
+fig, axs = plt.subplots(nrows=5, ncols=3, figsize=(30,40))
+axs = axs.flatten()
+
+for i, index in enumerate(sdg_indexes): 
+    ax = axs[i]
+    geo_municipalities.plot(
+        column=index,
+        scheme="Quantiles",
+        cmap="OrRd",
+        edgecolor="k",
+        linewidth=0,
+        legend=True,
+        ax=ax,
+        legend_kwds={
+            "fontsize":17,
+            "markerscale":1.5,
+        }
+    )
+
+    ax.set_axis_off();
+    ax.set_title(index)
+
+plt.subplots_adjust(wspace=0.1)
+plt.tight_layout()
+plt.show()
+
+
+#%%
+
+k5cls_list = []
+for i, index in enumerate(sdg_indexes):
+    k5cls_list[i] = kmeans.fit(geo_municipalities[index])
+# %%
+# ESDA ======================================================================= 
+
+fig, ax = plt.subplots(1, figsize=(12,12))
+
+geo_municipalities.plot(
+    column="imds",
+    cmap="viridis",
+    scheme="quantiles",
+    k=5,
+    edgecolor="white",
+    linewidth=0.1,
+    alpha=0.75,
+    legend=True,
+    legend_kwds=dict(loc=1),
+    ax=ax
+)
+
+ax.set_axis_off()
+
+# %%
+lisa = esda.moran.Moran_Local(geo_municipalities["imds"], geo_municipalities_queen_w)
+
+
+fig, axs = plt.subplots(2,2, figsize=(20,20))
+axs = axs.flatten()
+
+ax = axs[0]
+
+geo_municipalities["Is" ] = lisa.Is
+
+geo_municipalities.plot(
+    column="Is",
+    cmap="plasma",
+    scheme="quantiles",
+    k=5,
+    edgecolor="white",
+    linewidth=0.1,
+    alpha=0.75,
+    legend=True,
+    ax=ax 
+)
+ax = axs[1]
+esdaplot.lisa_cluster(lisa, geo_municipalities, p=1, ax=ax)
+
+ax = axs[2]
+
+labels = pd.Series(
+    1*(lisa.p_sim <0.05),
+    index=geo_municipalities.index
+).map({1:"Significant", 0:"Non-significant"})
+
+geo_municipalities["cl"] = labels
+geo_municipalities.plot(
+    column="cl",
+    categorical=True,
+    k=2,
+    cmap="Paired",
+    linewidth=0.1,
+    edgecolor = "white",
+    legend=True,
+    ax=ax
+)
+
+ax = axs[3]
+esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax)
+
+for i, ax in enumerate(axs):
+    ax.set_axis_off()
+    ax.set_title(
+        ["Local Statistics",
+        "Scatterplot Quadrant",
+        "Statistical Significance",
+        "Moran Cluster Map"][i]
+    )
+
+fig.tight_layout()
+plt.show()
+
+
+# ======================================================================= ESDA
 # %%

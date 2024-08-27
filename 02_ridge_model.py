@@ -695,14 +695,43 @@ ax_r2_boxplot.set_title("Satellite Data Shows a Consistent High Predictive Power
              fontsize=22,
              pad=13,
              fontdict={"weight":"bold"});
-ax_r2_boxplot.set_xlabel("R2 Values", fontsize=18, fontdict={"weight": "bold"})
-ax_r2_boxplot.set_ylabel("SDG Models", fontsize=18, fontdict={"weight": "bold"})
+ax_r2_boxplot.set_xlabel("R2 Values", fontsize=20, fontdict={"weight": "bold"})
+ax_r2_boxplot.set_ylabel("SDG Models", fontsize=20, fontdict={"weight": "bold"})
 
 ax_r2_boxplot.tick_params(axis='y', labelsize=20)
 ax_r2_boxplot.tick_params(axis='x', labelsize=20)
 
 ax_r2_boxplot.axvline(70, color="black", dashes=(4,4));
-ax_r2_boxplot.text(0.83, 0.3, "R2 = 70",
+ax_r2_boxplot.text(0.83, 0.3, "R2 = 70%",
+        transform=ax_r2_boxplot.transAxes,
+        fontsize=18,
+        verticalalignment="top",
+        color="darkred");
+
+#  -------------------------------------------------------- boxplot 
+
+
+# Box Plot -------------------------------------------------------
+plt.figure(figsize=(20, 14))
+ax_r2_boxplot = sns.boxplot(data=plot_data, x="model", y="r2_value", 
+                 width=0.6,
+                 boxprops={"facecolor":"tab:blue",  "alpha":0.5},
+                 order=grouped.index, 
+                 showmeans=True,
+                 meanprops = {'marker':'|','markeredgecolor':'tab:red','markersize':'13'},
+                 legend="full")
+ax_r2_boxplot.set_title("Satellite Data Shows a Consistent High Predictive Power for SDG 1 and SDI", 
+             fontsize=22,
+             pad=13,
+             fontdict={"weight":"bold"});
+ax_r2_boxplot.set_ylabel("R2 Values", fontsize=20, fontdict={"weight": "bold"})
+ax_r2_boxplot.set_xlabel("SDG Models", fontsize=20, fontdict={"weight": "bold"})
+
+ax_r2_boxplot.tick_params(axis='y', labelsize=20)
+ax_r2_boxplot.tick_params(axis='x', labelsize=20, rotation=270)
+
+ax_r2_boxplot.axhline(70, color="darkred", dashes=(4,4));
+ax_r2_boxplot.text(0.7, 0.84, "R2 = 70%",
         transform=ax_r2_boxplot.transAxes,
         fontsize=18,
         verticalalignment="top",
@@ -713,8 +742,6 @@ ax_r2_boxplot.text(0.83, 0.3, "R2 = 70",
 # %%
 
 # heatmap ---------------------------------------------------
-# cm = mcolors.LinearSegmentedColormap.from_list(cmap_name, color, N=n_bins)
-
 plt.figure(figsize=(20, 14))
 
 ax_coef_heatmap = sns.heatmap(data=coef_table, 

@@ -167,6 +167,12 @@ plt.show()
 # %%
 # Count the obrservations in each cluster
 k5sizes = geo_municipalities.groupby("k5cls").size()
+
+# Group clusters by label and obtain their mean 
+k5means = geo_municipalities.groupby("k5cls")[sdg_indexes].mean()
+k5means.T.round(3)
+
+
 # ======================================================================= Multivariate K-means clustering
 
 # %%

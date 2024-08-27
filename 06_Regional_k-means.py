@@ -189,6 +189,21 @@ tidy_geo_municipalities = tidy_geo_municipalities.rename(
     columns={"level_1":"Attribute", 0:"Values"}
 )
 
+# %% 
+
+sns.set(font_scale=1.5)
+
+facets = sns.FacetGrid(
+    data=tidy_geo_municipalities,
+    col="Attribute",
+    hue="k5cls",
+    sharey=False,
+    sharex=False, 
+    aspect=2,
+    col_wrap=3,
+)
+
+_= facets.map(sns.kdeplot, "Values", fill=True).add_legend()
 # ======================================================================= Multivariate K-means clustering
 
 # %%

@@ -69,8 +69,11 @@ plt.show()
  
 
 # %%
-# geo_municipalities_w  = libpysal.weights.fuzzy_contiguity(geo_municipalities)
-geo_municipalities_w = Queen.from_dataframe(geo_municipalities)
+# geo_municipalities_queen_w  = libpysal.weights.fuzzy_contiguity(geo_municipalities)
+
+# Queen Weight Matrix =======================================================================  
+
+geo_municipalities_queen_w = Queen.from_dataframe(geo_municipalities)
 
 f, axs = plt.subplots(figsize=(15, 15))
 
@@ -78,20 +81,32 @@ geo_municipalities.plot(
         edgecolor="k", facecolor="w", ax=axs
     )
 
-geo_municipalities_w.plot(
+geo_municipalities_queen_w.plot(
         geo_municipalities,
         ax=axs,
         edge_kws=dict(color="r", linestyle=":", linewidth=1),
         node_kws=dict(marker=""),
     )
 
+axs.set_axis_off()
+# %%
+print(geo_municipalities_queen_w.n)
+print(geo_municipalities_queen_w.pct_nonzero)
+
+s = pd.Series(geo_municipalities_queen_w.cardinalities)
+s.plot.hist(bins=s.unique().shape[0])
+
+
+# =======================================================================  Queen Weight Matrix
+
+
 # %%
 np.random.seed(42)
-# Calculate moran's i 
+# Calculate moran's i  - spatial autocorrelation 
 
 # Moran's I =======================================================================  
 morans_i_result = [
-    Moran(geo_municipalities[index], geo_municipalities_w) for index in sdg_indexes
+    Moran(geo_municipalities[index], geo_municipalities_queen_w) for index in sdg_indexes
 ]
 
 # sctructure results as a list of tuples
@@ -109,12 +124,17 @@ morans_table = pd.DataFrame(
 # ======================================================================= Moran's I  
 
 #%%
+# Bivariate correlation 
+
+_ = sns.pairplot(
+    geo_municipalities[sdg_indexes], kind="reg", diag_kind="kde"
+)
 
 
 # %%
 kmeans = KMeans(n_clusters=5)
 np.random.seed(42)
-# model = RegionKMeansHeuristic(geo_municipalities['index_sdg1'].values, 5, geo_municipalities_w)
+# model = RegionKMeansHeuristic(geo_municipalities['index_sdg1'].values, 5, geo_municipalities_queen_w)
 # model.solve()
 k5cls = kmeans.fit(geo_municipalities[['asdf_id', 'index_sdg1']])
 k5cls.labels_[:5]

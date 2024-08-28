@@ -160,7 +160,8 @@ geo_municipalities.plot(
     cmap="tab20",
     figsize=(8,8),
     edgecolor="w",
-    legend=True
+    legend=True,
+    linewidth=0.2
 )
 
 ax.set_axis_off()
@@ -222,6 +223,7 @@ fig, ax = plt.subplots(1, figsize=(12,12))
 
 geo_municipalities.plot(
     column="ward5wq",
+    cmap="tab20",
     categorical=True,
     legend=True,
     linewidth=0.1,

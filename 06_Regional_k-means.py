@@ -229,6 +229,34 @@ geo_municipalities.plot(
 )
 ax.set_axis_off()
 plt.show()
+
+# %%
+
+tidy_rs_municipalities = geo_municipalities[sdg_indexes + ["ward5wq"]].set_index("ward5wq")
+# Creates a long version of the dataset
+tidy_rs_municipalities = tidy_rs_municipalities.stack()
+tidy_rs_municipalities = tidy_rs_municipalities.reset_index()
+# Rename Columns 
+tidy_rs_municipalities = tidy_rs_municipalities.rename(
+    columns={"level_1":"Attribute", 0:"Values"}
+)
+
+# %% 
+
+sns.set(font_scale=1.5)
+
+facets = sns.FacetGrid(
+    data=tidy_rs_municipalities,
+    col="Attribute",
+    hue="ward5wq",
+    sharey=False,
+    sharex=False, 
+    aspect=2,
+    col_wrap=3,
+)
+
+_= facets.map(sns.kdeplot, "Values", fill=True).add_legend()
+
 # =================================================================  Spatial Restrain Multivariate K-means clustering
 
 # %%

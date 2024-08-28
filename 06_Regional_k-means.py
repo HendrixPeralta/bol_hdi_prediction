@@ -211,8 +211,24 @@ _= facets.map(sns.kdeplot, "Values", fill=True).add_legend()
 # %%
 # Spatial Restrain Multivariate K-means clustering ================================================================= 
 np.random.seed(42)
-sr_kmeans= Agglomerative
+sr_kmeans= AgglomerativeClustering(
+    connectivity=geo_municipalities_queen_w.sparse, n_clusters=5
+)
+sr_kmeans.fit(geo_municipalities[sdg_indexes])
 
+geo_municipalities["ward5wq"] = sr_kmeans.labels_
+
+fig, ax = plt.subplots(1, figsize=(12,12))
+
+geo_municipalities.plot(
+    column="ward5wq",
+    categorical=True,
+    legend=True,
+    linewidth=0.1,
+    ax=ax
+)
+ax.set_axis_off()
+plt.show()
 # =================================================================  Spatial Restrain Multivariate K-means clustering
 
 # %%

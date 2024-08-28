@@ -209,7 +209,7 @@ _= facets.map(sns.kdeplot, "Values", fill=True).add_legend()
 # ======================================================================= Multivariate K-means clustering
 
 # %%
-# Spatial Restrain Multivariate K-means clustering ================================================================= 
+# Spatial Restrained Multivariate K-means clustering ================================================================= 
 np.random.seed(42)
 sr_kmeans= AgglomerativeClustering(
     connectivity=geo_municipalities_queen_w.sparse, n_clusters=5
@@ -257,68 +257,9 @@ facets = sns.FacetGrid(
 
 _= facets.map(sns.kdeplot, "Values", fill=True).add_legend()
 
-# =================================================================  Spatial Restrain Multivariate K-means clustering
-
-# %%
-
-k5cls = kmeans.fit(geo_municipalities[sdg_indexes])
-
-# %%
-k5cls.labels_[:5]
-
- # %%
-
-geo_municipalities["k5cls"] = k5cls.labels_
-
-fig, ax = plt.subplots(1, figsize=(12,12))
-
-geo_municipalities.plot(
-    ax=ax,
-    column="k5cls",
-    categorical=True,
-    cmap="tab20",
-    figsize=(8,8),
-    edgecolor="w",
-    legend=True
-)
-
-ax.set_axis_off()
-plt.show()
-
-# %%
-
-fig, axs = plt.subplots(nrows=5, ncols=3, figsize=(30,40))
-axs = axs.flatten()
-
-for i, index in enumerate(sdg_indexes): 
-    ax = axs[i]
-    geo_municipalities.plot(
-        column=index,
-        scheme="Quantiles",
-        cmap="OrRd",
-        edgecolor="k",
-        linewidth=0,
-        legend=True,
-        ax=ax,
-        legend_kwds={
-            "fontsize":17,
-            "markerscale":1.5,
-        }
-    )
-
-    ax.set_axis_off();
-    ax.set_title(index)
-
-plt.subplots_adjust(wspace=0.1)
-plt.tight_layout()
-plt.show()
+# =================================================================  Spatial Restrained Multivariate K-means clustering
 
 
-#%%
-
-k5cls_list = []
-for i, index in enumerate(sdg_indexes):
-    k5cls_list[i] = kmeans.fit(geo_municipalities[index])
 # %%
 # ESDA ======================================================================= 
 
@@ -400,4 +341,61 @@ plt.show()
 
 
 # ======================================================================= ESDA
+
 # %%
+
+# k5cls = kmeans.fit(geo_municipalities[sdg_indexes])
+# k5cls.labels_[:5]
+# %%
+
+
+ # %%
+
+# geo_municipalities["k5cls"] = k5cls.labels_
+
+# fig, ax = plt.subplots(1, figsize=(12,12))
+
+# geo_municipalities.plot(
+#     ax=ax,
+#     column="k5cls",
+#     categorical=True,
+#     cmap="tab20",
+#     figsize=(8,8),
+#     edgecolor="w",
+#     legend=True
+# )
+
+# ax.set_axis_off()
+# plt.show()
+
+# %%
+
+# fig, axs = plt.subplots(nrows=5, ncols=3, figsize=(30,40))
+# axs = axs.flatten()
+
+# for i, index in enumerate(sdg_indexes): 
+#     ax = axs[i]
+#     geo_municipalities.plot(
+#         column=index,
+#         scheme="Quantiles",
+#         cmap="OrRd",
+#         edgecolor="k",
+#         linewidth=0,
+#         legend=True,
+#         ax=ax,
+#         legend_kwds={
+#             "fontsize":17,
+#             "markerscale":1.5,
+#         }
+#     )
+
+#     ax.set_axis_off();
+#     ax.set_title(index)
+
+# plt.subplots_adjust(wspace=0.1)
+# plt.tight_layout()
+# plt.show()
+
+
+#%%
+

@@ -18,6 +18,7 @@ from splot import esda as esdaplot
 
 import sklearn.cluster
 from sklearn.cluster import KMeans
+from sklearn.cluster import AgglomerativeClustering
 
 from sklearn.preprocessing import robust_scale # standarizes the variables 
 # db_scaled = robust_scale(db[cluster_variables]) # standarizes the variables 
@@ -76,7 +77,7 @@ plt.show()
 # Queen Weight Matrix =======================================================================  
 
 geo_municipalities_queen_w = Queen.from_dataframe(geo_municipalities)
-
+geo_municipalities_queen_w.to_file("exports/06_exports/geo_municipalities_queen_w.gal")
 f, axs = plt.subplots(figsize=(15, 15))
 
 geo_municipalities.plot(
@@ -206,6 +207,13 @@ facets = sns.FacetGrid(
 
 _= facets.map(sns.kdeplot, "Values", fill=True).add_legend()
 # ======================================================================= Multivariate K-means clustering
+
+# %%
+# Spatial Restrain Multivariate K-means clustering ================================================================= 
+np.random.seed(42)
+sr_kmeans= Agglomerative
+
+# =================================================================  Spatial Restrain Multivariate K-means clustering
 
 # %%
 

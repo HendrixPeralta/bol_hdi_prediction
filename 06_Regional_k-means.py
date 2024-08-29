@@ -43,10 +43,10 @@ sdg_indexes = ['index_sdg1',
                 'index_sd17',]
 
 # Quantiles  ======================================================================= 
-fig, axs = plt.subplots(nrows=5, ncols=3, figsize=(30,40))
+fig, axs = plt.subplots(nrows=4, ncols=4, figsize=(30,40))
 axs = axs.flatten()
 
-for i, index in enumerate(sdg_indexes): 
+for i, index in enumerate(sdg_indexes + ["imds"]): 
     ax = axs[i]
     geo_municipalities.plot(
         column=index,

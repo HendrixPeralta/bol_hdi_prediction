@@ -204,9 +204,10 @@ facets = sns.FacetGrid(
     sharex=False, 
     aspect=2,
     col_wrap=3,
+    palette="tab20"
 )
 
-_= facets.map(sns.kdeplot, "Values", fill=True).add_legend()
+_= facets.map(sns.kdeplot, "Values", fill=True).add_legend(title="Clusters")
 # ======================================================================= Multivariate K-means clustering
 
 # %%

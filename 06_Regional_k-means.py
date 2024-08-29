@@ -7,6 +7,7 @@ import seaborn as sns
 
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
+import matplotlib.patches as mpatches
 
 import libpysal
 from libpysal.weights import Queen, KNN
@@ -194,6 +195,16 @@ tidy_geo_municipalities = tidy_geo_municipalities.rename(
 
 # %% 
 
+# Example categories (replace with your actual categories)
+categories = [0, 1, 2, 3, 4]
+
+# Generate a color palette (tab20 has 20 colors)
+palette = sns.color_palette("tab20", len(categories))
+
+# Create a color mapping dictionary
+color_mapping = {category: color for category, color in zip(categories, palette)}
+
+# %%
 sns.set(font_scale=1.5)
 
 facets = sns.FacetGrid(
@@ -204,7 +215,7 @@ facets = sns.FacetGrid(
     sharex=False, 
     aspect=2,
     col_wrap=3,
-    palette="tab20"
+    palette=color_mapping
 )
 
 _= facets.map(sns.kdeplot, "Values", fill=True).add_legend(title="Clusters")
@@ -230,7 +241,23 @@ geo_municipalities.plot(
     linewidth=0.1,
     ax=ax
 )
+
+
+for category, color in color_mapping.items():
+    geo_municipalities[geo_municipalities["ward5wq"] == category].plot(
+        color=color,
+        ax=ax,
+        # alpha=0.6
+    )
+
+
 ax.set_axis_off()
+
+legend_patches = [
+    mpatches.Patch(color=color_mapping[category], label=f"Cluster {category}")
+    for category in categories
+]
+ax.legend(handles=legend_patches, title="Clusters", loc='upper right')
 plt.show()
 
 # %%
@@ -256,6 +283,7 @@ facets = sns.FacetGrid(
     sharex=False, 
     aspect=2,
     col_wrap=3,
+    palette="tab20"
 )
 
 _= facets.map(sns.kdeplot, "Values", fill=True).add_legend()

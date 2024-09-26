@@ -454,12 +454,15 @@
             <custom_classifications/>
             <weights_entries>
                 <weights>
-                    <title>geo_municipalities_queen_w</title>
+                    <title>bolivia_adm3_queen</title>
                     <default/>
                     <meta_info>
-                        <weights_type>custom</weights_type>
-                        <path>/Users/hendrixperalta/Desktop/bolivia/exports/06_exports/geo_municipalities_queen_w.gal</path>
-                        <symmetry>unknown</symmetry>
+                        <weights_type>queen</weights_type>
+                        <order>1</order>
+                        <inc_lower_orders>false</inc_lower_orders>
+                        <path>/Users/hendrixperalta/Desktop/bolivia_adm3_queen.gal</path>
+                        <id_variable>poly_id</id_variable>
+                        <symmetry>symmetric</symmetry>
                         <num_observations>339</num_observations>
                         <min_neighbors>0</min_neighbors>
                         <max_neighbors>12</max_neighbors>

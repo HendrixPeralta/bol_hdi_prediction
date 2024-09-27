@@ -51,7 +51,7 @@ class RidgeModel:
 
         print("*"*20, self.name, "*"*20, "\n")
         print(f"X variables:\n {np.array(self.X.columns)}\n")
-        print(f"Non CV score: {(self.fitted_model.score(self.X_test, self.y_test)*100).round(2)}\n")
+        print(f"Non CV score: {round(self.fitted_model.score(self.X_test, self.y_test)*100,2)}\n")
 
         coeff = self.fitted_model.coef_.flatten()      
         relevance = 1 

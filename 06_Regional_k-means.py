@@ -44,10 +44,10 @@ sdg_indexes = ['index_sdg1',
                 'index_sd17',]
 
 # Quantiles  ======================================================================= 
-fig, axs = plt.subplots(nrows=4, ncols=4, figsize=(30,40))
+fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(40,30))
 axs = axs.flatten()
 
-for i, index in enumerate(sdg_indexes + ["imds"]): 
+for i, index in enumerate(sdg_indexes): 
     ax = axs[i]
     geo_municipalities.plot(
         column=index,
@@ -67,7 +67,7 @@ for i, index in enumerate(sdg_indexes + ["imds"]):
     ax.set_title(index)
 
 fig.suptitle("Sustainable Development Goals Geospatial Patterns In Bolivian Municipalities",
-            fontsize=55,
+            fontsize=60,
             fontdict={"fontweight":"bold"})
 
 plt.subplots_adjust(wspace=0.1)

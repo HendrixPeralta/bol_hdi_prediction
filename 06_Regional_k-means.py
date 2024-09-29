@@ -79,16 +79,14 @@ for i, (index, index_name) in enumerate(zip(sdg_indexes, sdg_names)):
         legend=True,
         ax=ax,
         legend_kwds={
-            "fontsize":30,
+            "fontsize":32,
             "markerscale":2.5,
         }
     )
 
-    # ax.legend(title="Natural brakes")
-    
-    
+    # ax.legend(title="Natural brakes")  
     ax.set_axis_off();
-    ax.set_title("\n".join([index_name]), fontsize=40)
+    ax.set_title("\n".join([index_name]), fontsize=43)
 
 # fig.suptitle("Sustainable Development Goals Geospatial Patterns In Bolivian Municipalities",
 #             # y=0.98,

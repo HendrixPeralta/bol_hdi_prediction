@@ -221,6 +221,11 @@ for cluster in k5desc.T:
 # %%
 # Draw distribution of the cluster members 
 tidy_geo_municipalities = geo_municipalities[sdg_indexes + ["k5cls"]].set_index("k5cls")
+
+# Rename the columns to the proper SDG name
+for (old_name, new_name) in zip(sdg_indexes, sdg_names):
+    tidy_geo_municipalities.rename(columns={old_name:new_name}, inplace=True)
+
 # Creates a long version of the dataset
 tidy_geo_municipalities = tidy_geo_municipalities.stack()
 tidy_geo_municipalities = tidy_geo_municipalities.reset_index()

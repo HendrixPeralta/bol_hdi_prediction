@@ -192,9 +192,15 @@ geo_municipalities.plot(
     figsize=(8,8),
     edgecolor="w",
     legend=True,
-    linewidth=0.2
+    linewidth=0.2,
+    legend_kwds={"fontsize":15,
+                 "title_fontsize":15,
+                 "markerscale":1.2}
 )
 
+legend = ax.get_legend()
+legend.set_title("K-means Clusters")
+ax.add_artist(legend)
 ax.set_axis_off()
 plt.show()
 

@@ -27,27 +27,47 @@ from sklearn.preprocessing import robust_scale # standarizes the variables
 geo_municipalities = gpd.read_file("data/shapefile/bolivia_adm3.shp")
 # %%
 
-sdg_indexes = ['index_sdg1',
-                'index_sdg2',
-                'index_sdg3',
-                'index_sdg4',
-                'index_sdg5',
-                'index_sdg6',
-                'index_sdg7',
-                'index_sdg8',
-                'index_sdg9',
-                'index_sd10',
-                'index_sd11',
-                'index_sd13',
-                'index_sd15',
-                'index_sd16',
-                'index_sd17',]
+sdg_indexes = [
+    'index_sdg1',
+    'index_sdg2',
+    'index_sdg3',
+    'index_sdg4',
+    'index_sdg5',
+    'index_sdg6',
+    'index_sdg7',
+    'index_sdg8',
+    'index_sdg9',
+    'index_sd10',
+    'index_sd11',
+    'index_sd13',
+    'index_sd15',
+    'index_sd16',
+    'index_sd17',]
+
+sdg_names = [
+    "SDG1: No Poverty",
+    "SDG2: Zero Hunger",
+    "SDG3: Good Health and Well-being",
+    "SDG4: Quality Education",
+    "SDG5: Gender Equality",
+    "SDG6: Clean Water and Sanitation",
+    "SDG7: Affordable and Clean Energy",
+    "SDG8: Decent Work and Economic Growth",
+    "SDG9: Industry, Innovation, and Infrastructure",
+    "SDG10: Reduced Inequalities",
+    "SDG11: Sustainable Cities and Communities",
+    "SDG13: Climate Action",
+    "SDG15: Life on Land",
+    "SDG16: Peace, Justice, and Strong Institutions",
+    "SDG17: Partnerships for the Goals"
+]
 
 # Quantiles  ======================================================================= 
-fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(40,30))
+fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(55,40))
 axs = axs.flatten()
+fig.subplots_adjust(top=0.8)
 
-for i, index in enumerate(sdg_indexes): 
+for i, (index, index_name) in enumerate(zip(sdg_indexes, sdg_names)): 
     ax = axs[i]
     geo_municipalities.plot(
         column=index,
@@ -58,15 +78,19 @@ for i, index in enumerate(sdg_indexes):
         legend=True,
         ax=ax,
         legend_kwds={
-            "fontsize":20,
-            "markerscale":1.5,
+            "fontsize":30,
+            "markerscale":2.5,
         }
     )
 
+    # ax.legend(title="Natural brakes")
+    
+    
     ax.set_axis_off();
-    ax.set_title(index)
+    ax.set_title("\n".join([index_name]), fontsize=30)
 
-fig.suptitle("Sustainable Development Goals Geospatial Patterns In Bolivian Municipalities",
+fig.suptitle("\n".join(["Sustainable Development Goals Geospatial Patterns In Bolivian Municipalities"]),
+            y=0.98,
             fontsize=60,
             fontdict={"fontweight":"bold"})
 

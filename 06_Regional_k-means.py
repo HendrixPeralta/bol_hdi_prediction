@@ -194,24 +194,26 @@ geo_municipalities["k5cls"] = k5cls.labels_
 
 fig, ax = plt.subplots(1, figsize=(12,12))
 
-geo_municipalities.plot(
-    ax=ax,
-    column="k5cls",
-    categorical=True,
-    cmap="tab20",
-    figsize=(8,8),
-    edgecolor="w",
-    legend=True,
-    linewidth=0.2,
-    legend_kwds={"fontsize":15,
-                 "title_fontsize":15,
-                 "markerscale":1.2}
-)
+# geo_municipalities.plot(
+
+#     ax=ax,
+#     column="k5cls",
+#     categorical=True,
+#     cmap="tab20",
+#     figsize=(8,8),
+#     edgecolor="w",
+#     legend=True,
+#     linewidth=0.2,
+#     legend_kwds={"fontsize":15,
+#                  "title_fontsize":15,
+#                  "markerscale":1.2}
+# )
 
 for category, color in color_mapping.items():
     geo_municipalities[geo_municipalities["k5cls"]==category].plot(
         color=color,
-        ax=ax
+        ax=ax,
+        linewidth=0.4,
     )
 
 legend_patches = [

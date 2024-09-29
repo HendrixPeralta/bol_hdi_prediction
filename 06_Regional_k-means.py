@@ -188,7 +188,7 @@ geo_municipalities["k5cls"] = k5cls.labels_
  # %%
  
 sns.set_theme(rc={'figure.figsize':(7,5)}, font_scale=1.3)
-fig, ax = plt.subplots(1, figsize=(12,12))
+fig, ax = plt.subplots(1, figsize=(9,9))
 
 # geo_municipalities.plot(
 

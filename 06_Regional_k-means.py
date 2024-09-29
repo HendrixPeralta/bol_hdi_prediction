@@ -194,20 +194,20 @@ geo_municipalities["k5cls"] = k5cls.labels_
 
 fig, ax = plt.subplots(1, figsize=(12,12))
 
-# geo_municipalities.plot(
+geo_municipalities.plot(
 
-#     ax=ax,
-#     column="k5cls",
-#     categorical=True,
-#     cmap="tab20",
-#     figsize=(8,8),
-#     edgecolor="w",
-#     legend=True,
-#     linewidth=0.2,
-#     legend_kwds={"fontsize":15,
-#                  "title_fontsize":15,
-#                  "markerscale":1.2}
-# )
+    ax=ax,
+    column="k5cls",
+    categorical=True,
+    cmap="tab20",
+    figsize=(8,8),
+    edgecolor="w",
+    legend=True,
+    linewidth=0.2,
+    legend_kwds={"fontsize":15,
+                 "title_fontsize":15,
+                 "markerscale":1.2}
+)
 
 for category, color in color_mapping.items():
     geo_municipalities[geo_municipalities["k5cls"]==category].plot(
@@ -300,19 +300,20 @@ geo_municipalities["ward5wq"] = sr_kmeans.labels_
 
 fig, ax = plt.subplots(1, figsize=(12,12))
 
-geo_municipalities.plot(
-    column="ward5wq",
-    cmap="tab20",
-    categorical=True,
-    legend=True,
-    linewidth=0.1,
-    ax=ax
-)
+# geo_municipalities.plot(
+#     column="ward5wq",
+#     cmap="tab20",
+#     categorical=True,
+#     legend=True,
+#     linewidth=0.1,
+#     ax=ax
+# )
 
 for category, color in color_mapping.items():
     geo_municipalities[geo_municipalities["ward5wq"] == category].plot(
         color=color,
         ax=ax,
+        linewidth=0.4
         # alpha=0.6
     )
 
@@ -323,7 +324,7 @@ legend_patches = [
     mpatches.Patch(color=color_mapping[category], label=f"Cluster {category}")
     for category in categories
 ]
-ax.legend(handles=legend_patches, title="Clusters", loc='upper right')
+ax.legend(handles=legend_patches, title="Hierarchical Clusters", loc='upper right')
 plt.show()
 
 # %%

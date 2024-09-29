@@ -331,6 +331,10 @@ plt.show()
 
 tidy_rs_municipalities = geo_municipalities[sdg_indexes + ["ward5wq"]].set_index("ward5wq")
 # Creates a long version of the dataset
+
+for (old_name, new_name) in zip(sdg_indexes, sdg_names):
+    tidy_rs_municipalities.rename(columns={old_name:new_name}, inplace=True)
+    
 tidy_rs_municipalities = tidy_rs_municipalities.stack()
 tidy_rs_municipalities = tidy_rs_municipalities.reset_index()
 # Rename Columns 
@@ -340,7 +344,7 @@ tidy_rs_municipalities = tidy_rs_municipalities.rename(
 
 # %% 
 
-sns.set(font_scale=1.5)
+sns.set_theme(rc={'figure.figsize':(7,5)}, font_scale=1.3)
 
 facets = sns.FacetGrid(
     data=tidy_rs_municipalities,

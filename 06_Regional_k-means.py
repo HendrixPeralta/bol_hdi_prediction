@@ -293,7 +293,7 @@ sr_kmeans.fit(geo_municipalities[sdg_indexes])
 
 geo_municipalities["ward5wq"] = sr_kmeans.labels_
 
-fig, ax = plt.subplots(1, figsize=(12,12))
+fig, ax = plt.subplots(1, figsize=(9,9))
 
 # geo_municipalities.plot(
 #     column="ward5wq",

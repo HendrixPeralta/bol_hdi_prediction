@@ -184,30 +184,28 @@ np.random.seed(42)
 # model = RegionKMeansHeuristic(geo_municipalities['index_sdg1'].values, 5, geo_municipalities_queen_w)
 # model.solve()
 k5cls = kmeans.fit(geo_municipalities[sdg_indexes])
-
-# %%
 k5cls.labels_[:5]
-
- # %%
-
 geo_municipalities["k5cls"] = k5cls.labels_
 
+ # %%
+ 
+sns.set_theme(rc={'figure.figsize':(7,5)}, font_scale=1.3)
 fig, ax = plt.subplots(1, figsize=(12,12))
 
-geo_municipalities.plot(
+# geo_municipalities.plot(
 
-    ax=ax,
-    column="k5cls",
-    categorical=True,
-    cmap="tab20",
-    figsize=(8,8),
-    edgecolor="w",
-    legend=True,
-    linewidth=0.2,
-    legend_kwds={"fontsize":15,
-                 "title_fontsize":15,
-                 "markerscale":1.2}
-)
+#     ax=ax,
+#     column="k5cls",
+#     categorical=True,
+#     cmap="tab20",
+#     figsize=(8,8),
+#     edgecolor="w",
+#     legend=True,
+#     linewidth=0.2,
+#     legend_kwds={"fontsize":15,
+#                  "title_fontsize":15,
+#                  "markerscale":1.2}
+# )
 
 for category, color in color_mapping.items():
     geo_municipalities[geo_municipalities["k5cls"]==category].plot(
@@ -215,14 +213,13 @@ for category, color in color_mapping.items():
         ax=ax,
         linewidth=0.4,
     )
+ax.set_axis_off()
 
 legend_patches = [
     mpatches.Patch(color=color_mapping[category],label=f"Cluster {category}")
     for category in categories
 ]    
 ax.legend(handles=legend_patches, title="K-means Clusters", loc="upper right")
-
-ax.set_axis_off()
 plt.show()
 
 # %%

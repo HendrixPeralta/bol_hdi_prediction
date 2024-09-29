@@ -164,6 +164,16 @@ morans_table = pd.DataFrame(
 # )
 # ======================================================================= pairplot
 
+# %% 
+# Set up color palette for the cluster maps 
+categories = [0, 1, 2, 3, 4]
+
+# Generate a color palette (tab20 has 20 colors)
+palette = sns.color_palette("tab20", len(categories))
+
+# Create a color mapping dictionary
+color_mapping = {category: color for category, color in zip(categories, palette)}
+
 # %%
 # Multivariate K-means clustering ======================================================================= 
 # TODO: kmeans
@@ -198,9 +208,18 @@ geo_municipalities.plot(
                  "markerscale":1.2}
 )
 
-legend = ax.get_legend()
-legend.set_title("K-means Clusters")
-ax.add_artist(legend)
+for category, color in color_mapping.items():
+    geo_municipalities[geo_municipalities["k5cls"]==category].plot(
+        color=color,
+        ax=ax
+    )
+
+legend_patches = [
+    mpatches.Patch(color=color_mapping[category],label=f"Cluster {category}")
+    for category in categories
+]    
+ax.legend(handles=legend_patches, title="K-means Clusters", loc="upper right")
+
 ax.set_axis_off()
 plt.show()
 
@@ -236,13 +255,14 @@ tidy_geo_municipalities = tidy_geo_municipalities.rename(
 
 # %% 
 # Example categories (replace with your actual categories)
-categories = [0, 1, 2, 3, 4]
 
-# Generate a color palette (tab20 has 20 colors)
-palette = sns.color_palette("tab20", len(categories))
+# categories = [0, 1, 2, 3, 4]
 
-# Create a color mapping dictionary
-color_mapping = {category: color for category, color in zip(categories, palette)}
+# # Generate a color palette (tab20 has 20 colors)
+# palette = sns.color_palette("tab20", len(categories))
+
+# # Create a color mapping dictionary
+# color_mapping = {category: color for category, color in zip(categories, palette)}
 
 # %%
 # sns.set_style("whitegrid", {'grid.linestyle': '--'})
@@ -286,7 +306,6 @@ geo_municipalities.plot(
     linewidth=0.1,
     ax=ax
 )
-
 
 for category, color in color_mapping.items():
     geo_municipalities[geo_municipalities["ward5wq"] == category].plot(

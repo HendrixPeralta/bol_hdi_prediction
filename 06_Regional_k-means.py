@@ -58,13 +58,17 @@ for i, index in enumerate(sdg_indexes + ["imds"]):
         legend=True,
         ax=ax,
         legend_kwds={
-            "fontsize":17,
+            "fontsize":20,
             "markerscale":1.5,
         }
     )
 
     ax.set_axis_off();
     ax.set_title(index)
+
+fig.suptitle("Sustainable Development Goals Geospatial Patterns In Bolivian Municipalities",
+            fontsize=55,
+            fontdict={"fontweight":"bold"})
 
 plt.subplots_adjust(wspace=0.1)
 plt.tight_layout()
@@ -130,13 +134,14 @@ morans_table = pd.DataFrame(
 #%%
 # Bivariate correlation 
 # pairplot ======================================================================= 
-_ = sns.pairplot(
-    geo_municipalities[sdg_indexes], kind="reg", diag_kind="kde"
-)
+# _ = sns.pairplot(
+#     geo_municipalities[sdg_indexes], kind="reg", diag_kind="kde"
+# )
 # ======================================================================= pairplot
 
 # %%
 # Multivariate K-means clustering ======================================================================= 
+# TODO: kmeans
 
 kmeans = KMeans(n_clusters=5)
 
@@ -222,10 +227,14 @@ _= facets.map(sns.kdeplot, "Values", fill=True).add_legend(title="Clusters")
 # ======================================================================= Multivariate K-means clustering
 
 # %%
-# Spatial Restrained Multivariate K-means clustering ================================================================= 
+# Spatial Restrained Multivariate Herargical clustering ================================================================= 
+
+# TODO: Agglomerative clustering
+
 np.random.seed(42)
 sr_kmeans= AgglomerativeClustering(
-    connectivity=geo_municipalities_queen_w.sparse, n_clusters=5
+    connectivity=geo_municipalities_queen_w.sparse, 
+    n_clusters=5
 )
 sr_kmeans.fit(geo_municipalities[sdg_indexes])
 

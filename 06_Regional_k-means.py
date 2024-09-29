@@ -235,7 +235,6 @@ tidy_geo_municipalities = tidy_geo_municipalities.rename(
 )
 
 # %% 
-
 # Example categories (replace with your actual categories)
 categories = [0, 1, 2, 3, 4]
 
@@ -246,7 +245,8 @@ palette = sns.color_palette("tab20", len(categories))
 color_mapping = {category: color for category, color in zip(categories, palette)}
 
 # %%
-sns.set(font_scale=1.5)
+# sns.set_style("whitegrid", {'grid.linestyle': '--'})
+sns.set_theme(rc={'figure.figsize':(7,5)}, font_scale=1.3)
 
 facets = sns.FacetGrid(
     data=tidy_geo_municipalities,

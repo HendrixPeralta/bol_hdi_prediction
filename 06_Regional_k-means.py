@@ -63,9 +63,10 @@ sdg_names = [
 ]
 
 # Quantiles  ======================================================================= 
-fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(55,40))
+fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(60,50))
+
 axs = axs.flatten()
-fig.subplots_adjust(top=0.8)
+# fig.subplots_adjust(top=0.9)
 
 for i, (index, index_name) in enumerate(zip(sdg_indexes, sdg_names)): 
     ax = axs[i]
@@ -87,11 +88,11 @@ for i, (index, index_name) in enumerate(zip(sdg_indexes, sdg_names)):
     
     
     ax.set_axis_off();
-    ax.set_title("\n".join([index_name]), fontsize=30)
+    ax.set_title("\n".join([index_name]), fontsize=40)
 
-fig.suptitle("\n".join(["Sustainable Development Goals Geospatial Patterns In Bolivian Municipalities"]),
-            y=0.98,
-            fontsize=60,
+fig.suptitle("Sustainable Development Goals Geospatial Patterns In Bolivian Municipalities",
+            # y=0.98,
+            fontsize=75,
             fontdict={"fontweight":"bold"})
 
 plt.subplots_adjust(wspace=0.1)

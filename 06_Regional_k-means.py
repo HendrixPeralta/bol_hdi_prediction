@@ -8,6 +8,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import matplotlib.colors as colors
 import matplotlib.patches as mpatches
+import matplotlib.gridspec as gridspec
 
 import libpysal
 from libpysal.weights import Queen, KNN
@@ -495,4 +496,49 @@ plt.show()
 
 
 #%%
+fig, axs = plt.subplots(3,10, figsize=(40,17))
+axs = axs.flatten()
 
+
+i=0
+for index in sdg_indexes:
+    lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_queen_w)
+
+    ax = axs[i]
+    labels = pd.Series(
+        1*(lisa.p_sim <0.01),
+        index=geo_municipalities.index
+    ).map({1:"Significant (1%)", 0:"Non-significant"})
+
+    geo_municipalities["cl"] = labels
+    geo_municipalities.plot(
+        column="cl",
+        categorical=True,
+        k=2,
+        cmap="Paired",
+        linewidth=0.1,
+        edgecolor = "white",
+        legend=True,
+        ax=ax
+    )
+    ax.set_axis_off()
+    
+    i = i+1
+
+    ax = axs[i]
+    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax)
+    
+    # for j, ax in enumerate(axs):
+
+    #     ax.set_axis_off()
+    #     ax.set_title(
+    #         ["Local Statistics",
+    #         "Scatterplot Quadrant",
+    #         "Statistical Significance",
+    #         "Moran Cluster Map"][j]
+    #     )
+        
+    i = i+1
+
+fig.tight_layout()
+plt.show()

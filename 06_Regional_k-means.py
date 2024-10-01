@@ -501,7 +501,8 @@ axs = axs.flatten()
 
 
 i=0
-for index in sdg_indexes:
+
+for (index, name) in zip(sdg_indexes, sdg_names):
     lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_queen_w)
 
     ax = axs[i]
@@ -528,7 +529,9 @@ for index in sdg_indexes:
     ax = axs[i]
     esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax)
     
+    ax.set_title(name)
     # for j, ax in enumerate(axs):
+
 
     #     ax.set_axis_off()
     #     ax.set_title(
@@ -540,5 +543,46 @@ for index in sdg_indexes:
         
     i = i+1
 
+fig.tight_layout()
+plt.show()
+
+# %%
+fig = plt.figure()
+
+gs0 = gridspec.GridSpec(1, 2, figure=fig)
+
+#First Grid 
+gs00 = gridspec.GridSpecFromSubplotSpec(3, 3, subplot_spec=gs0[0])
+
+ax1 = fig.add_subplot(gs00[:-1, :-1])
+
+labels = pd.Series(
+    1*(lisa.p_sim <0.01),
+    index=geo_municipalities.index
+).map({1:"Significant (1%)", 0:"Non-significant"})
+
+geo_municipalities["cl"] = labels
+geo_municipalities.plot(
+    column="cl",
+    categorical=True,
+    k=2,
+    cmap="Paired",
+    linewidth=0.1,
+    edgecolor = "white",
+    legend=True,
+    ax=ax1
+)
+ax1.set_axis_off()
+    
+# Second Grid   
+gs01 = gs0[1].subgridspec(3, 3)
+
+ax4 = fig.add_subplot(gs01[:-1, :-1])
+
+esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax4)
+
+
+plt.suptitle("GridSpec Inside GridSpec")
+# format_axes(fig)
 fig.tight_layout()
 plt.show()

@@ -153,7 +153,8 @@ morans_table = pd.DataFrame(
     columns=["Index", "Moran's I", "P-value"]
 ).set_index("Index")
 
-
+print(morans_table.to_latex(
+                            float_format="{:.3f}".format))
 # ======================================================================= Moran's I  
 
 #%%

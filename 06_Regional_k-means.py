@@ -192,7 +192,7 @@ for k in ks:
     )
     ch_scores.append((k, ch_score))
     
-pd.DataFrame( ch_scores, columns=["k", "CH score"] ).set_index("k")
+ch_score_df = pd.DataFrame( ch_scores, columns=["k", "CH score"] ).set_index("k")
 
 #%%
 kmeans = KMeans(n_clusters=5)

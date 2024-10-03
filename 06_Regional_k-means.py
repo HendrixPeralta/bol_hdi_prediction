@@ -194,6 +194,23 @@ for k in ks:
     
 ch_score_df = pd.DataFrame( ch_scores, columns=["k", "CH score"] ).set_index("k")
 
+# Plotting
+plt.figure(figsize=(10, 6))
+plt.plot(ch_score_df.index, ch_score_df['CH score'], marker='o', linestyle='-', color='blue', linewidth=3, markersize=10)
+
+# Aesthetic improvements
+plt.title('Calinski-Harabasz Score vs Number of Clusters', fontsize=16, fontweight='bold')
+plt.xlabel('Number of Clusters (k)', fontsize=14)
+plt.ylabel('Calinski-Harabasz Score', fontsize=14)
+plt.xticks(ch_score_df.index)
+plt.grid(color='gray', linestyle='--', linewidth=0.5, alpha=0.7)
+plt.xlim(ks.start, ks.stop - 1)  # Adjust x-axis limits
+plt.ylim(0, ch_score_df['CH score'].max() + 50)  # Adjust y-axis limits
+
+# Show plot
+plt.tight_layout()
+plt.show()
+
 #%%
 kmeans = KMeans(n_clusters=5)
 

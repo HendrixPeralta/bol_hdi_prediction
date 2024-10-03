@@ -325,6 +325,8 @@ legend_patches = [
 ax.legend(handles=legend_patches, title="Hierarchical Clusters", loc='upper right')
 plt.show()
 
+hrcsizes = geo_municipalities.groupby('ward5wq').size()
+
 # %%
 
 tidy_rs_municipalities = geo_municipalities[sdg_indexes + ["ward5wq"]].set_index("ward5wq")

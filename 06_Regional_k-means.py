@@ -143,8 +143,8 @@ morans_i_result = [
 
 # sctructure results as a list of tuples
 morans_i_result=[
-    (index, res.I, res.p_sim)
-    for index, res in zip(sdg_indexes, morans_i_result)
+    (name, res.I, res.p_sim)
+    for name, res in zip(sdg_names, morans_i_result)
 ]
 
 #display table
@@ -152,6 +152,7 @@ morans_table = pd.DataFrame(
     morans_i_result,
     columns=["Index", "Moran's I", "P-value"]
 ).set_index("Index")
+
 
 # ======================================================================= Moran's I  
 
@@ -552,9 +553,9 @@ fig = plt.figure()
 gs0 = gridspec.GridSpec(1, 2, figure=fig)
 
 #First Grid 
-gs00 = gridspec.GridSpecFromSubplotSpec(3, 3, subplot_spec=gs0[0])
+gs00 = gridspec.GridSpecFromSubplotSpec(3, 6, subplot_spec=gs0[0])
 
-ax1 = fig.add_subplot(gs00[:-1, :-1])
+ax1 = fig.add_subplot(gs00[:, :3])
 
 labels = pd.Series(
     1*(lisa.p_sim <0.01),
@@ -575,11 +576,11 @@ geo_municipalities.plot(
 ax1.set_axis_off()
     
 # Second Grid   
-gs01 = gs0[1].subgridspec(3, 3)
+# gs01 = gs0[1].subgridspec(3, 3)
 
-ax4 = fig.add_subplot(gs01[:-1, :-1])
+ax2 = fig.add_subplot(gs00[:, 3:])
 
-esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax4)
+esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax2)
 
 
 plt.suptitle("GridSpec Inside GridSpec")

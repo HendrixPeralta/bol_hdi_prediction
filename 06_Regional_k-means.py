@@ -21,6 +21,7 @@ from splot import esda as esdaplot
 import sklearn.cluster
 from sklearn.cluster import KMeans
 from sklearn.cluster import AgglomerativeClustering
+from sklearn import metrics
 
 from sklearn.preprocessing import robust_scale # standarizes the variables 
 # db_scaled = robust_scale(db[cluster_variables]) # standarizes the variables 
@@ -178,7 +179,22 @@ color_mapping = {category: color for category, color in zip(categories, palette)
 # %%
 # Multivariate K-means clustering ======================================================================= 
 # TODO: kmeans
+ks = range(2,10)
+ch_scores=[]
+for k in ks:
+    k_search = KMeans(n_clusters=k)
+    np.random.seed(42)
+    kcls = k_search.fit(geo_municipalities[sdg_indexes])
+    geo_municipalities["kcls"] = kcls.labels_
+    ch_score=metrics.calinski_harabasz_score(
+        robust_scale(geo_municipalities[sdg_indexes],),
+        geo_municipalities["kcls"]
+    )
+    ch_scores.append((k, ch_score))
+    
+pd.DataFrame( ch_scores, columns=["k", "CH score"] ).set_index("k")
 
+#%%
 kmeans = KMeans(n_clusters=5)
 
 np.random.seed(42)
@@ -226,6 +242,8 @@ plt.show()
 # %%
 # Count the obrservations in each cluster
 k5sizes = geo_municipalities.groupby("k5cls").size()
+k5sizes_table = pd.DataFrame(k5sizes).to_latex(float_format="{:.0f}".format)
+print(k5sizes_table)
 
 # Group clusters by label and obtain their mean 
 k5means = geo_municipalities.groupby("k5cls")[sdg_indexes].mean()
@@ -280,6 +298,19 @@ facets = sns.FacetGrid(
 )
 
 _= facets.map(sns.kdeplot, "Values", fill=True).add_legend(title="Clusters")
+
+
+# Reduction in Variance
+ 
+# geo_municipalities[sdg_indexes].var().sum()
+# within = 0 
+# for i in range(5):
+#     cluster_i = geo_municipalities[geo_municipalities["k5cls"] == i]
+#     if not cluster_i.empty:
+#         cluster_variance = cluster_i[sdg_indexes].var().sum()
+#         print(f"Cluster {i} variance: {cluster_variance}")
+#         within += cluster_variance
+
 # ======================================================================= Multivariate K-means clustering
 
 # %%
@@ -311,10 +342,10 @@ for category, color in color_mapping.items():
     geo_municipalities[geo_municipalities["ward5wq"] == category].plot(
         color=color,
         ax=ax,
-        linewidth=0.4
+        linewidth=0.4,
+        legend=True
         # alpha=0.6
     )
-
 
 ax.set_axis_off()
 
@@ -325,8 +356,10 @@ legend_patches = [
 ax.legend(handles=legend_patches, title="Hierarchical Clusters", loc='upper right')
 plt.show()
 
+# %%
 hrcsizes = geo_municipalities.groupby('ward5wq').size()
-
+hrcsizes_table = pd.DataFrame(hrcsizes).to_latex(float_format="{:.0f}".format)
+print(hrcsizes_table)
 # %%
 
 tidy_rs_municipalities = geo_municipalities[sdg_indexes + ["ward5wq"]].set_index("ward5wq")

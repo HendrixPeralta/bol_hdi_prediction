@@ -87,35 +87,6 @@ feature_code = [
         'airTemp2012.mean']
 
 
-feature_type = ["Socioeconomic", 
-            "Land Cover", 
-            "Land Cover",
-            "Land Cover",
-            "Socioeconomic",
-            "Enviromental",
-            "Enviromental",
-            "socioeconomic",
-            "Accessibility",
-            "Infrastructure",
-            "Others", 
-            "Health",
-            "Accessibility",
-            "Geographical",
-            "Others",
-            "Infrastructure",
-            "Accessibility",
-            "Geographical",
-            "Enviromental",
-            "Socioeconomic",
-            "Land Cover",
-            "Land Cover",
-            "Infrastructure",
-            "Land Cover",
-            "Land Cover",
-            "Land Cover",
-            'Enviromental']
-
-
 label_description = [
         "SDG 1: No poverty",
         "SDG 2: Zero hunger",

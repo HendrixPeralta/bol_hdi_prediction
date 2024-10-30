@@ -156,6 +156,6 @@ class RidgeModel:
         mse = np.mean(cross_val_score(opt_ri_model, self.X, self.y, scoring="neg_mean_squared_error"))
         
         opt_ridge_results.loc[len(opt_ridge_results.index)] = [self.name, r2, mae, mse]
-        opt_ridge_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=True)
+        opt_ridge_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
 
         return opt_ridge_results

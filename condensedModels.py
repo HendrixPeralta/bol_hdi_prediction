@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import Ridge
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import RandomizedSearchCV
+from sklearn.model_selection import GridSearchCV
 
 from mlxtend.plotting import scatterplotmatrix
 
@@ -43,9 +44,14 @@ class RidgeModel:
         self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X,self.y, test_size = self.test_size) 
         self.model = Ridge()
         self.fitted_model = self.model.fit(self.X_train, self.y_train);
+        print(self.fitted_model.get_params())
         print("model fitted")
-
-    # ==================    
+    # ==================     
+    
+    def get_params(self):
+        return self.model.get_params()
+    
+    
     # Shows the coefficients for each predictor
     def get_coef(self):
 
@@ -90,7 +96,7 @@ class RidgeModel:
         Performs evaluation comparison on y_true labels vs. y_pred labels
         on a classification.
         """
-        self.r2_folds = cross_val_score(self.model, self.X, self.y, scoring="r2", cv=10)*100
+        self.r2_folds = cross_val_score(self.model, self.X, self.y, scoring="r2", cv=5)*100
         r2 = np.mean(self.r2_folds)
         mae = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_absolute_error", cv=5))
         mse = np.mean(cross_val_score(self.model, self.X, self.y, scoring="neg_mean_squared_error", cv=5))
@@ -132,21 +138,23 @@ class RidgeModel:
         plt.show()
 
     def model_optimizer(self, opt_ridge_results):
-    
+        
         alpha_space = np.logspace(-4,0,100)
         alpha_space 
 
         grid = {"alpha": alpha_space,
-                "copy_X": [True, False],
-                "max_iter": [None, 10, 100, 200, 500, 1000, 10000], 
-                "solver": ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]}
+                # "copy_X": [True, False],
+                # "max_iter": [None, 10, 100, 200, 500, 1000, 10000], 
+                # "solver": ["auto", "svd", "cholesky", "lsqr", "sparse_cg"]
+                }
 
         np.random.seed(42)
-        opt_ri_model= RandomizedSearchCV(estimator = self.model,
-                                        param_distributions=grid,
-                                        n_iter=200,
-                                        cv=10,
-                                        verbose=0)
+        opt_ri_model= GridSearchCV(estimator = self.model,
+                                        # param_distributions=grid,
+                                        param_grid=grid,
+                                        # n_iter=200,
+                                        cv=5,
+                                        verbose=1)
 
         
         opt_ri_model.fit(self.X_train, self.y_train)
@@ -158,4 +166,5 @@ class RidgeModel:
         opt_ridge_results.loc[len(opt_ridge_results.index)] = [self.name, r2, mae, mse]
         opt_ridge_results = opt_ridge_results.round(4).sort_values(by="r2", ascending=False)
 
+        # return opt_ri_model.best_params_
         return opt_ridge_results

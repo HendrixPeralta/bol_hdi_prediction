@@ -267,12 +267,13 @@ def feature_coef_table(model):
         coef_table = coef_table.merge(features_temp, on="feature", how="outer")
     
 # %%
+    
 def optimize():
     global opt_ridge_results
-
+    
     # Stores scores of the tuned model 
     opt_ridge_results = pd.DataFrame(columns=["Feature", "r2", "MAE", "MSE"]) 
-
+    
     models = [sdg1_model, sdg2_model, sdg3_model, sdg4_model, sdg5_model, sdg6_model, sdg7_model,
               sdg8_model,sdg9_model,sdg10_model,sdg11_model,sdg13_model,
               sdg17_model,imds_model]
@@ -285,6 +286,8 @@ def optimize():
 
 # %%
 sdg_indexes = pd.read_csv("data/sdg_prediction/sdg_indexes.csv")
+
+# TODO: scale the sat_mod dataset
 sat_mod = pd.read_csv("data/sdg_prediction/sat_mod.csv")
 sdg_indicators = pd.read_csv("data/sdg_prediction/sdg_indicators_norm.csv")
 #sat_mod = pd.read_csv("./data/sdg_prediction/sat_true.csv")

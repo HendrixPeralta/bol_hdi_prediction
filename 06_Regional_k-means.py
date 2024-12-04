@@ -601,10 +601,12 @@ fig.tight_layout()
 plt.show()
 
 # %%
+
+title_font_size = 17  # Adjust as necessary
+label_font_size = 20  # Adjust as necessary
+
 fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(25,17))
 axs = axs.flatten()
-
-
 i=0
 
 for (index, name) in zip(sdg_indexes, sdg_names):
@@ -612,10 +614,32 @@ for (index, name) in zip(sdg_indexes, sdg_names):
     lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_queen_w)
     esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.01, ax=ax)
     
-    ax.set_title(name)
+    ax.set_title(name, fontsize=title_font_size)
     i = i+1
 
 fig.tight_layout()
 plt.show()
 
 # %%
+title_font_size = 25  # Adjust as necessary
+label_font_size = 20  # Adjust as necessary
+
+
+fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(40,17))
+axs = axs.flatten()
+i=0
+
+for (index, name) in zip(sdg_indexes, sdg_names):
+    ax = axs[i]
+    moran_loc = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_queen_w)
+    esdaplot.moran_scatterplot(moran_loc, p=0.01, ax=ax)
+    
+    ax.set_title(name, fontsize=title_font_size)
+    
+    ax.set_xlabel('Value', fontsize=label_font_size)  # Change 'Value' to your desired label
+    ax.set_ylabel('Spatial Lag', fontsize=label_font_size)  # Adjust if needed
+    
+    i = i+1
+
+fig.tight_layout()
+plt.show()

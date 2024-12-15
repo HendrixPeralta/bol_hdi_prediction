@@ -249,7 +249,7 @@ morans_i_k5_result=[
 
 #display table
 morans_table_k5 = pd.DataFrame(
-    morans_i_k4_result,
+    morans_i_k5_result,
     columns=["Index", "Moran's I K5", "P-value K5"]
 ).set_index("Index")
 
@@ -280,9 +280,9 @@ print(morans_table_k6.to_latex(
 
 # %%
 
-morans_table_allWs = morans_table.merge(morans_table_k4, on="Index", how="outer")
-morans_table_allWs = morans_table_allWs.merge(morans_table_k5, on="Index", how="outer")
-morans_table_allWs = morans_table_allWs.merge(morans_table_k6, on="Index", how="outer")
+morans_table_allWs = morans_table.drop("P-value", axis = 1).merge(morans_table_k4["Moran's I K4"], on="Index", how="outer")
+morans_table_allWs = morans_table_allWs.merge(morans_table_k5["Moran's I K5"], on="Index", how="outer")
+morans_table_allWs = morans_table_allWs.merge(morans_table_k6["Moran's I K6"], on="Index", how="outer")
 
 print(morans_table_allWs.to_latex(
                             float_format="{:.3f}".format))

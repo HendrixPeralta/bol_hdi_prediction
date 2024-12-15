@@ -128,7 +128,7 @@ axs.set_axis_off()
 # K-NN Weight Matrix =======================================================================  
 
 geo_municipalities_k4_w = KNN.from_dataframe(geo_municipalities,k=4)
-geo_municipalities_queen_w.to_file("exports/06_exports/geo_municipalities_k4_w.gal")
+geo_municipalities_k4_w.to_file("exports/06_exports/geo_municipalities_k4_w.gal")
 f, axs = plt.subplots(figsize=(15, 15))
 
 geo_municipalities.plot(
@@ -144,8 +144,10 @@ geo_municipalities_k4_w.plot(
 
 axs.set_axis_off()
 
+# K-NN Weight Matrix =======================================================================  
+
 geo_municipalities_k5_w = KNN.from_dataframe(geo_municipalities,k=5)
-geo_municipalities_queen_w.to_file("exports/06_exports/geo_municipalities_k5_w.gal")
+geo_municipalities_k5_w.to_file("exports/06_exports/geo_municipalities_k5_w.gal")
 f, axs = plt.subplots(figsize=(15, 15))
 
 geo_municipalities.plot(
@@ -161,8 +163,9 @@ geo_municipalities_k5_w.plot(
 
 axs.set_axis_off()
 
+# K-NN Weight Matrix =======================================================================  
 geo_municipalities_k6_w = KNN.from_dataframe(geo_municipalities,k=6)
-geo_municipalities_queen_w.to_file("exports/06_exports/geo_municipalities_k6_w.gal")
+geo_municipalities_k6_w.to_file("exports/06_exports/geo_municipalities_k6_w.gal")
 f, axs = plt.subplots(figsize=(15, 15))
 
 geo_municipalities.plot(
@@ -466,7 +469,7 @@ _= facets.map(sns.kdeplot, "Values", fill=True).add_legend(title="Clusters")
 
 np.random.seed(42)
 sr_kmeans= AgglomerativeClustering(
-    connectivity=geo_municipalities_queen_w.sparse, 
+    connectivity=geo_municipalities_k4_w.sparse, 
     n_clusters=5
 )
 sr_kmeans.fit(geo_municipalities[sdg_indexes])
@@ -562,7 +565,7 @@ geo_municipalities.plot(
 ax.set_axis_off()
 
 # %%
-lisa = esda.moran.Moran_Local(geo_municipalities["imds"], geo_municipalities_queen_w)
+lisa = esda.moran.Moran_Local(geo_municipalities["imds"], geo_municipalities_k4_w)
 
 
 fig, axs = plt.subplots(2,2, figsize=(12,12))
@@ -686,7 +689,7 @@ axs = axs.flatten()
 i=0
 
 for (index, name) in zip(sdg_indexes, sdg_names):
-    lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_queen_w)
+    lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_k4_w)
 
     ax = axs[i]
     labels = pd.Series(
@@ -740,7 +743,7 @@ i=0
 
 for (index, name) in zip(sdg_indexes, sdg_names):
     ax = axs[i]
-    lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_queen_w)
+    lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_k4_w)
     esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.01, ax=ax)
     
     ax.set_title(name, fontsize=title_font_size)
@@ -760,7 +763,7 @@ i=0
 
 for (index, name) in zip(sdg_indexes, sdg_names):
     ax = axs[i]
-    moran_loc = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_queen_w)
+    moran_loc = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_k4_w)
     esdaplot.moran_scatterplot(moran_loc, p=0.01, ax=ax)
     
     ax.set_title(name, fontsize=title_font_size)
@@ -779,7 +782,7 @@ fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10,10))
 
 # colors = np.array(["gray", "red", "orange", "lightblue", "blue"])
 
-moran = esda.moran.Moran_Local(geo_municipalities['index_sdg1'], geo_municipalities_queen_w)
+moran = esda.moran.Moran_Local(geo_municipalities['index_sdg1'], geo_municipalities_k4_w)
 # significant = moran.p_sim < 0.01  # Adjust threshold if needed
 # quadrants = moran.q[significant]
 

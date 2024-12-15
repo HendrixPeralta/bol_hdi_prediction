@@ -122,6 +122,62 @@ geo_municipalities_queen_w.plot(
     )
 
 axs.set_axis_off()
+
+#%%
+
+# K-NN Weight Matrix =======================================================================  
+
+geo_municipalities_k4_w = KNN.from_dataframe(geo_municipalities,k=4)
+geo_municipalities_queen_w.to_file("exports/06_exports/geo_municipalities_k4_w.gal")
+f, axs = plt.subplots(figsize=(15, 15))
+
+geo_municipalities.plot(
+        edgecolor="k", facecolor="w", ax=axs
+    )
+
+geo_municipalities_k4_w.plot(
+        geo_municipalities,
+        ax=axs,
+        edge_kws=dict(color="r", linestyle=":", linewidth=1),
+        node_kws=dict(marker=""),
+    )
+
+axs.set_axis_off()
+
+geo_municipalities_k5_w = KNN.from_dataframe(geo_municipalities,k=5)
+geo_municipalities_queen_w.to_file("exports/06_exports/geo_municipalities_k5_w.gal")
+f, axs = plt.subplots(figsize=(15, 15))
+
+geo_municipalities.plot(
+        edgecolor="k", facecolor="w", ax=axs
+    )
+
+geo_municipalities_k5_w.plot(
+        geo_municipalities,
+        ax=axs,
+        edge_kws=dict(color="r", linestyle=":", linewidth=1),
+        node_kws=dict(marker=""),
+    )
+
+axs.set_axis_off()
+
+geo_municipalities_k6_w = KNN.from_dataframe(geo_municipalities,k=6)
+geo_municipalities_queen_w.to_file("exports/06_exports/geo_municipalities_k6_w.gal")
+f, axs = plt.subplots(figsize=(15, 15))
+
+geo_municipalities.plot(
+        edgecolor="k", facecolor="w", ax=axs
+    )
+
+geo_municipalities_k6_w.plot(
+        geo_municipalities,
+        ax=axs,
+        edge_kws=dict(color="r", linestyle=":", linewidth=1),
+        node_kws=dict(marker=""),
+    )
+
+axs.set_axis_off()
+
 # %%
 print(geo_municipalities_queen_w.n)
 print(geo_municipalities_queen_w.pct_nonzero)
@@ -137,7 +193,7 @@ s.plot.hist(bins=s.unique().shape[0])
 np.random.seed(42)
 # Calculate moran's i  - spatial autocorrelation 
 
-# Moran's I =======================================================================  
+# Moran's I QUEEN =======================================================================  
 morans_i_result = [
     Moran(geo_municipalities[index], geo_municipalities_queen_w) for index in sdg_indexes
 ]
@@ -157,6 +213,79 @@ morans_table = pd.DataFrame(
 print(morans_table.to_latex(
                             float_format="{:.3f}".format))
 # ======================================================================= Moran's I  
+
+# Moran's I K4 =======================================================================  
+morans_i_k4_result = [
+    Moran(geo_municipalities[index], geo_municipalities_k4_w) for index in sdg_indexes
+]
+
+# sctructure results as a list of tuples
+morans_i_k4_result=[
+    (name, res.I, res.p_sim)
+    for name, res in zip(sdg_names, morans_i_k4_result)
+]
+
+#display table
+morans_table_k4 = pd.DataFrame(
+    morans_i_k4_result,
+    columns=["Index", "Moran's I K4", "P-value K4"]
+).set_index("Index")
+
+print(morans_table_k4.to_latex(
+                            float_format="{:.3f}".format))
+# ======================================================================= Moran's I  
+
+
+# Moran's I K5 =======================================================================  
+morans_i_k5_result = [
+    Moran(geo_municipalities[index], geo_municipalities_k5_w) for index in sdg_indexes
+]
+
+# sctructure results as a list of tuples
+morans_i_k5_result=[
+    (name, res.I, res.p_sim)
+    for name, res in zip(sdg_names, morans_i_k5_result)
+]
+
+#display table
+morans_table_k5 = pd.DataFrame(
+    morans_i_k4_result,
+    columns=["Index", "Moran's I K5", "P-value K5"]
+).set_index("Index")
+
+print(morans_table_k5.to_latex(
+                            float_format="{:.3f}".format))
+# ======================================================================= Moran's I K5
+
+# Moran's I K6 =======================================================================  
+morans_i_k6_result = [
+    Moran(geo_municipalities[index], geo_municipalities_k6_w) for index in sdg_indexes
+]
+
+# sctructure results as a list of tuples
+morans_i_k6_result=[
+    (name, res.I, res.p_sim)
+    for name, res in zip(sdg_names, morans_i_k6_result)
+]
+
+#display table
+morans_table_k6 = pd.DataFrame(
+    morans_i_k6_result,
+    columns=["Index", "Moran's I K6", "P-value K6"]
+).set_index("Index")
+
+print(morans_table_k6.to_latex(
+                            float_format="{:.3f}".format))
+# ======================================================================= Moran's I  K6
+
+# %%
+
+morans_table_allWs = morans_table.merge(morans_table_k4, on="Index", how="outer")
+morans_table_allWs = morans_table_allWs.merge(morans_table_k5, on="Index", how="outer")
+morans_table_allWs = morans_table_allWs.merge(morans_table_k6, on="Index", how="outer")
+
+print(morans_table_allWs.to_latex(
+                            float_format="{:.3f}".format))
 
 #%%
 # Bivariate correlation 

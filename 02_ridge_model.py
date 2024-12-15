@@ -288,13 +288,14 @@ def optimize():
 sdg_indexes = pd.read_csv("data/sdg_prediction/sdg_indexes.csv")
 
 # TODO: scale the sat_mod dataset
-sat_mod = pd.read_csv("data/sdg_prediction/sat_mod_standardize.csv")
+# sat_mod = pd.read_csv("data/sdg_prediction/sat_mod_standardize.csv")
+sat_mod = pd.read_csv("data/sdg_prediction/sat_mod.csv")
 sdg_indicators = pd.read_csv("data/sdg_prediction/sdg_indicators_norm.csv")
-#sat_mod = pd.read_csv("./data/sdg_prediction/sat_true.csv")
+# sat_mod = pd.read_csv("./data/sdg_prediction/sat_true.csv")
 
 # Creates dommies based on the Bolivian departments  
 sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
-#sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
+# sat_mod = sat_mod.join(pd.get_dummies(sat_mod.dep))
 
 # %%
 #   Basic predictors 

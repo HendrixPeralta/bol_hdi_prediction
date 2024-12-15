@@ -288,7 +288,7 @@ def optimize():
 sdg_indexes = pd.read_csv("data/sdg_prediction/sdg_indexes.csv")
 
 # TODO: scale the sat_mod dataset
-sat_mod = pd.read_csv("data/sdg_prediction/sat_mod.csv")
+sat_mod = pd.read_csv("data/sdg_prediction/sat_mod_standardize.csv")
 sdg_indicators = pd.read_csv("data/sdg_prediction/sdg_indicators_norm.csv")
 #sat_mod = pd.read_csv("./data/sdg_prediction/sat_true.csv")
 

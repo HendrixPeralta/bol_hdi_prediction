@@ -643,3 +643,21 @@ for (index, name) in zip(sdg_indexes, sdg_names):
 
 fig.tight_layout()
 plt.show()
+
+# %%
+
+fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10,10))
+
+# colors = np.array(["gray", "red", "orange", "lightblue", "blue"])
+
+moran = esda.moran.Moran_Local(geo_municipalities['index_sdg1'], geo_municipalities_queen_w)
+# significant = moran.p_sim < 0.01  # Adjust threshold if needed
+# quadrants = moran.q[significant]
+
+esdaplot.moran_scatterplot(moran,p=0.01,ax=ax,)
+# scatter.set_facecolor(colors[quadrants])
+
+
+fig.tight_layout()
+plt.show()
+

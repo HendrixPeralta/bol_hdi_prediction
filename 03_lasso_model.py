@@ -804,3 +804,6 @@ ax.text(0.83, 0.3, "R2 = 70",
 #plt.xlabel('alpha')
 #plt.ylabel('Standardized Coefficients')
 #plt.title('Lasso coefficients as a function of alpha');
+
+print(lasso_results.to_latex(index=False,
+                       float_format= "{:.2f}".format))

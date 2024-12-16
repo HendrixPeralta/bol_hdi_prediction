@@ -290,6 +290,13 @@ morans_table_allWs = morans_table_allWs.merge(morans_table_k6["Moran's I K6"], o
 print(morans_table_allWs.to_latex(
                             float_format="{:.3f}".format))
 
+morans_table_allWs = morans_table.drop("Moran's I", axis = 1).merge(morans_table_k4["P-value K4"], on="Index", how="outer")
+morans_table_allWs = morans_table_allWs.merge(morans_table_k5["P-value K5"], on="Index", how="outer")
+morans_table_allWs = morans_table_allWs.merge(morans_table_k6["P-value K6"], on="Index", how="outer")
+
+print(morans_table_allWs.to_latex(
+                            float_format="{:.3f}".format))
+
 #%%
 # Bivariate correlation 
 # pairplot ======================================================================= 

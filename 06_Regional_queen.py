@@ -83,8 +83,12 @@ sdg_names_graphs = [
     "SDG17: Partnerships for \n the Goals"
 ]
 
+#%%
 # Quantiles  ======================================================================= 
 fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(65,50))
+
+title_font_size = 30  # Adjust as necessary
+label_font_size = 25  # Adjust as necessary
 
 axs = axs.flatten()
 # fig.subplots_adjust(top=0.9)
@@ -108,6 +112,7 @@ for i, (index, index_name) in enumerate(zip(sdg_indexes, sdg_names)):
     # ax.legend(title="Natural brakes")  
     ax.set_axis_off();
     ax.set_title("\n".join([index_name]), fontsize=43)
+    
 
 # fig.suptitle("Sustainable Development Goals Geospatial Patterns In Bolivian Municipalities",
 #             # y=0.98,
@@ -357,8 +362,9 @@ plt.figure(figsize=(10, 6))
 plt.plot(ch_score_df.index, ch_score_df['CH score'], marker='o', linestyle='-', color='blue', linewidth=3, markersize=10)
 
 # Aesthetic improvements
-plt.title('Calinski-Harabasz Score vs Number of Clusters', fontsize=16, fontweight='bold')
-plt.xlabel('Number of Clusters (k)', fontsize=14)
+# plt.title('Calinski-Harabasz Score vs Number of Clusters', fontsize=16, fontweight='bold')
+
+# plt.xlabel('Number of Clusters (k)', fontsize=14)
 plt.ylabel('Calinski-Harabasz Score', fontsize=14)
 plt.xticks(ch_score_df.index)
 plt.grid(color='gray', linestyle='--', linewidth=0.5, alpha=0.7)
@@ -709,6 +715,7 @@ plt.show()
 
 
 #%%
+
 # np.random.seed(42)
 fig, axs = plt.subplots(5,6, figsize=(35,35))
 axs = axs.flatten()
@@ -724,7 +731,7 @@ for (index, name) in zip(sdg_indexes, sdg_names_graphs):
 
     ax = axs[i]
     moran_loc = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_queen_w)
-    esdaplot.moran_scatterplot(moran_loc, p=0.05, ax=ax)
+    esdaplot.moran_scatterplot(moran_loc, p=0.01, ax=ax)
     
     ax.set_title(name, fontsize=title_font_size)
     
@@ -754,7 +761,7 @@ for (index, name) in zip(sdg_indexes, sdg_names_graphs):
     i = i+1
 
     ax = axs[i]
-    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax)
+    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.01, ax=ax)
     
     ax.set_title(name, fontsize=title_font_size)
     # for j, ax in enumerate(axs):

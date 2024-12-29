@@ -44,7 +44,7 @@ sdg_indexes = [
     'index_sd13',
     'index_sd15',
     'index_sd16',
-    'index_sd17',]
+    'index_sd17']
 
 sdg_names = [
     "SDG1: No Poverty",
@@ -63,6 +63,24 @@ sdg_names = [
     "SDG16: Peace, Justice, and Strong Institutions",
     "SDG17: Partnerships for the Goals"
 ]
+
+# sdg_names_graphs = [
+#     "SDG1: No Poverty",
+#     "SDG2: Zero Hunger",
+#     "SDG3: Good Health and \n Well-being",
+#     "SDG4: Quality Education",
+#     "SDG5: Gender Equality",
+#     "SDG6: Clean Water and \n Sanitation",
+#     "SDG7: Affordable and \n Clean Energy",
+#     "SDG8: Decent Work and \n Economic Growth",
+#     "SDG9: Industry, Innovation, \n and Infrastructure",
+#     "SDG10: Reduced Inequalities",
+#     "SDG11: Sustainable Cities \n and Communities",
+#     "SDG13: Climate Action",
+#     "SDG15: Life on Land",
+#     "SDG16: Peace, Justice, \n and Strong Institutions",
+#     "SDG17: Partnerships for \n the Goals"
+# ]
 
 # Quantiles  ======================================================================= 
 fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(65,50))
@@ -513,11 +531,12 @@ ax.legend(handles=legend_patches, title="Hierarchical Clusters", loc='upper righ
 plt.show()
 
 # %%
+np.random.seed(42)
 hrcsizes = geo_municipalities.groupby('ward5wq').size()
 hrcsizes_table = pd.DataFrame(hrcsizes).to_latex(float_format="{:.0f}".format)
 print(hrcsizes_table)
 # %%
-
+np.random.seed(42)
 tidy_rs_municipalities = geo_municipalities[sdg_indexes + ["ward5wq"]].set_index("ward5wq")
 # Creates a long version of the dataset
 
@@ -532,7 +551,7 @@ tidy_rs_municipalities = tidy_rs_municipalities.rename(
 )
 
 # %% 
-
+np.random.seed(42)
 sns.set_theme(rc={'figure.figsize':(7,5)}, font_scale=1.3)
 
 facets = sns.FacetGrid(
@@ -553,7 +572,7 @@ _= facets.map(sns.kdeplot, "Values", fill=True).add_legend()
 
 # %%
 # ESDA ======================================================================= 
-
+np.random.seed(42)
 fig, ax = plt.subplots(1, figsize=(12,12))
 
 geo_municipalities.plot(
@@ -572,6 +591,7 @@ geo_municipalities.plot(
 ax.set_axis_off()
 
 # %%
+np.random.seed(42)
 lisa = esda.moran.Moran_Local(geo_municipalities["imds"], geo_municipalities_k4_w)
 
 
@@ -689,40 +709,54 @@ plt.show()
 
 
 #%%
-fig, axs = plt.subplots(3,10, figsize=(40,17))
+np.random.seed(42)
+fig, axs = plt.subplots(5,6, figsize=(45,40))
 axs = axs.flatten()
 
+title_font_size = 30  # Adjust as necessary
+label_font_size = 25  # Adjust as necessary
 
 i=0
 
 for (index, name) in zip(sdg_indexes, sdg_names):
     lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_k4_w)
 
-    ax = axs[i]
-    labels = pd.Series(
-        1*(lisa.p_sim <0.01),
-        index=geo_municipalities.index
-    ).map({1:"Significant (1%)", 0:"Non-significant"})
 
-    geo_municipalities["cl"] = labels
-    geo_municipalities.plot(
-        column="cl",
-        categorical=True,
-        k=2,
-        cmap="Paired",
-        linewidth=0.1,
-        edgecolor = "white",
-        legend=True,
-        ax=ax
-    )
-    ax.set_axis_off()
+    ax = axs[i]
+    moran_loc = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_k4_w)
+    esdaplot.moran_scatterplot(moran_loc, p=0.01, ax=ax)
+    
+    ax.set_title(name, fontsize=title_font_size)
+    
+    ax.set_xlabel('Value', fontsize=label_font_size)  # Change 'Value' to your desired label
+    ax.set_ylabel('Spatial Lag', fontsize=label_font_size)  # Adjust if needed
+    
+    
+    # ax = axs[i]
+    # labels = pd.Series(
+    #     1*(lisa.p_sim <0.01),
+    #     index=geo_municipalities.index
+    # ).map({1:"Significant (1%)", 0:"Non-significant"})
+
+    # geo_municipalities["cl"] = labels
+    # geo_municipalities.plot(
+    #     column="cl",
+    #     categorical=True,
+    #     k=2,
+    #     cmap="Paired",
+    #     linewidth=0.1,
+    #     edgecolor = "white",
+    #     legend=True,
+    #     ax=ax
+    # )
+    # ax.set_axis_off()
     
     i = i+1
 
     ax = axs[i]
-    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax)
+    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.01, ax=ax)
     
-    ax.set_title(name)
+    ax.set_title(name, fontsize=title_font_size)
     # for j, ax in enumerate(axs):
 
 
@@ -740,7 +774,7 @@ fig.tight_layout()
 plt.show()
 
 # %%
-
+np.random.seed(42)
 title_font_size = 17  # Adjust as necessary
 label_font_size = 20  # Adjust as necessary
 
@@ -760,9 +794,7 @@ fig.tight_layout()
 plt.show()
 
 # %%
-title_font_size = 25  # Adjust as necessary
-label_font_size = 20  # Adjust as necessary
-
+np.random.seed(42)
 
 fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(40,17))
 axs = axs.flatten()
@@ -784,7 +816,7 @@ fig.tight_layout()
 plt.show()
 
 # %%
-
+np.random.seed(42)
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10,10))
 
 # colors = np.array(["gray", "red", "orange", "lightblue", "blue"])

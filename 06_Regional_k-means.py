@@ -64,23 +64,24 @@ sdg_names = [
     "SDG17: Partnerships for the Goals"
 ]
 
-# sdg_names_graphs = [
-#     "SDG1: No Poverty",
-#     "SDG2: Zero Hunger",
-#     "SDG3: Good Health and \n Well-being",
-#     "SDG4: Quality Education",
-#     "SDG5: Gender Equality",
-#     "SDG6: Clean Water and \n Sanitation",
-#     "SDG7: Affordable and \n Clean Energy",
-#     "SDG8: Decent Work and \n Economic Growth",
-#     "SDG9: Industry, Innovation, \n and Infrastructure",
-#     "SDG10: Reduced Inequalities",
-#     "SDG11: Sustainable Cities \n and Communities",
-#     "SDG13: Climate Action",
-#     "SDG15: Life on Land",
-#     "SDG16: Peace, Justice, \n and Strong Institutions",
-#     "SDG17: Partnerships for \n the Goals"
-# ]
+sdg_names_graphs = [
+
+    "SDG1: No Poverty",
+    "SDG2: Zero Hunger",
+    "SDG3: Good Health and \n Well-being",
+    "SDG4: Quality Education",
+    "SDG5: Gender Equality",
+    "SDG6: Clean Water and \n Sanitation",
+    "SDG7: Affordable and \n Clean Energy",
+    "SDG8: Decent Work and \n Economic Growth",
+    "SDG9: Industry, Innovation, \n and Infrastructure",
+    "SDG10: Reduced Inequalities",
+    "SDG11: Sustainable Cities \n and Communities",
+    "SDG13: Climate Action",
+    "SDG15: Life on Land",
+    "SDG16: Peace, Justice, \n and Strong Institutions",
+    "SDG17: Partnerships for \n the Goals"
+]
 
 # Quantiles  ======================================================================= 
 fig, axs = plt.subplots(nrows=3, ncols=5, figsize=(65,50))
@@ -718,7 +719,7 @@ label_font_size = 25  # Adjust as necessary
 
 i=0
 
-for (index, name) in zip(sdg_indexes, sdg_names):
+for (index, name) in zip(sdg_indexes, sdg_names_):
     lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_k4_w)
 
 

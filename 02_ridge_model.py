@@ -288,8 +288,7 @@ def optimize():
 sdg_indexes = pd.read_csv("data/sdg_prediction/sdg_indexes.csv")
 
 # TODO: scale the sat_mod dataset
-sat_mod = pd.read_csv("data/sdg_prediction/sat_true_standardize.csv")
-# sat_mod = pd.read_csv("data/sdg_prediction/sat_mod.csv")
+sat_mod = pd.read_csv("data/sdg_prediction/sat_mod.csv")
 sdg_indicators = pd.read_csv("data/sdg_prediction/sdg_indicators_norm.csv")
 # sat_mod = pd.read_csv("./data/sdg_prediction/sat_true.csv")
 
@@ -312,12 +311,6 @@ X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', '
      'land_per_area_2012_full_forest','land_per_area_2012_cropland_natural_vegetation_mosaic',
      'lnurb_land2012', "lnagr_land2012",'lnEGDPpc2012', "airTemp2012.mean"]
 
-X = ['Beni','Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosí', 'Santa Cruz', 'Tarija', 
-     'dist_drug2017mean', 'dist_road2017', 'elev2017mean', 'ghsl2015', 'land_temp2012', 
-     'pm25_2012','precCRU2012mean', 'ln_t400NTLpc2012', 'tr400_pop2012', 
-      'photov2019mean','slope500m2017mean','access2016mean', "density_pop2015count", 
-     'land_per_area_2012_full_forest','land_per_area_2012_cropland_natural_vegetation_mosaic',
-     'urb_land2012', "agr_land2012",'EGDPpc2012', "airTemp2012.mean"]
 
 #'land_per_area_2012_urban_and_builtup'
 # %% 
@@ -703,10 +696,10 @@ ax_r2_boxplot = sns.boxplot(data=plot_data, y="model", x="r2_value",
                  showmeans=True,
                  meanprops = {'marker':'|','markeredgecolor':'tab:red','markersize':'13'},
                  legend="full")
-ax_r2_boxplot.set_title("Satellite Data Shows a Consistent High Predictive Power for SDG 1 and SDI", 
-             fontsize=22,
-             pad=13,
-             fontdict={"weight":"bold"});
+# ax_r2_boxplot.set_title("Satellite Data Shows a Consistent High Predictive Power for SDG 1 and SDI", 
+#              fontsize=22,
+#              pad=13,
+#              fontdict={"weight":"bold"});
 ax_r2_boxplot.set_xlabel("R2 Values", fontsize=20, fontdict={"weight": "bold"})
 ax_r2_boxplot.set_ylabel("SDG Models", fontsize=20, fontdict={"weight": "bold"})
 

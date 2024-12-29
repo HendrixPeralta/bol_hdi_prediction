@@ -710,8 +710,8 @@ plt.show()
 
 
 #%%
-np.random.seed(42)
-fig, axs = plt.subplots(5,6, figsize=(45,40))
+# np.random.seed(42)
+fig, axs = plt.subplots(5,6, figsize=(35,35))
 axs = axs.flatten()
 
 title_font_size = 30  # Adjust as necessary
@@ -719,13 +719,13 @@ label_font_size = 25  # Adjust as necessary
 
 i=0
 
-for (index, name) in zip(sdg_indexes, sdg_names_):
+for (index, name) in zip(sdg_indexes, sdg_names_graphs):
     lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_k4_w)
 
 
     ax = axs[i]
     moran_loc = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_k4_w)
-    esdaplot.moran_scatterplot(moran_loc, p=0.01, ax=ax)
+    esdaplot.moran_scatterplot(moran_loc, p=0.05, ax=ax)
     
     ax.set_title(name, fontsize=title_font_size)
     
@@ -755,7 +755,7 @@ for (index, name) in zip(sdg_indexes, sdg_names_):
     i = i+1
 
     ax = axs[i]
-    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.01, ax=ax)
+    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax)
     
     ax.set_title(name, fontsize=title_font_size)
     # for j, ax in enumerate(axs):
@@ -775,7 +775,7 @@ fig.tight_layout()
 plt.show()
 
 # %%
-np.random.seed(42)
+# np.random.seed(60)
 title_font_size = 17  # Adjust as necessary
 label_font_size = 20  # Adjust as necessary
 
@@ -786,7 +786,7 @@ i=0
 for (index, name) in zip(sdg_indexes, sdg_names):
     ax = axs[i]
     lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_k4_w)
-    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.01, ax=ax)
+    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax)
     
     ax.set_title(name, fontsize=title_font_size)
     i = i+1

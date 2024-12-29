@@ -341,10 +341,7 @@ ridge_predict = pd.DataFrame()
 # Instance for the SDG 1 
 
 # Predictors NOT included in the model 
-erase_x1 = ['Beni', 'La Paz', 'Oruro', 'Pando', 'ln_elev2017mean', 'ln_land_temp2012', 'ln_precCRU2012min', 
-            'ln_dist_drug2017mean', 'ln_slope500m2017mean', 'ln_dist_road2017', 'lnagr_land2012', 
-            'land_per_area_2012_full_forest', 'land_per_area_2012_cropland_natural_vegetation_mosaic',
-            'dist_coast2017mean']
+erase_x1 = ['photov2019mean','Cochabamba', 'dist_road2017', 'density_pop2015count','ghsl2015', 'land_per_area_2012_full_forest']
 
 X_index_1 = [e for e in X if e not in erase_x1]
 

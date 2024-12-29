@@ -146,7 +146,7 @@ axs.set_axis_off()
 
 # K-NN Weight Matrix =======================================================================  
 
-geo_municipalities_queen_w = KNN.from_dataframe(geo_municipalities,k=4)
+geo_municipalities_queen_w = Queen.from_dataframe(geo_municipalities)
 geo_municipalities_queen_w.to_file("exports/06_exports/geo_municipalities_queen_w.gal")
 f, axs = plt.subplots(figsize=(15, 15))
 
@@ -493,7 +493,6 @@ _= facets.map(sns.kdeplot, "Values", fill=True).add_legend(title="Clusters")
 
 # TODO: Agglomerative clustering
 
-np.random.seed(42)
 sr_kmeans= AgglomerativeClustering(
     connectivity=geo_municipalities_queen_w.sparse, 
     n_clusters=5
@@ -525,7 +524,7 @@ for category, color in color_mapping.items():
 ax.set_axis_off()
 
 legend_patches = [
-    mpatches.Patch(color=color_mapping[category], label=f"Cluster {category}")
+    mpatches.Patch(color=color_mapping[category], label=f"Region {category}")
     for category in categories
 ]
 ax.legend(handles=legend_patches, title="Hierarchical Clusters", loc='upper right')
@@ -786,7 +785,7 @@ i=0
 for (index, name) in zip(sdg_indexes, sdg_names):
     ax = axs[i]
     lisa = esda.moran.Moran_Local(geo_municipalities[index], geo_municipalities_queen_w)
-    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.05, ax=ax)
+    esdaplot.lisa_cluster(lisa, geo_municipalities, p=0.01, ax=ax)
     
     ax.set_title(name, fontsize=title_font_size)
     i = i+1

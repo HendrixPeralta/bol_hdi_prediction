@@ -112,7 +112,7 @@ for i, (index, index_name) in enumerate(zip(sdg_indexes, sdg_names)):
     # ax.legend(title="Natural brakes")  
     ax.set_axis_off();
     ax.set_title("\n".join([index_name]), fontsize=43)
-    
+
 
 # fig.suptitle("Sustainable Development Goals Geospatial Patterns In Bolivian Municipalities",
 #             # y=0.98,
@@ -828,13 +828,24 @@ fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10,10))
 
 # colors = np.array(["gray", "red", "orange", "lightblue", "blue"])
 
-moran = esda.moran.Moran_Local(geo_municipalities['index_sdg1'], geo_municipalities_queen_w)
+moran = esda.moran.Moran_Local(geo_municipalities['index_sdg7'], geo_municipalities_queen_w)
 # significant = moran.p_sim < 0.01  # Adjust threshold if needed
 # quadrants = moran.q[significant]
 
 esdaplot.moran_scatterplot(moran,p=0.01,ax=ax,)
 # scatter.set_facecolor(colors[quadrants])
+ax.set_title("")
+ax.annotate('(HH) High-high', xy=(2, 2), xytext=(2, 2), fontsize=10,
+            bbox=dict(boxstyle='round,pad=0.5', fc='white', ec='black', lw=1))
 
+ax.annotate('(HL) High-low', xy=(2, -1.4), xytext=(2, -1.4), fontsize=10,
+            bbox=dict(boxstyle='round,pad=0.5', fc='white', ec='black', lw=1))
+
+ax.annotate('(LH) Low-high', xy=(-1.5, 2), xytext=(-1.5, 2), fontsize=10,
+            bbox=dict(boxstyle='round,pad=0.5', fc='white', ec='black', lw=1))
+
+ax.annotate('(LL) Low-low', xy=(-1.5, -1.4), xytext=(-1.5, -1.4), fontsize=10,
+            bbox=dict(boxstyle='round,pad=0.5', fc='white', ec='black', lw=1))
 
 fig.tight_layout()
 plt.show()
